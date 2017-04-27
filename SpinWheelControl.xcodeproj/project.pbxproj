@@ -10,6 +10,8 @@
 		0326274D1EB2AC7700AED82E /* SpinWheelControl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 032627431EB2AC7700AED82E /* SpinWheelControl.framework */; };
 		032627521EB2AC7700AED82E /* SpinWheelControlTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032627511EB2AC7700AED82E /* SpinWheelControlTests.swift */; };
 		032627541EB2AC7700AED82E /* SpinWheelControl.h in Headers */ = {isa = PBXBuildFile; fileRef = 032627461EB2AC7700AED82E /* SpinWheelControl.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0326275E1EB2AC9100AED82E /* SpinWheelControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0326275D1EB2AC9100AED82E /* SpinWheelControl.swift */; };
+		032627601EB2BBEC00AED82E /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 0326275F1EB2BBEC00AED82E /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +31,8 @@
 		0326274C1EB2AC7700AED82E /* SpinWheelControlTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpinWheelControlTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		032627511EB2AC7700AED82E /* SpinWheelControlTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinWheelControlTests.swift; sourceTree = "<group>"; };
 		032627531EB2AC7700AED82E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0326275D1EB2AC9100AED82E /* SpinWheelControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpinWheelControl.swift; sourceTree = "<group>"; };
+		0326275F1EB2BBEC00AED82E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +57,7 @@
 		032627391EB2AC7700AED82E = {
 			isa = PBXGroup;
 			children = (
+				0326275F1EB2BBEC00AED82E /* README.md */,
 				032627451EB2AC7700AED82E /* SpinWheelControl */,
 				032627501EB2AC7700AED82E /* SpinWheelControlTests */,
 				032627441EB2AC7700AED82E /* Products */,
@@ -73,6 +78,7 @@
 			children = (
 				032627461EB2AC7700AED82E /* SpinWheelControl.h */,
 				032627471EB2AC7700AED82E /* Info.plist */,
+				0326275D1EB2AC9100AED82E /* SpinWheelControl.swift */,
 			);
 			path = SpinWheelControl;
 			sourceTree = "<group>";
@@ -149,6 +155,7 @@
 					032627421EB2AC7700AED82E = {
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = JNJPB8D7PF;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 					};
 					0326274B1EB2AC7700AED82E = {
@@ -198,6 +205,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				032627601EB2BBEC00AED82E /* README.md in Sources */,
+				0326275E1EB2AC9100AED82E /* SpinWheelControl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,6 +333,7 @@
 		032627581EB2AC7700AED82E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = JNJPB8D7PF;
@@ -336,6 +346,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = BigSmashSoftware.SpinWheelControl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -343,6 +354,7 @@
 		032627591EB2AC7700AED82E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = JNJPB8D7PF;
@@ -362,6 +374,7 @@
 		0326275B1EB2AC7700AED82E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = JNJPB8D7PF;
 				INFOPLIST_FILE = SpinWheelControlTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -374,6 +387,7 @@
 		0326275C1EB2AC7700AED82E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = JNJPB8D7PF;
 				INFOPLIST_FILE = SpinWheelControlTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
