@@ -13,6 +13,7 @@
 		0326275E1EB2AC9100AED82E /* SpinWheelControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0326275D1EB2AC9100AED82E /* SpinWheelControl.swift */; };
 		032627601EB2BBEC00AED82E /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 0326275F1EB2BBEC00AED82E /* README.md */; };
 		032627671EB5BA4B00AED82E /* SpinWheelControlDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032627661EB5BA4B00AED82E /* SpinWheelControlDataSource.swift */; };
+		03C1675F1EB82CE1009B5C5B /* LICENSE.md in Sources */ = {isa = PBXBuildFile; fileRef = 03C1675E1EB82CE1009B5C5B /* LICENSE.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +36,7 @@
 		0326275D1EB2AC9100AED82E /* SpinWheelControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpinWheelControl.swift; sourceTree = "<group>"; };
 		0326275F1EB2BBEC00AED82E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		032627661EB5BA4B00AED82E /* SpinWheelControlDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpinWheelControlDataSource.swift; sourceTree = "<group>"; };
+		03C1675E1EB82CE1009B5C5B /* LICENSE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 		032627391EB2AC7700AED82E = {
 			isa = PBXGroup;
 			children = (
+				03C1675E1EB82CE1009B5C5B /* LICENSE.md */,
 				0326275F1EB2BBEC00AED82E /* README.md */,
 				032627451EB2AC7700AED82E /* SpinWheelControl */,
 				032627501EB2AC7700AED82E /* SpinWheelControlTests */,
@@ -208,6 +211,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03C1675F1EB82CE1009B5C5B /* LICENSE.md in Sources */,
 				032627671EB5BA4B00AED82E /* SpinWheelControlDataSource.swift in Sources */,
 				032627601EB2BBEC00AED82E /* README.md in Sources */,
 				0326275E1EB2AC9100AED82E /* SpinWheelControl.swift in Sources */,
@@ -420,6 +424,7 @@
 				032627591EB2AC7700AED82E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0326275A1EB2AC7700AED82E /* Build configuration list for PBXNativeTarget "SpinWheelControlTests" */ = {
 			isa = XCConfigurationList;
@@ -428,6 +433,7 @@
 				0326275C1EB2AC7700AED82E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
