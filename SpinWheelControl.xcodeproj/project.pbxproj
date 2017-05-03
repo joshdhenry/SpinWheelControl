@@ -14,6 +14,7 @@
 		032627601EB2BBEC00AED82E /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 0326275F1EB2BBEC00AED82E /* README.md */; };
 		032627671EB5BA4B00AED82E /* SpinWheelControlDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032627661EB5BA4B00AED82E /* SpinWheelControlDataSource.swift */; };
 		03C1675F1EB82CE1009B5C5B /* LICENSE.md in Sources */ = {isa = PBXBuildFile; fileRef = 03C1675E1EB82CE1009B5C5B /* LICENSE.md */; };
+		03C167611EB9A991009B5C5B /* SpinWheelControlDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C167601EB9A991009B5C5B /* SpinWheelControlDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +38,7 @@
 		0326275F1EB2BBEC00AED82E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		032627661EB5BA4B00AED82E /* SpinWheelControlDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpinWheelControlDataSource.swift; sourceTree = "<group>"; };
 		03C1675E1EB82CE1009B5C5B /* LICENSE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
+		03C167601EB9A991009B5C5B /* SpinWheelControlDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpinWheelControlDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +87,7 @@
 				032627471EB2AC7700AED82E /* Info.plist */,
 				0326275D1EB2AC9100AED82E /* SpinWheelControl.swift */,
 				032627661EB5BA4B00AED82E /* SpinWheelControlDataSource.swift */,
+				03C167601EB9A991009B5C5B /* SpinWheelControlDelegate.swift */,
 			);
 			path = SpinWheelControl;
 			sourceTree = "<group>";
@@ -211,6 +214,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03C167611EB9A991009B5C5B /* SpinWheelControlDelegate.swift in Sources */,
 				03C1675F1EB82CE1009B5C5B /* LICENSE.md in Sources */,
 				032627671EB5BA4B00AED82E /* SpinWheelControlDataSource.swift in Sources */,
 				032627601EB2BBEC00AED82E /* README.md in Sources */,
