@@ -97,6 +97,7 @@ open class SpinWheelControl: UIControl {
         else if computedVelocity < -SpinWheelControl.kMaxVelocity {
             computedVelocity = -SpinWheelControl.kMaxVelocity
         }
+        print(computedVelocity)
         
         return computedVelocity
     }
@@ -116,20 +117,27 @@ open class SpinWheelControl: UIControl {
     
     
     //MARK: Methods
-    //TODO : I need to remove the colored wedges since this only removes the labels.
     public func clear() {
         for subview in spinWheelView.subviews {
             subview.removeFromSuperview()
+        }
+        guard let sublayers = spinWheelView.layer.sublayers else {
+            return
+        }
+        for sublayer in sublayers {
+            sublayer.removeFromSuperlayer()
         }
     }
     
     
     public func drawWheel() {
-        NSLog("Drawing wheel...")
+        //NSLog("Drawing wheel...")
         
         spinWheelView = UIView(frame: self.bounds)
         
         self.backgroundColor = UIColor.cyan
+        
+        //let snappingAngle: CGFloat = snappingAngleForWheel
         
         guard self.dataSource?.numberOfWedgesInSpinWheel(spinWheel: self) != nil else {
             return
@@ -151,10 +159,9 @@ open class SpinWheelControl: UIControl {
         for wedgeNumber in 1...numberOfWedges {
             drawWedgeLabel(wedgeNumber: wedgeNumber)
         }
+        
         self.spinWheelView.isUserInteractionEnabled = false
         self.addSubview(self.spinWheelView)
-        
-        checkForWedgesInZoomZone()
     }
     
     
@@ -206,7 +213,7 @@ open class SpinWheelControl: UIControl {
     
     //User began touching/dragging the UIControl
     override open func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
-        NSLog("Begin Tracking...")
+        //NSLog("Begin Tracking...")
         
         switch currentStatus {
         case SpinWheelStatus.Idle:
@@ -237,7 +244,7 @@ open class SpinWheelControl: UIControl {
     
     //User is in the middle of dragging the UIControl
     override open func continueTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
-        NSLog("Continue Tracking...")
+        //NSLog("Continue Tracking...")
         
         currentlyDetectingTap = false
         
@@ -256,10 +263,8 @@ open class SpinWheelControl: UIControl {
         let touchRadiansDifference: CGFloat = currentTouchRadians - previousTouchRadians
         
         self.spinWheelView.transform = self.spinWheelView.transform.rotated(by: touchRadiansDifference)
-        
+
         delegate?.spinWheelDidRotateByRadians?(radians: touchRadiansDifference)
-        
-        checkForWedgesInZoomZone()
         
         return true
     }
@@ -267,7 +272,7 @@ open class SpinWheelControl: UIControl {
     
     //User ended touching/dragging the UIControl
     override open func endTracking(_ touch: UITouch?, with event: UIEvent?) {
-        NSLog("End Tracking...")
+        //NSLog("End Tracking...")
         
         let tapCount = touch?.tapCount != nil ? (touch?.tapCount)! : 0
         //If the user just tapped, move to that wedge
@@ -276,7 +281,7 @@ open class SpinWheelControl: UIControl {
             currentlyDetectingTap {
             didReceiveTapAtRadian(radian: radiansForTouch(touch: touch!))
         }
-            //Else decelerate
+        //Else decelerate
         else {
             beginDeceleration()
         }
@@ -285,7 +290,7 @@ open class SpinWheelControl: UIControl {
     
     //After user has lifted their finger from dragging, begin the deceleration
     func beginDeceleration() {
-        NSLog("Beginning deceleration...")
+        //NSLog("Beginning deceleration...")
         
         currentDecelerationVelocity = velocity
         
@@ -298,7 +303,7 @@ open class SpinWheelControl: UIControl {
             decelerationDisplayLink?.preferredFramesPerSecond = 60
             decelerationDisplayLink?.add(to: RunLoop.main, forMode: RunLoopMode.commonModes)
         }
-            //Else snap to the nearest wedge.  No deceleration necessary.
+        //Else snap to the nearest wedge.  No deceleration necessary.
         else {
             snapToNearestWedge()
         }
@@ -307,7 +312,7 @@ open class SpinWheelControl: UIControl {
     
     //Deceleration step run for each frame of decelerationDisplayLink
     func decelerationStep() {
-        NSLog("Deceleration step...")
+        //NSLog("Deceleration step...")
         
         let newVelocity: CGFloat = currentDecelerationVelocity * SpinWheelControl.kDecelerationVelocityMultiplier
         //TODO - Why 60?  Should this be a constant?
@@ -318,21 +323,19 @@ open class SpinWheelControl: UIControl {
             newVelocity >= -SpinWheelControl.kSpeedToSnap {
             endDeceleration()
         }
-            //else continue decelerating the SpinWheel
+        //else continue decelerating the SpinWheel
         else {
             currentDecelerationVelocity = newVelocity
             self.spinWheelView.transform = self.spinWheelView.transform.rotated(by: -radiansToRotate)
             
             delegate?.spinWheelDidRotateByRadians?(radians: -radiansToRotate)
-            
-            checkForWedgesInZoomZone()
         }
     }
     
     
     //End decelerating the spinwheel
     func endDeceleration() {
-        NSLog("End Decelerating...")
+        //NSLog("End Decelerating...")
         
         decelerationDisplayLink?.invalidate()
         snapToNearestWedge()
@@ -341,7 +344,7 @@ open class SpinWheelControl: UIControl {
     
     //Snap to the nearest wedge
     func snapToNearestWedge() {
-        NSLog("Snap to nearest wedge...")
+        //NSLog("Snap to nearest wedge...")
         
         currentStatus = .Snapping
         
@@ -351,7 +354,7 @@ open class SpinWheelControl: UIControl {
     
     
     func snapStep() {
-        NSLog("Snap step...")
+        //NSLog("Snap step...")
         
         //Sine, Cosine and Tangent are each a ratio of sides of a right angled triangle
         //Arc tangent (atan2) calculates the angles of a right triangle (tangent = Opposite / Adjacent)
@@ -369,15 +372,13 @@ open class SpinWheelControl: UIControl {
             self.spinWheelView.transform = CGAffineTransform(rotationAngle: newPositionRadians)
             
             delegate?.spinWheelDidRotateByRadians?(radians: newPositionRadians)
-            
-            checkForWedgesInZoomZone()
         }
     }
     
     
     //End snapping
     func endSnap() {
-        NSLog("End snap...")
+        //NSLog("End snap...")
         
         let abc: CGFloat = -(CGFloat.pi - currentRadians)
         print("---")
@@ -444,10 +445,6 @@ open class SpinWheelControl: UIControl {
         snapDisplayLink = CADisplayLink(target: self, selector: #selector(snapStep))
         snapDisplayLink?.preferredFramesPerSecond = 60
         snapDisplayLink?.add(to: RunLoop.main, forMode: RunLoopMode.commonModes)
-    }
-    
-    
-    func checkForWedgesInZoomZone() {
     }
     
     
