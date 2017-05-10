@@ -1,0 +1,5 @@
+language: objective-c
+osx_image: xcode7.3
+xcode_project: SpinWheelControl.xcodeproj
+xcode_scheme: SpinWheelControl
+xcode_sdk: iphonesimulator8.4
