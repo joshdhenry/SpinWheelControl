@@ -36,16 +36,14 @@ class SpinWheelControlTests: XCTestCase, SpinWheelControlDataSource {
         
         XCTAssert(spinWheelControl.velocity == -20.0, "Velocity was not computed correctly.")
 
-        /*
+        
         spinWheelControl.startTrackingTime = 0
         spinWheelControl.endTrackingTime = 0.03
         spinWheelControl.previousTouchRadians = 0.4
         spinWheelControl.currentTouchRadians = 0.10
         
-        print(spinWheelControl.velocity)
+        XCTAssert(round(spinWheelControl.velocity) == 10.0, "Velocity was not computed correctly.")
         
-        XCTAssert(spinWheelControl.velocity == 10.0, "Velocity was not computed correctly.")
-         */
         
         spinWheelControl.startTrackingTime = 0
         spinWheelControl.endTrackingTime = 0.03
@@ -105,5 +103,53 @@ class SpinWheelControlTests: XCTestCase, SpinWheelControlDataSource {
     
     func numberOfWedgesInSpinWheel(spinWheel: SpinWheelControl) -> UInt {
         return numberOfWedges
+    }
+    
+    
+    func testBeginDeceleration() {
+        let frame: CGRect = CGRect(x: 0, y: 0, width: 200, height: 200)
+        let spinWheelControl: SpinWheelControl = SpinWheelControl(frame: frame)
+        
+        spinWheelControl.startTrackingTime = 0
+        spinWheelControl.endTrackingTime = 0.03
+        spinWheelControl.previousTouchRadians = 2.5
+        spinWheelControl.currentTouchRadians = 1.7
+        
+        spinWheelControl.beginDeceleration()
+        XCTAssertEqual(spinWheelControl.currentStatus, .Decelerating, "The beginDeceleration method did not change the spin wheel's current status to 'decelerating'.")
+    }
+    
+    
+    func testDistanceFromCenter() {
+        let frame: CGRect = CGRect(x: 0, y: 0, width: 200, height: 200)
+        let spinWheelControl: SpinWheelControl = SpinWheelControl(frame: frame)
+        
+        var point:CGPoint = CGPoint(x: 100, y: 100)
+        var distFromCenterPoint = spinWheelControl.distanceFromCenter(point: point)
+        
+        XCTAssert(distFromCenterPoint == 0, "Distance from center was not calculated correctly.")
+        
+        point = CGPoint(x: 50, y: 50)
+        distFromCenterPoint = spinWheelControl.distanceFromCenter(point: point)
+        XCTAssert(round(distFromCenterPoint) == 71, "Distance from center was not calculated correctly.")
+    }
+    
+    
+    func testReloadData() {
+        let frame: CGRect = CGRect(x: 0, y: 0, width: 200, height: 200)
+        let spinWheelControl: SpinWheelControl = SpinWheelControl(frame: frame)
+        
+        spinWheelControl.dataSource = self
+        
+        numberOfWedges = 2
+        
+        XCTAssertEqual(spinWheelControl.spinWheelView.subviews.count, 0, "The reloadData method did not correctly reload the data for the spin wheel control.")
+        
+        spinWheelControl.reloadData()
+        XCTAssertEqual(spinWheelControl.spinWheelView.subviews.count, 2, "The reloadData method did not correctly reload the data for the spin wheel control.")
+        
+        numberOfWedges = 8
+        spinWheelControl.reloadData()
+        XCTAssertEqual(spinWheelControl.spinWheelView.subviews.count, 8, "The reloadData method did not correctly reload the data for the spin wheel control.")
     }
 }
