@@ -71,6 +71,7 @@ open class SpinWheelControl: UIControl {
         return self.frame.width / 2
     }
     
+    //How far the wheel is turned from its default position
     var currentRadians: Radians {
         return atan2(self.spinWheelView.transform.b, self.spinWheelView.transform.a)
     }
@@ -83,7 +84,6 @@ open class SpinWheelControl: UIControl {
     var radiansToDestinationSlice: Radians {
         return snapDestinationRadians - currentRadians
     }
-    
     
     //The velocity of the spinwheel
     var velocity: Velocity {
@@ -163,9 +163,11 @@ open class SpinWheelControl: UIControl {
         }
         
         self.spinWheelView.isUserInteractionEnabled = false
-        self.addSubview(self.spinWheelView)
         
-        checkForWedgesInZoomZone()
+        //Rotate the wheel to put the first wedge at the top
+        self.spinWheelView.transform = CGAffineTransform(rotationAngle: -(snappingRadiansForWheel))
+        
+        self.addSubview(self.spinWheelView)
     }
     
     
@@ -178,9 +180,6 @@ open class SpinWheelControl: UIControl {
         let newWedgePath: UIBezierPath = UIBezierPath()
         newWedgePath.move(to: center)
         let startRadians: Radians = CGFloat(wedgeNumber) * wedgeDegreesSize * CGFloat.pi / 180
-        print(startRadians)
-        print(CGFloat(wedgeNumber) * 360 / CGFloat(numberOfWedges) * kCircleRadians / 360)
-        print("---")
         let endRadians: Radians = CGFloat(wedgeNumber + 1) * wedgeDegreesSize * CGFloat.pi / 180
         
         newWedgePath.addArc(withCenter: center, radius: radius, startAngle: startRadians, endAngle: endRadians, clockwise: true)
@@ -190,15 +189,14 @@ open class SpinWheelControl: UIControl {
         spinWheelView.layer.addSublayer(newWedge)
     }
     
+    
     func drawWedgeLabel(wedgeNumber: UInt) {
         let wedgeLabelFrame: CGRect = CGRect(x: 0, y: 0, width: radius / 2, height: 30)
         
         let wedgeLabel: UILabel = UILabel(frame: wedgeLabelFrame)
         wedgeLabel.layer.anchorPoint = CGPoint(x: 1.50, y: 0.5)
         wedgeLabel.layer.position = CGPoint(x: self.spinWheelView.bounds.size.width / 2 - self.spinWheelView.frame.origin.x, y: self.spinWheelView.bounds.size.height / 2 - self.spinWheelView.frame.origin.y)
-        
-        wedgeLabel.transform = CGAffineTransform(rotationAngle: radiansPerWedge * CGFloat(wedgeNumber) + CGFloat.pi)
-        
+        wedgeLabel.transform = CGAffineTransform(rotationAngle: radiansPerWedge * CGFloat(wedgeNumber) + CGFloat.pi + (radiansPerWedge / 2))
         wedgeLabel.backgroundColor = colorPalette[Int(wedgeNumber)]
         wedgeLabel.textColor = UIColor.white
         wedgeLabel.text = "Label #" + String(wedgeNumber)
@@ -269,8 +267,6 @@ open class SpinWheelControl: UIControl {
         
         delegate?.spinWheelDidRotateByRadians?(radians: touchRadiansDifference)
         
-        checkForWedgesInZoomZone()
-        
         return true
     }
     
@@ -283,9 +279,7 @@ open class SpinWheelControl: UIControl {
         //If the user just tapped, move to that wedge
         if currentStatus == .Idle &&
             tapCount > 0 &&
-            currentlyDetectingTap {
-            didReceiveTapAtRadian(radian: radiansForTouch(touch: touch!))
-        }
+            currentlyDetectingTap {}
         //Else decelerate
         else {
             beginDeceleration()
@@ -312,6 +306,7 @@ open class SpinWheelControl: UIControl {
         else {
             snapToNearestWedge()
         }
+        
     }
     
     
@@ -331,10 +326,7 @@ open class SpinWheelControl: UIControl {
         else {
             currentDecelerationVelocity = newVelocity
             self.spinWheelView.transform = self.spinWheelView.transform.rotated(by: -radiansToRotate)
-            
             delegate?.spinWheelDidRotateByRadians?(radians: -radiansToRotate)
-            
-            checkForWedgesInZoomZone()
         }
     }
     
@@ -350,12 +342,10 @@ open class SpinWheelControl: UIControl {
     
     //Snap to the nearest wedge
     func snapToNearestWedge() {
-        NSLog("Snap to nearest wedge...")
-        
         currentStatus = .Snapping
         
-        let nearestWedge: Int = Int(round(currentRadians / radiansPerWedge))
-        
+        let nearestWedge: Int = Int(round((currentRadians + snappingRadiansForWheel) / radiansPerWedge))
+
         selectWedgeAtIndex(index: nearestWedge, animated: true)
     }
     
@@ -379,8 +369,6 @@ open class SpinWheelControl: UIControl {
             self.spinWheelView.transform = CGAffineTransform(rotationAngle: newPositionRadians)
             
             delegate?.spinWheelDidRotateByRadians?(radians: newPositionRadians)
-            
-            checkForWedgesInZoomZone()
         }
     }
     
@@ -411,26 +399,13 @@ open class SpinWheelControl: UIControl {
     }
     
     
-    func didReceiveTapAtRadian(radian: CGFloat) {
-        NSLog("Did receive tap at radian...")
-    }
-    
-    
     //Index is relative to 0 position. Positive numbers to the left, negative to the right.
     //Example (0 being the slice labeled 0):
     //4   3   2   1   0   -1  -2  -3
     func selectWedgeAtIndex(index: Int, animated: Bool) {
         NSLog("Select wedge at index " + String(index))
         
-        snapDestinationRadians = CGFloat(index) * radiansPerWedge //+ (radiansPerWedge / 2)
-        
-        //Determine which way to rotate based on what side of the spin wheel is currently being pointed to. Basically, find the shortest path to the destination.
-        if radiansToDestinationSlice > CGFloat.pi {
-            snapDestinationRadians = snapDestinationRadians - kCircleRadians
-        }
-        else if radiansToDestinationSlice < -CGFloat.pi {
-            snapDestinationRadians = snapDestinationRadians + kCircleRadians
-        }
+        snapDestinationRadians = -(snappingRadiansForWheel) + (CGFloat(index) * radiansPerWedge)
         
         if currentRadians != snapDestinationRadians {
             snapIncrementRadians = radiansToDestinationSlice / SpinWheelControl.kWedgeSnapVelocityMultiplier
@@ -445,10 +420,6 @@ open class SpinWheelControl: UIControl {
         snapDisplayLink = CADisplayLink(target: self, selector: #selector(snapStep))
         snapDisplayLink?.preferredFramesPerSecond = SpinWheelControl.kPreferredFramesPerSecond
         snapDisplayLink?.add(to: RunLoop.main, forMode: RunLoopMode.commonModes)
-    }
-    
-    
-    func checkForWedgesInZoomZone() {
     }
     
     
