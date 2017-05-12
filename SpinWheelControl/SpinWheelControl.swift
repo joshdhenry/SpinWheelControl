@@ -8,13 +8,31 @@
 
 import UIKit
 
+typealias Degrees = CGFloat
+public typealias Radians = CGFloat
+typealias Velocity = CGFloat
+
 public enum SpinWheelStatus {
-    case Idle, Decelerating, Snapping
+    case idle, decelerating, snapping
 }
 
-typealias Degrees = CGFloat
-typealias Radians = CGFloat
-typealias Velocity = CGFloat
+public enum SpinWheelDirection {
+    case up, right, down, left
+    
+    var radiansValue: Radians {
+        switch self {
+        case .up:
+            return Radians.pi / 2
+        case .right:
+            return 0
+        case .down:
+            return -(Radians.pi / 2)
+        case .left:
+            return Radians.pi
+        }
+    }
+}
+
 
 open class SpinWheelControl: UIControl {
     
@@ -51,7 +69,7 @@ open class SpinWheelControl: UIControl {
     var startTouchRadians: Radians!
     var currentlyDetectingTap: Bool!
     
-    var currentStatus: SpinWheelStatus = .Idle
+    var currentStatus: SpinWheelStatus = .idle
     
     var currentDecelerationVelocity: Velocity!
     
@@ -77,13 +95,14 @@ open class SpinWheelControl: UIControl {
     }
     
     // This determines which angle the numbers are deemed to be selected. In this case it is pi / 2, which is the top center of the wheel
-    var snappingRadiansForWheel: Radians {
-        return CGFloat.pi / 2
+    var snappingPositionRadians: Radians {
+        return SpinWheelDirection.up.radiansValue
     }
     
     var radiansToDestinationSlice: Radians {
         return snapDestinationRadians - currentRadians
     }
+    
     
     //The velocity of the spinwheel
     var velocity: Velocity {
@@ -165,7 +184,7 @@ open class SpinWheelControl: UIControl {
         self.spinWheelView.isUserInteractionEnabled = false
         
         //Rotate the wheel to put the first wedge at the top
-        self.spinWheelView.transform = CGAffineTransform(rotationAngle: -(snappingRadiansForWheel))
+        self.spinWheelView.transform = CGAffineTransform(rotationAngle: -(snappingPositionRadians))
         
         self.addSubview(self.spinWheelView)
     }
@@ -196,7 +215,9 @@ open class SpinWheelControl: UIControl {
         let wedgeLabel: UILabel = UILabel(frame: wedgeLabelFrame)
         wedgeLabel.layer.anchorPoint = CGPoint(x: 1.50, y: 0.5)
         wedgeLabel.layer.position = CGPoint(x: self.spinWheelView.bounds.size.width / 2 - self.spinWheelView.frame.origin.x, y: self.spinWheelView.bounds.size.height / 2 - self.spinWheelView.frame.origin.y)
+        
         wedgeLabel.transform = CGAffineTransform(rotationAngle: radiansPerWedge * CGFloat(wedgeNumber) + CGFloat.pi + (radiansPerWedge / 2))
+        
         wedgeLabel.backgroundColor = colorPalette[Int(wedgeNumber)]
         wedgeLabel.textColor = UIColor.white
         wedgeLabel.text = "Label #" + String(wedgeNumber)
@@ -214,15 +235,15 @@ open class SpinWheelControl: UIControl {
     
     //User began touching/dragging the UIControl
     override open func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
-        NSLog("Begin Tracking...")
+        //NSLog("Begin Tracking...")
         
         switch currentStatus {
-        case SpinWheelStatus.Idle:
+        case SpinWheelStatus.idle:
             currentlyDetectingTap = true
-        case SpinWheelStatus.Decelerating:
+        case SpinWheelStatus.decelerating:
             endDeceleration()
             endSnap()
-        case SpinWheelStatus.Snapping:
+        case SpinWheelStatus.snapping:
             endSnap()
         }
         
@@ -273,11 +294,11 @@ open class SpinWheelControl: UIControl {
     
     //User ended touching/dragging the UIControl
     override open func endTracking(_ touch: UITouch?, with event: UIEvent?) {
-        NSLog("End Tracking...")
+        //NSLog("End Tracking...")
         
         let tapCount = touch?.tapCount != nil ? (touch?.tapCount)! : 0
         //If the user just tapped, move to that wedge
-        if currentStatus == .Idle &&
+        if currentStatus == .idle &&
             tapCount > 0 &&
             currentlyDetectingTap {}
         //Else decelerate
@@ -295,7 +316,7 @@ open class SpinWheelControl: UIControl {
         
         //If the wheel was spun, begin deceleration
         if currentDecelerationVelocity != 0 {
-            currentStatus = .Decelerating
+            currentStatus = .decelerating
             
             decelerationDisplayLink?.invalidate()
             decelerationDisplayLink = CADisplayLink(target: self, selector: #selector(SpinWheelControl.decelerationStep))
@@ -306,14 +327,11 @@ open class SpinWheelControl: UIControl {
         else {
             snapToNearestWedge()
         }
-        
     }
     
     
     //Deceleration step run for each frame of decelerationDisplayLink
     func decelerationStep() {
-        //NSLog("Deceleration step...")
-        
         let newVelocity: Velocity = currentDecelerationVelocity * SpinWheelControl.kDecelerationVelocityMultiplier
         let radiansToRotate: Radians = currentDecelerationVelocity / CGFloat(SpinWheelControl.kPreferredFramesPerSecond)
         
@@ -342,10 +360,10 @@ open class SpinWheelControl: UIControl {
     
     //Snap to the nearest wedge
     func snapToNearestWedge() {
-        currentStatus = .Snapping
+        currentStatus = .snapping
         
-        let nearestWedge: Int = Int(round((currentRadians + snappingRadiansForWheel) / radiansPerWedge))
-
+        let nearestWedge: Int = Int(round((currentRadians + snappingPositionRadians) / radiansPerWedge))
+        
         selectWedgeAtIndex(index: nearestWedge, animated: true)
     }
     
@@ -376,16 +394,22 @@ open class SpinWheelControl: UIControl {
     //End snapping
     func endSnap() {
         NSLog("End snap...")
+        //snappingPositionRadians is the default snapping position (in this case, up)
+        //currentRadians in this case is where in the wheel it is currently snapped
+        //
+        //Distance of zero wedge from the default snap position (up)
+        var indexSnapped: Radians = (-(snappingPositionRadians) - currentRadians)
         
-        var index = (-(snappingRadiansForWheel)  - currentRadians)
-        index = index / radiansPerWedge + CGFloat(numberOfWedges)
-        index = index.truncatingRemainder(dividingBy: CGFloat(numberOfWedges))
-        index = index.rounded(FloatingPointRoundingRule.toNearestOrAwayFromZero)
+        //Number of wedges from the zero wedge to the default snap position (up)
+        indexSnapped = indexSnapped / radiansPerWedge + CGFloat(numberOfWedges)
         
-        didEndRotationOnWedgeAtIndex(index: UInt(index))
+        indexSnapped = indexSnapped.rounded(FloatingPointRoundingRule.toNearestOrAwayFromZero)
+        indexSnapped = indexSnapped.truncatingRemainder(dividingBy: CGFloat(numberOfWedges))
+        
+        didEndRotationOnWedgeAtIndex(index: UInt(indexSnapped))
         
         snapDisplayLink?.invalidate()
-        currentStatus = .Idle
+        currentStatus = .idle
     }
     
     
@@ -405,7 +429,7 @@ open class SpinWheelControl: UIControl {
     func selectWedgeAtIndex(index: Int, animated: Bool) {
         NSLog("Select wedge at index " + String(index))
         
-        snapDestinationRadians = -(snappingRadiansForWheel) + (CGFloat(index) * radiansPerWedge)
+        snapDestinationRadians = -(snappingPositionRadians) + (CGFloat(index) * radiansPerWedge)
         
         if currentRadians != snapDestinationRadians {
             snapIncrementRadians = radiansToDestinationSlice / SpinWheelControl.kWedgeSnapVelocityMultiplier
@@ -414,7 +438,7 @@ open class SpinWheelControl: UIControl {
             return
         }
         
-        currentStatus = .Snapping
+        currentStatus = .snapping
         
         snapDisplayLink?.invalidate()
         snapDisplayLink = CADisplayLink(target: self, selector: #selector(snapStep))
