@@ -116,7 +116,7 @@ class SpinWheelControlTests: XCTestCase, SpinWheelControlDataSource {
         spinWheelControl.currentTouchRadians = 1.7
         
         spinWheelControl.beginDeceleration()
-        XCTAssertEqual(spinWheelControl.currentStatus, .Decelerating, "The beginDeceleration method did not change the spin wheel's current status to 'decelerating'.")
+        XCTAssertEqual(spinWheelControl.currentStatus, .decelerating, "The beginDeceleration method did not change the spin wheel's current status to 'decelerating'.")
     }
     
     
