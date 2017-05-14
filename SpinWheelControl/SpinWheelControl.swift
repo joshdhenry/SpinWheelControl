@@ -271,7 +271,7 @@ open class SpinWheelControl: UIControl {
     
     //User is in the middle of dragging the UIControl
     override open func continueTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
-        //NSLog("Continue Tracking...")
+        //NSLog("Continue Tracking....")
         
         currentlyDetectingTap = false
         
