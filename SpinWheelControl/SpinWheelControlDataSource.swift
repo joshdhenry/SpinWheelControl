@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol SpinWheelControlDataSource : NSObjectProtocol {
+@objc public protocol SpinWheelControlDataSource : NSObjectProtocol {
     
     //Return the number of wedges in the specified SpinWheelControl.
     func numberOfWedgesInSpinWheel(spinWheel: SpinWheelControl) -> UInt

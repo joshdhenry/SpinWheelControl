@@ -39,7 +39,7 @@ public enum SpinWheelDirection {
 }
 
 
-open class SpinWheelControl: UIControl {
+@objc open class SpinWheelControl: UIControl {
     
     //MARK: Properties
     weak public var dataSource: SpinWheelControlDataSource?
@@ -81,7 +81,7 @@ open class SpinWheelControl: UIControl {
     var snapDestinationRadians: Radians!
     var snapIncrementRadians: Radians!
     
-    var selectedIndex: Int!
+    public var selectedIndex: Int = 0
     
     let colorPalette: [UIColor] = [UIColor.blue, UIColor.brown, UIColor.cyan, UIColor.darkGray, UIColor.green, UIColor.magenta, UIColor.red, UIColor.orange, UIColor.black, UIColor.gray, UIColor.lightGray, UIColor.purple, UIColor.yellow, UIColor.white]
     
@@ -132,14 +132,14 @@ open class SpinWheelControl: UIControl {
     
     
     //MARK: Initialization Methods
-    override public init(frame: CGRect) {
+    @objc override public init(frame: CGRect) {
         super.init(frame: frame)
         
         self.drawWheel()
     }
     
     
-    required public init?(coder aDecoder: NSCoder) {
+    @objc required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
