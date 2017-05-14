@@ -5,6 +5,11 @@
 //  Created by Josh Henry on 4/27/17.
 //  Copyright © 2017 Big Smash Software. All rights reserved.
 //
+//Trigonometry is used extensively in SpinWheel Control. Here is a quick refresher.
+//Sine, Cosine and Tangent are each a ratio of sides of a right angled triangle
+//Arc tangent (atan2) calculates the angles of a right triangle (tangent = Opposite / Adjacent)
+//The sin is ratio of the length of the side that is opposite that angle to the length of the longest side of the triangle (the hypotenuse) (sin = Opposite / Hypotenuse)
+//The cosine is (cosine = Adjacent / Hypotenuse)
 
 import UIKit
 
@@ -81,7 +86,7 @@ open class SpinWheelControl: UIControl {
     let colorPalette: [UIColor] = [UIColor.blue, UIColor.brown, UIColor.cyan, UIColor.darkGray, UIColor.green, UIColor.magenta, UIColor.red, UIColor.orange, UIColor.black, UIColor.gray, UIColor.lightGray, UIColor.purple, UIColor.yellow, UIColor.white]
     
     //MARK: Computed Properties
-    var wedgeDegreesSize: Degrees {
+    var degreesPerWedge: Degrees {
         return 360 / CGFloat(numberOfWedges)
     }
     
@@ -184,7 +189,7 @@ open class SpinWheelControl: UIControl {
         self.spinWheelView.isUserInteractionEnabled = false
         
         //Rotate the wheel to put the first wedge at the top
-        self.spinWheelView.transform = CGAffineTransform(rotationAngle: -(snappingPositionRadians))
+        self.spinWheelView.transform = CGAffineTransform(rotationAngle: -(snappingPositionRadians) - (radiansPerWedge / 2))
         
         self.addSubview(self.spinWheelView)
     }
@@ -198,8 +203,8 @@ open class SpinWheelControl: UIControl {
         
         let newWedgePath: UIBezierPath = UIBezierPath()
         newWedgePath.move(to: center)
-        let startRadians: Radians = CGFloat(wedgeNumber) * wedgeDegreesSize * CGFloat.pi / 180
-        let endRadians: Radians = CGFloat(wedgeNumber + 1) * wedgeDegreesSize * CGFloat.pi / 180
+        let startRadians: Radians = CGFloat(wedgeNumber) * degreesPerWedge * CGFloat.pi / 180
+        let endRadians: Radians = CGFloat(wedgeNumber + 1) * degreesPerWedge * CGFloat.pi / 180
         
         newWedgePath.addArc(withCenter: center, radius: radius, startAngle: startRadians, endAngle: endRadians, clockwise: true)
         newWedgePath.close()
@@ -301,7 +306,7 @@ open class SpinWheelControl: UIControl {
         if currentStatus == .idle &&
             tapCount > 0 &&
             currentlyDetectingTap {}
-        //Else decelerate
+            //Else decelerate
         else {
             beginDeceleration()
         }
@@ -310,7 +315,7 @@ open class SpinWheelControl: UIControl {
     
     //After user has lifted their finger from dragging, begin the deceleration
     func beginDeceleration() {
-        NSLog("Beginning deceleration...")
+        //NSLog("Beginning deceleration...")
         
         currentDecelerationVelocity = velocity
         
@@ -323,7 +328,7 @@ open class SpinWheelControl: UIControl {
             decelerationDisplayLink?.preferredFramesPerSecond = SpinWheelControl.kPreferredFramesPerSecond
             decelerationDisplayLink?.add(to: RunLoop.main, forMode: RunLoopMode.commonModes)
         }
-        //Else snap to the nearest wedge.  No deceleration necessary.
+            //Else snap to the nearest wedge.  No deceleration necessary.
         else {
             snapToNearestWedge()
         }
@@ -340,7 +345,7 @@ open class SpinWheelControl: UIControl {
             newVelocity >= -SpinWheelControl.kSpeedToSnap {
             endDeceleration()
         }
-        //else continue decelerating the SpinWheel
+            //else continue decelerating the SpinWheel
         else {
             currentDecelerationVelocity = newVelocity
             self.spinWheelView.transform = self.spinWheelView.transform.rotated(by: -radiansToRotate)
@@ -351,7 +356,7 @@ open class SpinWheelControl: UIControl {
     
     //End decelerating the spinwheel
     func endDeceleration() {
-        NSLog("End Decelerating...")
+        //NSLog("End Decelerating...")
         
         decelerationDisplayLink?.invalidate()
         snapToNearestWedge()
@@ -362,26 +367,21 @@ open class SpinWheelControl: UIControl {
     func snapToNearestWedge() {
         currentStatus = .snapping
         
-        let nearestWedge: Int = Int(round((currentRadians + snappingPositionRadians) / radiansPerWedge))
+        let nearestWedge: Int = Int(round(((currentRadians + (radiansPerWedge / 2)) + snappingPositionRadians) / radiansPerWedge))
         
-        selectWedgeAtIndex(index: nearestWedge, animated: true)
+        selectWedgeAtIndexOffset(index: nearestWedge, animated: true)
     }
     
     
     func snapStep() {
         //NSLog("Snap step...")
-        
-        //Sine, Cosine and Tangent are each a ratio of sides of a right angled triangle
-        //Arc tangent (atan2) calculates the angles of a right triangle (tangent = Opposite / Adjacent)
-        //The sin is ratio of the length of the side that is opposite that angle to the length of the longest side of the triangle (the hypotenuse) (sin = Opposite / Hypotenuse)
-        //The cosine is (cosine = Adjacent / Hypotenuse)
         let difference: Radians = atan2(sin(radiansToDestinationSlice), cos(radiansToDestinationSlice))
         
         //If the spin wheel is turned close enough to the destination it is snapping to, end snapping
         if abs(difference) <= SpinWheelControl.kSnapRadiansProximity {
             endSnap()
         }
-        //else continue snapping to the nearest wedge
+            //else continue snapping to the nearest wedge
         else {
             let newPositionRadians: Radians = currentRadians + snapIncrementRadians
             self.spinWheelView.transform = CGAffineTransform(rotationAngle: newPositionRadians)
@@ -393,12 +393,13 @@ open class SpinWheelControl: UIControl {
     
     //End snapping
     func endSnap() {
-        NSLog("End snap...")
+        //NSLog("End snap...")
+        
         //snappingPositionRadians is the default snapping position (in this case, up)
         //currentRadians in this case is where in the wheel it is currently snapped
-        //
         //Distance of zero wedge from the default snap position (up)
-        var indexSnapped: Radians = (-(snappingPositionRadians) - currentRadians)
+        var indexSnapped: Radians = (-(snappingPositionRadians) - currentRadians - (radiansPerWedge / 2))
+        
         
         //Number of wedges from the zero wedge to the default snap position (up)
         indexSnapped = indexSnapped / radiansPerWedge + CGFloat(numberOfWedges)
@@ -423,13 +424,10 @@ open class SpinWheelControl: UIControl {
     }
     
     
-    //Index is relative to 0 position. Positive numbers to the left, negative to the right.
-    //Example (0 being the slice labeled 0):
-    //4   3   2   1   0   -1  -2  -3
-    func selectWedgeAtIndex(index: Int, animated: Bool) {
+    //Select a wedge with an index offset relative to 0 position. May be positive or negative.
+    func selectWedgeAtIndexOffset(index: Int, animated: Bool) {
         NSLog("Select wedge at index " + String(index))
-        
-        snapDestinationRadians = -(snappingPositionRadians) + (CGFloat(index) * radiansPerWedge)
+        snapDestinationRadians = -(snappingPositionRadians) + (CGFloat(index) * radiansPerWedge) - (radiansPerWedge / 2)
         
         if currentRadians != snapDestinationRadians {
             snapIncrementRadians = radiansToDestinationSlice / SpinWheelControl.kWedgeSnapVelocityMultiplier
@@ -457,8 +455,8 @@ open class SpinWheelControl: UIControl {
     }
     
     
+    //Clear all views and redraw the spin wheel
     public func reloadData() {
-        print("Reloading data...")
         clear()
         drawWheel()
     }
