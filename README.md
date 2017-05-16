@@ -1,10 +1,10 @@
-# Spin Wheel Control v0.1.0
+# Spin Wheel Control v0.1.1
 
 ## Synopsis
 
 PLEASE NOTE: This UI control is still in development stage and may not work as expected. It is still very actively under construction. Use at your own risk.
 
-Spin Wheel Control is a wheel of fortune-style spinning wheel control that allows selection of an item. It is written in the Swift programming language and to be used in iOS apps.
+Spin Wheel Control is an inertial spinning wheel UI control that allows selection of an item. It is written in the Swift programming language and to be used in iOS apps.
 
 The code is a Swift derivation, port, and enhancement based loosely on the Objective-C "SMWheelControl" CocoaPod written by Cesare Rocchi and Simone Civetta found at https://cocoapods.org/pods/SMWheelControl.
 
