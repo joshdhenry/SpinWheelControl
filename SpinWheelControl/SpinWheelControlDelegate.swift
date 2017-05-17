@@ -14,6 +14,6 @@ import UIKit
     //Triggered when the spin wheel has come to rest after spinning.
     @objc optional func spinWheelDidEndDecelerating(spinWheel: SpinWheelControl)
     
-    //Triggered when the spin wheel has spun past a specified number of radians.
+    //Triggered at various intervals. The variable radians describes how many radians the spin wheel control has moved since the last time this method was called.
     @objc optional func spinWheelDidRotateByRadians(radians: CGFloat)
 }

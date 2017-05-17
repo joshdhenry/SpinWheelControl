@@ -2,8 +2,6 @@
 
 ## Synopsis
 
-PLEASE NOTE: This UI control is still in development stage and may not work as expected. It is still very actively under construction. Use at your own risk.
-
 Spin Wheel Control is an inertial spinning wheel UI control that allows selection of an item. It is written in the Swift programming language and to be used in iOS apps.
 
 The code is a Swift derivation, port, and enhancement based loosely on the Objective-C "SMWheelControl" CocoaPod written by Cesare Rocchi and Simone Civetta found at https://cocoapods.org/pods/SMWheelControl.
@@ -13,9 +11,9 @@ Main languages and technologies used: Swift, UI Kit, Core Animation, Cocoa Pods,
 
 ## Installation 
 
-This project is still under construction and may not work as expected until its first stable release.
+To run this on your own machine, install Cocoapods, create a podfile in the project's root directory using pod name SpinWheelControl, and run pod install from the command line while inside the root directory.
 
-To run this on your own machine, install Cocoapods, create a podfile, and run pod install from the command line while inside your project's root directory.
+No extra configuration should be necessary to include this control in Swift projects.
 
 To make this work in your Objective-C project:
 In your project's (not the target's) build settings, set the Defines Module flag to YES.
@@ -24,20 +22,69 @@ Add the SpinWheelControl files to your project.
 Import <productModuleName-Swift.h> in every Objective-C class you plan to use your Swift classes in. This file is created automatically by the compiler when you include Swift classes in an Objective-C project.
 
 
-## Initialization
+## Usage
+
+Ensure the view controller containing the SpinWheelControl adheres to the SpinWheelControlDataSource and SpinWheelControlDelegate protocols:
+'''swift
+class ViewController: UIViewController, SpinWheelControlDataSource, SpinWheelControlDelegate
+'''
+
+Instantiate the UI control with a frame:
+'''swift
+let frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.width)
+spinWheelControl = SpinWheelControl(frame: frame)
+'''
+
+Add a target for the valueChanged event:
+'''swift
+spinWheelControl.addTarget(self, action: #selector(spinWheelDidChangeValue), for: UIControlEvents.valueChanged)
+'''
+
+Give the SpinWheelControl a data source:
+'''swift
+spinWheelControl.dataSource = self
+spinWheelControl.reloadData()
+'''
+
+Set the SpinWheelControl's delegate:
+'''swift
+spinWheelControl.delegate = self
+'''
+
+Add the SpinWheelControl to your view:
+'''swift
+self.view.addSubview(spinWheelControl)
+'''
 
 
-## Data Source Methods
+### Data Source Methods
 
+The following data source methods are available:
+'''swift
+//Specify the number of wedges in the spin wheel by returning a positive value that is greater than 1
 func numberOfWedgesInSpinWheel(spinWheel: SpinWheelControl) -> UInt
-Specify the number of wedges in the spin wheel by returning a positive value that is greater than 1
+'''
 
 
-## Delegate Methods
+### Delegate Methods
 
+The following delegate methods are available:
+'''swift
+//Triggered when the spin wheel control has come to rest after spinning.
 func spinWheelDidEndDecelerating(spinWheel: SpinWheelControl)
-Triggered when the spin wheel has come to rest after spinning.
 
+//Triggered at various intervals. The variable radians describes how many radians the spin wheel control has moved since the last time this method was called.
 func spinWheelDidRotateByRadians(radians: CGFloat)
-Triggered when the spin wheel has spun past a specified number of radians.
+'''
 
+
+## Author
+
+Josh Henry
+[Big Smash Software](http://www.bigsmashsoftware.com)
+[Portfolio](http://www.joshhenry.info)
+[LinkedIn](https://www.linkedin.com/in/joshdhenry)
+
+
+## License
+[BSD 3-Clause](http://opensource.org/licenses/BSD-3-Clause)

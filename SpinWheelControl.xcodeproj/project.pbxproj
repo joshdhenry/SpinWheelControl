@@ -15,6 +15,7 @@
 		032627671EB5BA4B00AED82E /* SpinWheelControlDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032627661EB5BA4B00AED82E /* SpinWheelControlDataSource.swift */; };
 		03C1675F1EB82CE1009B5C5B /* LICENSE.md in Sources */ = {isa = PBXBuildFile; fileRef = 03C1675E1EB82CE1009B5C5B /* LICENSE.md */; };
 		03C167611EB9A991009B5C5B /* SpinWheelControlDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C167601EB9A991009B5C5B /* SpinWheelControlDelegate.swift */; };
+		03D3868A1ECC20CB006B4C25 /* SpinWheelControl.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 03D386891ECC20CB006B4C25 /* SpinWheelControl.podspec */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +40,7 @@
 		032627661EB5BA4B00AED82E /* SpinWheelControlDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpinWheelControlDataSource.swift; sourceTree = "<group>"; };
 		03C1675E1EB82CE1009B5C5B /* LICENSE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		03C167601EB9A991009B5C5B /* SpinWheelControlDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpinWheelControlDelegate.swift; sourceTree = "<group>"; };
+		03D386891ECC20CB006B4C25 /* SpinWheelControl.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SpinWheelControl.podspec; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 		032627391EB2AC7700AED82E = {
 			isa = PBXGroup;
 			children = (
+				03D386891ECC20CB006B4C25 /* SpinWheelControl.podspec */,
 				03C1675E1EB82CE1009B5C5B /* LICENSE.md */,
 				0326275F1EB2BBEC00AED82E /* README.md */,
 				032627451EB2AC7700AED82E /* SpinWheelControl */,
@@ -197,6 +200,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03D3868A1ECC20CB006B4C25 /* SpinWheelControl.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
