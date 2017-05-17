@@ -1,4 +1,4 @@
-# Spin Wheel Control v0.1.2
+# Spin Wheel Control v0.1.3
 
 ## Synopsis
 
