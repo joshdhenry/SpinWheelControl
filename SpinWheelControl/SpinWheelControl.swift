@@ -86,6 +86,10 @@ public enum SpinWheelDirection {
     let colorPalette: [UIColor] = [UIColor.blue, UIColor.brown, UIColor.cyan, UIColor.darkGray, UIColor.green, UIColor.magenta, UIColor.red, UIColor.orange, UIColor.black, UIColor.gray, UIColor.lightGray, UIColor.purple, UIColor.yellow, UIColor.white]
     
     //MARK: Computed Properties
+    var spinWheelCenter: CGPoint {
+        return convert(center, from: superview)
+    }
+    
     var degreesPerWedge: Degrees {
         return 360 / CGFloat(numberOfWedges)
     }
@@ -202,11 +206,13 @@ public enum SpinWheelDirection {
         newWedge.lineWidth = 3.0
         
         let newWedgePath: UIBezierPath = UIBezierPath()
-        newWedgePath.move(to: center)
+        newWedgePath.move(to: spinWheelCenter)
+        
         let startRadians: Radians = CGFloat(wedgeNumber) * degreesPerWedge * CGFloat.pi / 180
         let endRadians: Radians = CGFloat(wedgeNumber + 1) * degreesPerWedge * CGFloat.pi / 180
         
-        newWedgePath.addArc(withCenter: center, radius: radius, startAngle: startRadians, endAngle: endRadians, clockwise: true)
+        newWedgePath.addArc(withCenter: spinWheelCenter, radius: radius, startAngle: startRadians, endAngle: endRadians, clockwise: true)
+        
         newWedgePath.close()
         newWedge.path = newWedgePath.cgPath
         
@@ -219,7 +225,7 @@ public enum SpinWheelDirection {
         
         let wedgeLabel: UILabel = UILabel(frame: wedgeLabelFrame)
         wedgeLabel.layer.anchorPoint = CGPoint(x: 1.50, y: 0.5)
-        wedgeLabel.layer.position = CGPoint(x: self.spinWheelView.bounds.size.width / 2 - self.spinWheelView.frame.origin.x, y: self.spinWheelView.bounds.size.height / 2 - self.spinWheelView.frame.origin.y)
+        wedgeLabel.layer.position = spinWheelCenter
         
         wedgeLabel.transform = CGAffineTransform(rotationAngle: radiansPerWedge * CGFloat(wedgeNumber) + CGFloat.pi + (radiansPerWedge / 2))
         
@@ -271,8 +277,6 @@ public enum SpinWheelDirection {
     
     //User is in the middle of dragging the UIControl
     override open func continueTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
-        //NSLog("Continue Tracking....")
-        
         currentlyDetectingTap = false
         
         startTrackingTime = endTrackingTime
@@ -374,7 +378,6 @@ public enum SpinWheelDirection {
     
     
     func snapStep() {
-        //NSLog("Snap step...")
         let difference: Radians = atan2(sin(radiansToDestinationSlice), cos(radiansToDestinationSlice))
         
         //If the spin wheel is turned close enough to the destination it is snapping to, end snapping
@@ -426,7 +429,7 @@ public enum SpinWheelDirection {
     
     //Select a wedge with an index offset relative to 0 position. May be positive or negative.
     func selectWedgeAtIndexOffset(index: Int, animated: Bool) {
-        NSLog("Select wedge at index " + String(index))
+        //NSLog("Select wedge at index " + String(index))
         snapDestinationRadians = -(snappingPositionRadians) + (CGFloat(index) * radiansPerWedge) - (radiansPerWedge / 2)
         
         if currentRadians != snapDestinationRadians {
@@ -447,9 +450,8 @@ public enum SpinWheelDirection {
     
     //Distance of a point from the center of the spinwheel
     func distanceFromCenter(point: CGPoint) -> CGFloat {
-        let center: CGPoint = CGPoint(x: self.bounds.size.width / 2, y: self.bounds.size.height / 2)
-        let dx: CGFloat = point.x - center.x
-        let dy: CGFloat = point.y - center.y
+        let dx: CGFloat = point.x - spinWheelCenter.x
+        let dy: CGFloat = point.y - spinWheelCenter.y
         
         return sqrt(dx * dx + dy * dy)
     }
