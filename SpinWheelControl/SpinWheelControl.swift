@@ -38,8 +38,29 @@ public enum SpinWheelDirection {
     }
 }
 
-
-@objc open class SpinWheelControl: UIControl {
+@IBDesignable
+open class SpinWheelControl: UIControl {
+    
+    @IBInspectable var borderWidth: CGFloat = 0 {
+        didSet {
+            layer.borderWidth = borderWidth
+        }
+    }
+    
+    
+    @IBInspectable var borderColor: UIColor? {
+        didSet {
+            layer.borderColor = borderColor?.cgColor
+        }
+    }
+    
+    @IBInspectable var cornerRadius: CGFloat = 0 {
+        didSet {
+            layer.cornerRadius = cornerRadius
+            layer.masksToBounds = cornerRadius > 0
+        }
+    }
+    
     
     //MARK: Properties
     weak public var dataSource: SpinWheelControlDataSource?
@@ -59,6 +80,8 @@ public enum SpinWheelDirection {
     let kCircleRadians: Radians = 2 * CGFloat.pi
     
     var spinWheelView: UIView!
+    //var spinWheelView: UIView = UIView()
+    
     
     private var numberOfWedges: UInt!
     private var radiansPerWedge: CGFloat!
@@ -136,15 +159,17 @@ public enum SpinWheelDirection {
     
     
     //MARK: Initialization Methods
-    @objc override public init(frame: CGRect) {
+    override public init(frame: CGRect) {
         super.init(frame: frame)
         
         self.drawWheel()
     }
     
     
-    @objc required public init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+        self.drawWheel()
     }
     
     
@@ -163,11 +188,9 @@ public enum SpinWheelDirection {
     
     
     public func drawWheel() {
-        //NSLog("Drawing wheel...")
+        NSLog("Drawing wheel...")
         
         spinWheelView = UIView(frame: self.bounds)
-        
-        self.backgroundColor = UIColor.cyan
         
         guard self.dataSource?.numberOfWedgesInSpinWheel(spinWheel: self) != nil else {
             return
@@ -200,6 +223,8 @@ public enum SpinWheelDirection {
     
     
     func drawWedge(wedgeNumber: UInt) {
+        NSLog("Drawing wedge...")
+        
         let newWedge: CAShapeLayer = CAShapeLayer()
         newWedge.fillColor = colorPalette[Int(wedgeNumber)].cgColor
         newWedge.strokeColor = UIColor.black.cgColor
@@ -221,6 +246,8 @@ public enum SpinWheelDirection {
     
     
     func drawWedgeLabel(wedgeNumber: UInt) {
+        NSLog("Drawing label...")
+        
         let wedgeLabelFrame: CGRect = CGRect(x: 0, y: 0, width: radius / 2, height: 30)
         
         let wedgeLabel: UILabel = UILabel(frame: wedgeLabelFrame)
@@ -229,7 +256,6 @@ public enum SpinWheelDirection {
         
         wedgeLabel.transform = CGAffineTransform(rotationAngle: radiansPerWedge * CGFloat(wedgeNumber) + CGFloat.pi + (radiansPerWedge / 2))
         
-        wedgeLabel.backgroundColor = colorPalette[Int(wedgeNumber)]
         wedgeLabel.textColor = UIColor.white
         wedgeLabel.text = "Label #" + String(wedgeNumber)
         wedgeLabel.shadowColor = UIColor.black
@@ -459,6 +485,8 @@ public enum SpinWheelDirection {
     
     //Clear all views and redraw the spin wheel
     public func reloadData() {
+        NSLog("Reloading...")
+        
         clear()
         drawWheel()
     }

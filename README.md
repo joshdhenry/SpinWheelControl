@@ -6,12 +6,21 @@ Spin Wheel Control is an inertial spinning wheel UI control that allows selectio
 
 The code is a Swift derivation, port, and enhancement based loosely on the Objective-C "SMWheelControl" CocoaPod written by Cesare Rocchi and Simone Civetta found at https://cocoapods.org/pods/SMWheelControl.
 
-Main languages and technologies used: Swift, UI Kit, Core Animation, Cocoa Pods, Xcode
+Main languages and technologies used: Swift, UI Kit, Core Animation, CocoaPods, Xcode
 
 
 ## Installation 
 
-To run this on your own machine, install Cocoapods, create a podfile in the project's root directory using pod name SpinWheelControl, and run pod install from the command line while inside the root directory.
+To run this on your own machine: 
+
+* Install Cocoapods on your machine, 
+
+* Create a podfile in the project's root directory and add this line to that file:
+'''
+pod "SpinWheelControl"
+'''
+
+* Run pod install from the command line while inside your project's' root directory.
 
 No extra configuration should be necessary to include this control in Swift projects.
 
