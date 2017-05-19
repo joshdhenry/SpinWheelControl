@@ -36,11 +36,25 @@ public enum SpinWheelDirection {
             return Radians.pi
         }
     }
+    
+    var degreesValue: Degrees {
+        switch self {
+        case .up:
+            return 90
+        case .right:
+            return 0
+        case .down:
+            return 270
+        case .left:
+            return 180
+        }
+    }
 }
 
 @IBDesignable
 open class SpinWheelControl: UIControl {
     
+    //MARK: Properties
     @IBInspectable var borderWidth: CGFloat = 0 {
         didSet {
             layer.borderWidth = borderWidth
@@ -54,6 +68,7 @@ open class SpinWheelControl: UIControl {
         }
     }
     
+    
     @IBInspectable var cornerRadius: CGFloat = 0 {
         didSet {
             layer.cornerRadius = cornerRadius
@@ -62,7 +77,13 @@ open class SpinWheelControl: UIControl {
     }
     
     
-    //MARK: Properties
+    @IBInspectable var snapOrientation: CGFloat = SpinWheelDirection.up.degreesValue {
+        didSet {
+            snappingPositionRadians = snapOrientation.toRadians
+        }
+    }
+    
+    
     weak public var dataSource: SpinWheelControlDataSource?
     public var delegate: SpinWheelControlDelegate?
     
@@ -80,8 +101,6 @@ open class SpinWheelControl: UIControl {
     let kCircleRadians: Radians = 2 * CGFloat.pi
     
     var spinWheelView: UIView!
-    //var spinWheelView: UIView = UIView()
-    
     
     private var numberOfWedges: UInt!
     private var radiansPerWedge: CGFloat!
@@ -101,12 +120,11 @@ open class SpinWheelControl: UIControl {
     
     var currentDecelerationVelocity: Velocity!
     
+    var snappingPositionRadians: Radians = SpinWheelDirection.up.radiansValue
     var snapDestinationRadians: Radians!
     var snapIncrementRadians: Radians!
     
     public var selectedIndex: Int = 0
-    
-    let colorPalette: [UIColor] = [UIColor.blue, UIColor.brown, UIColor.cyan, UIColor.darkGray, UIColor.green, UIColor.magenta, UIColor.red, UIColor.orange, UIColor.black, UIColor.gray, UIColor.lightGray, UIColor.purple, UIColor.yellow, UIColor.white]
     
     //MARK: Computed Properties
     var spinWheelCenter: CGPoint {
@@ -117,6 +135,7 @@ open class SpinWheelControl: UIControl {
         return 360 / CGFloat(numberOfWedges)
     }
     
+    //The radius of the spin wheel's circle
     var radius: CGFloat {
         return self.frame.width / 2
     }
@@ -126,15 +145,10 @@ open class SpinWheelControl: UIControl {
         return atan2(self.spinWheelView.transform.b, self.spinWheelView.transform.a)
     }
     
-    // This determines which angle the numbers are deemed to be selected. In this case it is pi / 2, which is the top center of the wheel
-    var snappingPositionRadians: Radians {
-        return SpinWheelDirection.up.radiansValue
-    }
-    
+    //How many radians there are to snapDestinationRadians
     var radiansToDestinationSlice: Radians {
         return snapDestinationRadians - currentRadians
     }
-    
     
     //The velocity of the spinwheel
     var velocity: Velocity {
@@ -165,6 +179,13 @@ open class SpinWheelControl: UIControl {
         self.drawWheel()
     }
     
+    //TODO: Implement snapOrientation here
+    public init(frame: CGRect, snapOrientation: SpinWheelDirection) {
+        super.init(frame: frame)
+        
+        self.drawWheel()
+    }
+    
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -174,6 +195,7 @@ open class SpinWheelControl: UIControl {
     
     
     //MARK: Methods
+    //Clear the SpinWheelControl from the screen
     public func clear() {
         for subview in spinWheelView.subviews {
             subview.removeFromSuperview()
@@ -187,9 +209,8 @@ open class SpinWheelControl: UIControl {
     }
     
     
+    //Draw the spinWheelView
     public func drawWheel() {
-        NSLog("Drawing wheel...")
-        
         spinWheelView = UIView(frame: self.bounds)
         
         guard self.dataSource?.numberOfWedgesInSpinWheel(spinWheel: self) != nil else {
@@ -203,14 +224,23 @@ open class SpinWheelControl: UIControl {
         
         radiansPerWedge = kCircleRadians / CGFloat(numberOfWedges)
         
-        //Draw each individual wedge
-        for wedgeNumber in 0..<numberOfWedges {
-            drawWedge(wedgeNumber: wedgeNumber)
+        guard let source = self.dataSource else {
+            return
         }
         
-        //Draw each individual label
         for wedgeNumber in 0..<numberOfWedges {
-            drawWedgeLabel(wedgeNumber: wedgeNumber)
+            let wedge: SpinWheelWedge = source.wedgeForSliceAtIndex(index: wedgeNumber)
+            
+            //Wedge shape
+            wedge.shape.configureWedgeShape(index: wedgeNumber, radius: radius, position: spinWheelCenter, degreesPerWedge: degreesPerWedge)
+            wedge.layer.addSublayer(wedge.shape)
+            
+            //Wedge label
+            wedge.label.configureWedgeLabel(index: wedgeNumber, width: radius, position: spinWheelCenter, radiansPerWedge: radiansPerWedge)
+            wedge.addSubview(wedge.label)
+            
+            //Add the shape and label to the spinWheelView
+            spinWheelView.addSubview(wedge)
         }
         
         self.spinWheelView.isUserInteractionEnabled = false
@@ -222,47 +252,7 @@ open class SpinWheelControl: UIControl {
     }
     
     
-    func drawWedge(wedgeNumber: UInt) {
-        NSLog("Drawing wedge...")
-        
-        let newWedge: CAShapeLayer = CAShapeLayer()
-        newWedge.fillColor = colorPalette[Int(wedgeNumber)].cgColor
-        newWedge.strokeColor = UIColor.black.cgColor
-        newWedge.lineWidth = 3.0
-        
-        let newWedgePath: UIBezierPath = UIBezierPath()
-        newWedgePath.move(to: spinWheelCenter)
-        
-        let startRadians: Radians = CGFloat(wedgeNumber) * degreesPerWedge * CGFloat.pi / 180
-        let endRadians: Radians = CGFloat(wedgeNumber + 1) * degreesPerWedge * CGFloat.pi / 180
-        
-        newWedgePath.addArc(withCenter: spinWheelCenter, radius: radius, startAngle: startRadians, endAngle: endRadians, clockwise: true)
-        
-        newWedgePath.close()
-        newWedge.path = newWedgePath.cgPath
-        
-        spinWheelView.layer.addSublayer(newWedge)
-    }
-    
-    
-    func drawWedgeLabel(wedgeNumber: UInt) {
-        NSLog("Drawing label...")
-        
-        let wedgeLabelFrame: CGRect = CGRect(x: 0, y: 0, width: radius / 2, height: 30)
-        
-        let wedgeLabel: UILabel = UILabel(frame: wedgeLabelFrame)
-        wedgeLabel.layer.anchorPoint = CGPoint(x: 1.50, y: 0.5)
-        wedgeLabel.layer.position = spinWheelCenter
-        
-        wedgeLabel.transform = CGAffineTransform(rotationAngle: radiansPerWedge * CGFloat(wedgeNumber) + CGFloat.pi + (radiansPerWedge / 2))
-        
-        wedgeLabel.textColor = UIColor.white
-        wedgeLabel.text = "Label #" + String(wedgeNumber)
-        wedgeLabel.shadowColor = UIColor.black
-        spinWheelView.addSubview(wedgeLabel)
-    }
-    
-    
+    //When the SpinWheelControl ends rotation, trigger the UIControl's valueChanged to reflect the newly selected value.
     func didEndRotationOnWedgeAtIndex(index: UInt) {
         selectedIndex = Int(index)
         delegate?.spinWheelDidEndDecelerating?(spinWheel: self)
@@ -272,8 +262,6 @@ open class SpinWheelControl: UIControl {
     
     //User began touching/dragging the UIControl
     override open func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
-        //NSLog("Begin Tracking...")
-        
         switch currentStatus {
         case SpinWheelStatus.idle:
             currentlyDetectingTap = true
@@ -329,9 +317,8 @@ open class SpinWheelControl: UIControl {
     
     //User ended touching/dragging the UIControl
     override open func endTracking(_ touch: UITouch?, with event: UIEvent?) {
-        //NSLog("End Tracking...")
-        
         let tapCount = touch?.tapCount != nil ? (touch?.tapCount)! : 0
+        //TODO: Implement tap to move to wedge
         //If the user just tapped, move to that wedge
         if currentStatus == .idle &&
             tapCount > 0 &&
@@ -345,8 +332,6 @@ open class SpinWheelControl: UIControl {
     
     //After user has lifted their finger from dragging, begin the deceleration
     func beginDeceleration() {
-        //NSLog("Beginning deceleration...")
-        
         currentDecelerationVelocity = velocity
         
         //If the wheel was spun, begin deceleration
@@ -386,8 +371,6 @@ open class SpinWheelControl: UIControl {
     
     //End decelerating the spinwheel
     func endDeceleration() {
-        //NSLog("End Decelerating...")
-        
         decelerationDisplayLink?.invalidate()
         snapToNearestWedge()
     }
@@ -422,13 +405,10 @@ open class SpinWheelControl: UIControl {
     
     //End snapping
     func endSnap() {
-        //NSLog("End snap...")
-        
         //snappingPositionRadians is the default snapping position (in this case, up)
         //currentRadians in this case is where in the wheel it is currently snapped
         //Distance of zero wedge from the default snap position (up)
         var indexSnapped: Radians = (-(snappingPositionRadians) - currentRadians - (radiansPerWedge / 2))
-        
         
         //Number of wedges from the zero wedge to the default snap position (up)
         indexSnapped = indexSnapped / radiansPerWedge + CGFloat(numberOfWedges)
@@ -455,7 +435,6 @@ open class SpinWheelControl: UIControl {
     
     //Select a wedge with an index offset relative to 0 position. May be positive or negative.
     func selectWedgeAtIndexOffset(index: Int, animated: Bool) {
-        //NSLog("Select wedge at index " + String(index))
         snapDestinationRadians = -(snappingPositionRadians) + (CGFloat(index) * radiansPerWedge) - (radiansPerWedge / 2)
         
         if currentRadians != snapDestinationRadians {
@@ -485,8 +464,6 @@ open class SpinWheelControl: UIControl {
     
     //Clear all views and redraw the spin wheel
     public func reloadData() {
-        NSLog("Reloading...")
-        
         clear()
         drawWheel()
     }

@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 s.name             = 'SpinWheelControl'
-s.version          = '0.1.3'
+s.version          = '0.1.4'
 s.summary          = 'An inertial spinning wheel UI control that allows selection of an item.'
 
 s.description      = <<-DESC
@@ -8,7 +8,7 @@ s.description      = <<-DESC
                     DESC
 
 s.homepage         = 'https://github.com/joshdhenry/SpinWheelControl'
-s.license          = { :type => 'BSD', :file => 'LICENSE' }
+s.license          = { :type => 'BSD', :file => 'LICENSE.md' }
 s.author           = { 'Josh Henry' => 'Josh@BigSmashSoftware.com' }
 s.source           = { :git => 'https://github.com/joshdhenry/SpinWheelControl.git', :tag => s.version.to_s }
 

@@ -10,6 +10,11 @@ import XCTest
 @testable import SpinWheelControl
 
 class SpinWheelControlTests: XCTestCase, SpinWheelControlDataSource {
+    func wedgeForSliceAtIndex(index: UInt) -> SpinWheelWedge {
+        let wedge = SpinWheelWedge()
+        return wedge
+    }
+
     
     var numberOfWedges: UInt!
     
@@ -89,15 +94,17 @@ class SpinWheelControlTests: XCTestCase, SpinWheelControlDataSource {
         
         numberOfWedges = 2
         spinWheelControl.reloadData()
-        XCTAssert(spinWheelControl.spinWheelView.layer.sublayers!.count == Int(numberOfWedges * 2), "Not enough wedges were drawn given the specified number of wedges in the wheel.")
+        print("HEY")
+        print(spinWheelControl.spinWheelView.layer.sublayers!.count)
+        XCTAssert(spinWheelControl.spinWheelView.layer.sublayers!.count == Int(numberOfWedges), "Not enough wedges were drawn given the specified number of wedges in the wheel.")
         
         numberOfWedges = 3
         spinWheelControl.reloadData()
-        XCTAssert(spinWheelControl.spinWheelView.layer.sublayers!.count == Int(numberOfWedges * 2), "Not enough wedges were drawn given the specified number of wedges in the wheel.")
+        XCTAssert(spinWheelControl.spinWheelView.layer.sublayers!.count == Int(numberOfWedges), "Not enough wedges were drawn given the specified number of wedges in the wheel.")
         
         numberOfWedges = 8
         spinWheelControl.reloadData()
-        XCTAssert(spinWheelControl.spinWheelView.layer.sublayers!.count == Int(numberOfWedges * 2), "Not enough wedges were drawn given the specified number of wedges in the wheel.")
+        XCTAssert(spinWheelControl.spinWheelView.layer.sublayers!.count == Int(numberOfWedges), "Not enough wedges were drawn given the specified number of wedges in the wheel.")
     }
     
     

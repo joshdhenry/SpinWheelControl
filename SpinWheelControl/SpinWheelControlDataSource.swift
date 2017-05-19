@@ -12,4 +12,7 @@ import Foundation
     
     //Return the number of wedges in the specified SpinWheelControl.
     func numberOfWedgesInSpinWheel(spinWheel: SpinWheelControl) -> UInt
+    
+    //Returns the SpinWheelWedge at the specified index of the SpinWheelControl
+    func wedgeForSliceAtIndex(index: UInt) -> SpinWheelWedge
 }

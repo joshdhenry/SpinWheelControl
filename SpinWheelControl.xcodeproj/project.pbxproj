@@ -13,9 +13,13 @@
 		0326275E1EB2AC9100AED82E /* SpinWheelControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0326275D1EB2AC9100AED82E /* SpinWheelControl.swift */; };
 		032627601EB2BBEC00AED82E /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 0326275F1EB2BBEC00AED82E /* README.md */; };
 		032627671EB5BA4B00AED82E /* SpinWheelControlDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032627661EB5BA4B00AED82E /* SpinWheelControlDataSource.swift */; };
-		03C1675F1EB82CE1009B5C5B /* LICENSE in Sources */ = {isa = PBXBuildFile; fileRef = 03C1675E1EB82CE1009B5C5B /* LICENSE */; };
+		03C1675F1EB82CE1009B5C5B /* LICENSE.md in Sources */ = {isa = PBXBuildFile; fileRef = 03C1675E1EB82CE1009B5C5B /* LICENSE.md */; };
 		03C167611EB9A991009B5C5B /* SpinWheelControlDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C167601EB9A991009B5C5B /* SpinWheelControlDelegate.swift */; };
 		03D3868A1ECC20CB006B4C25 /* SpinWheelControl.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 03D386891ECC20CB006B4C25 /* SpinWheelControl.podspec */; };
+		03D386D91ECED967006B4C25 /* SpinWheelWedge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D386D81ECED967006B4C25 /* SpinWheelWedge.swift */; };
+		03D386DB1ECED9BE006B4C25 /* SpinWheelWedgeShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D386DA1ECED9BE006B4C25 /* SpinWheelWedgeShape.swift */; };
+		03D386DD1ECED9D8006B4C25 /* SpinWheelWedgeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D386DC1ECED9D8006B4C25 /* SpinWheelWedgeLabel.swift */; };
+		03D386DF1ECED9F2006B4C25 /* Degrees+MathMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D386DE1ECED9F2006B4C25 /* Degrees+MathMethods.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,9 +42,13 @@
 		0326275D1EB2AC9100AED82E /* SpinWheelControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpinWheelControl.swift; sourceTree = "<group>"; };
 		0326275F1EB2BBEC00AED82E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		032627661EB5BA4B00AED82E /* SpinWheelControlDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpinWheelControlDataSource.swift; sourceTree = "<group>"; };
-		03C1675E1EB82CE1009B5C5B /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		03C1675E1EB82CE1009B5C5B /* LICENSE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		03C167601EB9A991009B5C5B /* SpinWheelControlDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpinWheelControlDelegate.swift; sourceTree = "<group>"; };
 		03D386891ECC20CB006B4C25 /* SpinWheelControl.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SpinWheelControl.podspec; sourceTree = "<group>"; };
+		03D386D81ECED967006B4C25 /* SpinWheelWedge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpinWheelWedge.swift; sourceTree = "<group>"; };
+		03D386DA1ECED9BE006B4C25 /* SpinWheelWedgeShape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpinWheelWedgeShape.swift; sourceTree = "<group>"; };
+		03D386DC1ECED9D8006B4C25 /* SpinWheelWedgeLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpinWheelWedgeLabel.swift; sourceTree = "<group>"; };
+		03D386DE1ECED9F2006B4C25 /* Degrees+MathMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Degrees+MathMethods.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,7 +74,7 @@
 			isa = PBXGroup;
 			children = (
 				03D386891ECC20CB006B4C25 /* SpinWheelControl.podspec */,
-				03C1675E1EB82CE1009B5C5B /* LICENSE */,
+				03C1675E1EB82CE1009B5C5B /* LICENSE.md */,
 				0326275F1EB2BBEC00AED82E /* README.md */,
 				032627451EB2AC7700AED82E /* SpinWheelControl */,
 				032627501EB2AC7700AED82E /* SpinWheelControlTests */,
@@ -91,6 +99,10 @@
 				0326275D1EB2AC9100AED82E /* SpinWheelControl.swift */,
 				032627661EB5BA4B00AED82E /* SpinWheelControlDataSource.swift */,
 				03C167601EB9A991009B5C5B /* SpinWheelControlDelegate.swift */,
+				03D386D81ECED967006B4C25 /* SpinWheelWedge.swift */,
+				03D386DA1ECED9BE006B4C25 /* SpinWheelWedgeShape.swift */,
+				03D386DC1ECED9D8006B4C25 /* SpinWheelWedgeLabel.swift */,
+				03D386DE1ECED9F2006B4C25 /* Degrees+MathMethods.swift */,
 			);
 			path = SpinWheelControl;
 			sourceTree = "<group>";
@@ -219,10 +231,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				03C167611EB9A991009B5C5B /* SpinWheelControlDelegate.swift in Sources */,
-				03C1675F1EB82CE1009B5C5B /* LICENSE in Sources */,
+				03C1675F1EB82CE1009B5C5B /* LICENSE.md in Sources */,
+				03D386D91ECED967006B4C25 /* SpinWheelWedge.swift in Sources */,
 				032627671EB5BA4B00AED82E /* SpinWheelControlDataSource.swift in Sources */,
 				032627601EB2BBEC00AED82E /* README.md in Sources */,
+				03D386DB1ECED9BE006B4C25 /* SpinWheelWedgeShape.swift in Sources */,
 				0326275E1EB2AC9100AED82E /* SpinWheelControl.swift in Sources */,
+				03D386DF1ECED9F2006B4C25 /* Degrees+MathMethods.swift in Sources */,
+				03D386DD1ECED9D8006B4C25 /* SpinWheelWedgeLabel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

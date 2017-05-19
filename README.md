@@ -1,4 +1,4 @@
-# Spin Wheel Control v0.1.3
+# Spin Wheel Control v0.1.4
 
 ## Synopsis
 
@@ -91,6 +91,10 @@ The following data source methods are available:
 //Specify the number of wedges in the spin wheel by returning a positive value that is greater than 1
 
 func numberOfWedgesInSpinWheel(spinWheel: SpinWheelControl) -> UInt
+
+//Returns the SpinWheelWedge at the specified index of the SpinWheelControl
+
+func wedgeForSliceAtIndex(index: UInt) -> SpinWheelWedge
 ```
 
 
