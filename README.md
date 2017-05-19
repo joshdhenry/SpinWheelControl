@@ -8,7 +8,7 @@ The code is a Swift derivation, port, and enhancement based loosely on the Objec
 
 Main languages and technologies used: Swift, UI Kit, Core Animation, CocoaPods, Interface Builder, Xcode
 
-![GIF of SpinWheelControl in action](http://www.joshhenry.info/images/spinwheelcontrol-demo.gif)
+![GIF of SpinWheelControl in action](http://www.joshhenry.info/images/spinwheelcontrol-demo.gif "GIF of SpinWheelControl in action")
 
 
 ## Installation 
