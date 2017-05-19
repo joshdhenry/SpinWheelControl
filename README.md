@@ -18,7 +18,7 @@ To run this on your own machine:
 * Create a podfile in the project's root directory and add this line to that file:
 
 '''
-pod "SpinWheelControl"
+pod 'SpinWheelControl'
 '''
 
 * Run pod install from the command line while inside your project's' root directory.
