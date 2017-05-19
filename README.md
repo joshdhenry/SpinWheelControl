@@ -8,6 +8,8 @@ The code is a Swift derivation, port, and enhancement based loosely on the Objec
 
 Main languages and technologies used: Swift, UI Kit, Core Animation, CocoaPods, Interface Builder, Xcode
 
+![GIF of SpinWheelControl in action](http://www.joshhenry.info/images/spinwheelcontrol-demo.gif)
+
 
 ## Installation 
 
@@ -15,9 +17,9 @@ To run this on your own machine:
 
 * Install Cocoapods on your machine, 
 
-* Create a podfile in the project's root directory and add this line to that file:
+* Create a podfile in the project's root directory and add this line to that file within your target:
 
-```
+```ruby
 pod 'SpinWheelControl'
 ```
 
