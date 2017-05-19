@@ -4,7 +4,7 @@
 
 Spin Wheel Control is an inertial spinning wheel UI control that allows selection of an item. It is written in the Swift programming language and to be used in iOS apps.
 
-The code is a Swift derivation, port, and enhancement based loosely on the Objective-C "SMWheelControl" CocoaPod written by Cesare Rocchi and Simone Civetta found at https://cocoapods.org/pods/SMWheelControl.
+The code is a Swift derivation, port, and enhancement based loosely on the Objective-C "SMWheelControl" CocoaPod written by Cesare Rocchi and Simone Civetta found at [here](https://cocoapods.org/pods/SMWheelControl).
 
 Main languages and technologies used: Swift, UI Kit, Core Animation, CocoaPods, Xcode
 
@@ -124,6 +124,8 @@ Josh Henry
 [Portfolio](http://www.joshhenry.info)
 
 [LinkedIn](https://www.linkedin.com/in/joshdhenry)
+
+Based loosely on the Objective-C "SMWheelControl" CocoaPod written by Cesare Rocchi and Simone Civetta found [here](https://cocoapods.org/pods/SMWheelControl).
 
 
 ## License
