@@ -8,10 +8,18 @@
 
 import UIKit
 
-class SpinWheelWedgeShape: CAShapeLayer {
+open class SpinWheelWedgeShape: CAShapeLayer {
+    
+    private func setDefaultValues() {
+        self.strokeColor = UIColor.white.cgColor
+        self.lineWidth = 3.0
+    }
+    
     
     public func configureWedgeShape(index: UInt, radius: CGFloat, position: CGPoint, degreesPerWedge: Degrees) {
         self.path = createWedgeShapeBezierPath(index: index, radius: radius, position: position, degreesPerWedge: degreesPerWedge).cgPath
+        
+        setDefaultValues()
     }
     
     

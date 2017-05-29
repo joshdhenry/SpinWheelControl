@@ -13,7 +13,7 @@
 
 import UIKit
 
-typealias Degrees = CGFloat
+public typealias Degrees = CGFloat
 public typealias Radians = CGFloat
 typealias Velocity = CGFloat
 
@@ -131,13 +131,17 @@ open class SpinWheelControl: UIControl {
         return convert(center, from: superview)
     }
     
+    var diameter: CGFloat {
+        return min(self.spinWheelView.frame.width, self.spinWheelView.frame.height)
+    }
+    
     var degreesPerWedge: Degrees {
         return 360 / CGFloat(numberOfWedges)
     }
     
     //The radius of the spin wheel's circle
     var radius: CGFloat {
-        return self.frame.width / 2
+        return diameter / 2
     }
     
     //How far the wheel is turned from its default position
@@ -179,7 +183,6 @@ open class SpinWheelControl: UIControl {
         self.drawWheel()
     }
     
-    //TODO: Implement snapOrientation here
     public init(frame: CGRect, snapOrientation: SpinWheelDirection) {
         super.init(frame: frame)
         
@@ -236,7 +239,7 @@ open class SpinWheelControl: UIControl {
             wedge.layer.addSublayer(wedge.shape)
             
             //Wedge label
-            wedge.label.configureWedgeLabel(index: wedgeNumber, width: radius, position: spinWheelCenter, radiansPerWedge: radiansPerWedge)
+            wedge.label.configureWedgeLabel(index: wedgeNumber, width: radius * 0.9, position: spinWheelCenter, radiansPerWedge: radiansPerWedge)
             wedge.addSubview(wedge.label)
             
             //Add the shape and label to the spinWheelView

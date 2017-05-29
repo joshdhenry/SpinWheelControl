@@ -9,7 +9,7 @@
 import UIKit
 
 open class SpinWheelWedge: UIView {
-    var shape: SpinWheelWedgeShape = SpinWheelWedgeShape()
+    public var shape: SpinWheelWedgeShape = SpinWheelWedgeShape()
     
-    var label: SpinWheelWedgeLabel = SpinWheelWedgeLabel()
+    public var label: SpinWheelWedgeLabel = SpinWheelWedgeLabel()
 }
