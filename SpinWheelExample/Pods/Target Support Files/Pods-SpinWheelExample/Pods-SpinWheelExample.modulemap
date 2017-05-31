@@ -1,0 +1,6 @@
+framework module Pods_SpinWheelExample {
+  umbrella header "Pods-SpinWheelExample-umbrella.h"
+
+  export *
+  module * { export * }
+}

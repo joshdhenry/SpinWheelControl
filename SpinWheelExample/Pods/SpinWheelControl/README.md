@@ -8,8 +8,6 @@ Spin Wheel Control is an inertial spinning wheel UI control that allows selectio
 
 The code is a Swift derivation, port, and enhancement based loosely on the Objective-C "SMWheelControl" CocoaPod written by Cesare Rocchi and Simone Civetta found [here](https://cocoapods.org/pods/SMWheelControl).
 
-If you use SpinWheelControl in your app, let me know because I'd love to check it out! 
-
 Main languages and technologies used: Swift, UI Kit, Core Animation, CocoaPods, Interface Builder, Xcode
 
 <img src="spinwheelcontrol-demo.gif?raw=true">

@@ -1,0 +1,12 @@
+PODS:
+  - SpinWheelControl (0.1.5)
+
+DEPENDENCIES:
+  - SpinWheelControl
+
+SPEC CHECKSUMS:
+  SpinWheelControl: a4c151fc62fcbed65b31804d0022f7161c47cc2b
+
+PODFILE CHECKSUM: 30d939d2c198e99955253afc369419f5c30a6acd
+
+COCOAPODS: 1.1.1

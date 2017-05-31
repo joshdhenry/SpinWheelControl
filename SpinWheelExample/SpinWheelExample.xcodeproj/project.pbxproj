@@ -1,0 +1,644 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		03D3869A1ECC2DEA006B4C25 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D386991ECC2DEA006B4C25 /* AppDelegate.swift */; };
+		03D3869C1ECC2DEA006B4C25 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D3869B1ECC2DEA006B4C25 /* ViewController.swift */; };
+		03D3869F1ECC2DEA006B4C25 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 03D3869D1ECC2DEA006B4C25 /* Main.storyboard */; };
+		03D386A21ECC2DEA006B4C25 /* SpinWheelExample.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 03D386A01ECC2DEA006B4C25 /* SpinWheelExample.xcdatamodeld */; };
+		03D386A41ECC2DEA006B4C25 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03D386A31ECC2DEA006B4C25 /* Assets.xcassets */; };
+		03D386A71ECC2DEA006B4C25 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 03D386A51ECC2DEA006B4C25 /* LaunchScreen.storyboard */; };
+		03D386B21ECC2DEA006B4C25 /* SpinWheelExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D386B11ECC2DEA006B4C25 /* SpinWheelExampleTests.swift */; };
+		03D386BD1ECC2DEA006B4C25 /* SpinWheelExampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D386BC1ECC2DEA006B4C25 /* SpinWheelExampleUITests.swift */; };
+		03D386CB1ECC2E3C006B4C25 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 03D386CA1ECC2E3C006B4C25 /* Podfile */; };
+		03D386CD1ECC2ECC006B4C25 /* SpinWheelControl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03D386CC1ECC2ECC006B4C25 /* SpinWheelControl.framework */; };
+		A13E1E9D333625C4BEF01356 /* Pods_SpinWheelExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB94D17A97194AFBC303A6F2 /* Pods_SpinWheelExample.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		03D386AE1ECC2DEA006B4C25 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 03D3868E1ECC2DEA006B4C25 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 03D386951ECC2DEA006B4C25;
+			remoteInfo = SpinWheelExample;
+		};
+		03D386B91ECC2DEA006B4C25 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 03D3868E1ECC2DEA006B4C25 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 03D386951ECC2DEA006B4C25;
+			remoteInfo = SpinWheelExample;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		03D386961ECC2DEA006B4C25 /* SpinWheelExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpinWheelExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		03D386991ECC2DEA006B4C25 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		03D3869B1ECC2DEA006B4C25 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		03D3869E1ECC2DEA006B4C25 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		03D386A11ECC2DEA006B4C25 /* SpinWheelExample.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SpinWheelExample.xcdatamodel; sourceTree = "<group>"; };
+		03D386A31ECC2DEA006B4C25 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		03D386A61ECC2DEA006B4C25 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		03D386A81ECC2DEA006B4C25 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		03D386AD1ECC2DEA006B4C25 /* SpinWheelExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpinWheelExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		03D386B11ECC2DEA006B4C25 /* SpinWheelExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinWheelExampleTests.swift; sourceTree = "<group>"; };
+		03D386B31ECC2DEA006B4C25 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		03D386B81ECC2DEA006B4C25 /* SpinWheelExampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpinWheelExampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		03D386BC1ECC2DEA006B4C25 /* SpinWheelExampleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinWheelExampleUITests.swift; sourceTree = "<group>"; };
+		03D386BE1ECC2DEA006B4C25 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		03D386CA1ECC2E3C006B4C25 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		03D386CC1ECC2ECC006B4C25 /* SpinWheelControl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpinWheelControl.framework; path = "../../../Library/Developer/Xcode/DerivedData/SpinWheelExample-ealxwjolniycmkbbslggwirnbtrf/Build/Products/Debug-iphonesimulator/SpinWheelControl/SpinWheelControl.framework"; sourceTree = "<group>"; };
+		BFC5CB8D53D1E73AA9C433D0 /* Pods-SpinWheelExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpinWheelExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-SpinWheelExample/Pods-SpinWheelExample.release.xcconfig"; sourceTree = "<group>"; };
+		F7D74D59FD702D9314C8B929 /* Pods-SpinWheelExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpinWheelExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SpinWheelExample/Pods-SpinWheelExample.debug.xcconfig"; sourceTree = "<group>"; };
+		FB94D17A97194AFBC303A6F2 /* Pods_SpinWheelExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SpinWheelExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		03D386931ECC2DEA006B4C25 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				03D386CD1ECC2ECC006B4C25 /* SpinWheelControl.framework in Frameworks */,
+				A13E1E9D333625C4BEF01356 /* Pods_SpinWheelExample.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		03D386AA1ECC2DEA006B4C25 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		03D386B51ECC2DEA006B4C25 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		03D3868D1ECC2DEA006B4C25 = {
+			isa = PBXGroup;
+			children = (
+				03D386CA1ECC2E3C006B4C25 /* Podfile */,
+				03D386981ECC2DEA006B4C25 /* SpinWheelExample */,
+				03D386B01ECC2DEA006B4C25 /* SpinWheelExampleTests */,
+				03D386BB1ECC2DEA006B4C25 /* SpinWheelExampleUITests */,
+				03D386971ECC2DEA006B4C25 /* Products */,
+				D5589E83FA9D29FB1EFF7316 /* Pods */,
+				9122F8A9AEC4394EDEF9CA26 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		03D386971ECC2DEA006B4C25 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				03D386961ECC2DEA006B4C25 /* SpinWheelExample.app */,
+				03D386AD1ECC2DEA006B4C25 /* SpinWheelExampleTests.xctest */,
+				03D386B81ECC2DEA006B4C25 /* SpinWheelExampleUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		03D386981ECC2DEA006B4C25 /* SpinWheelExample */ = {
+			isa = PBXGroup;
+			children = (
+				03D386991ECC2DEA006B4C25 /* AppDelegate.swift */,
+				03D3869B1ECC2DEA006B4C25 /* ViewController.swift */,
+				03D3869D1ECC2DEA006B4C25 /* Main.storyboard */,
+				03D386A31ECC2DEA006B4C25 /* Assets.xcassets */,
+				03D386A51ECC2DEA006B4C25 /* LaunchScreen.storyboard */,
+				03D386A81ECC2DEA006B4C25 /* Info.plist */,
+				03D386A01ECC2DEA006B4C25 /* SpinWheelExample.xcdatamodeld */,
+			);
+			path = SpinWheelExample;
+			sourceTree = "<group>";
+		};
+		03D386B01ECC2DEA006B4C25 /* SpinWheelExampleTests */ = {
+			isa = PBXGroup;
+			children = (
+				03D386B11ECC2DEA006B4C25 /* SpinWheelExampleTests.swift */,
+				03D386B31ECC2DEA006B4C25 /* Info.plist */,
+			);
+			path = SpinWheelExampleTests;
+			sourceTree = "<group>";
+		};
+		03D386BB1ECC2DEA006B4C25 /* SpinWheelExampleUITests */ = {
+			isa = PBXGroup;
+			children = (
+				03D386BC1ECC2DEA006B4C25 /* SpinWheelExampleUITests.swift */,
+				03D386BE1ECC2DEA006B4C25 /* Info.plist */,
+			);
+			path = SpinWheelExampleUITests;
+			sourceTree = "<group>";
+		};
+		9122F8A9AEC4394EDEF9CA26 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				03D386CC1ECC2ECC006B4C25 /* SpinWheelControl.framework */,
+				FB94D17A97194AFBC303A6F2 /* Pods_SpinWheelExample.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D5589E83FA9D29FB1EFF7316 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F7D74D59FD702D9314C8B929 /* Pods-SpinWheelExample.debug.xcconfig */,
+				BFC5CB8D53D1E73AA9C433D0 /* Pods-SpinWheelExample.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		03D386951ECC2DEA006B4C25 /* SpinWheelExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 03D386C11ECC2DEA006B4C25 /* Build configuration list for PBXNativeTarget "SpinWheelExample" */;
+			buildPhases = (
+				C43B5B5224D44389E2CCB0B5 /* [CP] Check Pods Manifest.lock */,
+				03D386921ECC2DEA006B4C25 /* Sources */,
+				03D386931ECC2DEA006B4C25 /* Frameworks */,
+				03D386941ECC2DEA006B4C25 /* Resources */,
+				35088516926E89354336EDFE /* [CP] Embed Pods Frameworks */,
+				84E377DD60DA4267C2FFFD8A /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SpinWheelExample;
+			productName = SpinWheelExample;
+			productReference = 03D386961ECC2DEA006B4C25 /* SpinWheelExample.app */;
+			productType = "com.apple.product-type.application";
+		};
+		03D386AC1ECC2DEA006B4C25 /* SpinWheelExampleTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 03D386C41ECC2DEA006B4C25 /* Build configuration list for PBXNativeTarget "SpinWheelExampleTests" */;
+			buildPhases = (
+				03D386A91ECC2DEA006B4C25 /* Sources */,
+				03D386AA1ECC2DEA006B4C25 /* Frameworks */,
+				03D386AB1ECC2DEA006B4C25 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				03D386AF1ECC2DEA006B4C25 /* PBXTargetDependency */,
+			);
+			name = SpinWheelExampleTests;
+			productName = SpinWheelExampleTests;
+			productReference = 03D386AD1ECC2DEA006B4C25 /* SpinWheelExampleTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		03D386B71ECC2DEA006B4C25 /* SpinWheelExampleUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 03D386C71ECC2DEA006B4C25 /* Build configuration list for PBXNativeTarget "SpinWheelExampleUITests" */;
+			buildPhases = (
+				03D386B41ECC2DEA006B4C25 /* Sources */,
+				03D386B51ECC2DEA006B4C25 /* Frameworks */,
+				03D386B61ECC2DEA006B4C25 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				03D386BA1ECC2DEA006B4C25 /* PBXTargetDependency */,
+			);
+			name = SpinWheelExampleUITests;
+			productName = SpinWheelExampleUITests;
+			productReference = 03D386B81ECC2DEA006B4C25 /* SpinWheelExampleUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		03D3868E1ECC2DEA006B4C25 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0830;
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = "Big Smash Software";
+				TargetAttributes = {
+					03D386951ECC2DEA006B4C25 = {
+						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = JNJPB8D7PF;
+						ProvisioningStyle = Automatic;
+					};
+					03D386AC1ECC2DEA006B4C25 = {
+						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = JNJPB8D7PF;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 03D386951ECC2DEA006B4C25;
+					};
+					03D386B71ECC2DEA006B4C25 = {
+						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = JNJPB8D7PF;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 03D386951ECC2DEA006B4C25;
+					};
+				};
+			};
+			buildConfigurationList = 03D386911ECC2DEA006B4C25 /* Build configuration list for PBXProject "SpinWheelExample" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 03D3868D1ECC2DEA006B4C25;
+			productRefGroup = 03D386971ECC2DEA006B4C25 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				03D386951ECC2DEA006B4C25 /* SpinWheelExample */,
+				03D386AC1ECC2DEA006B4C25 /* SpinWheelExampleTests */,
+				03D386B71ECC2DEA006B4C25 /* SpinWheelExampleUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		03D386941ECC2DEA006B4C25 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				03D386A71ECC2DEA006B4C25 /* LaunchScreen.storyboard in Resources */,
+				03D386A41ECC2DEA006B4C25 /* Assets.xcassets in Resources */,
+				03D386CB1ECC2E3C006B4C25 /* Podfile in Resources */,
+				03D3869F1ECC2DEA006B4C25 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		03D386AB1ECC2DEA006B4C25 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		03D386B61ECC2DEA006B4C25 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		35088516926E89354336EDFE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SpinWheelExample/Pods-SpinWheelExample-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		84E377DD60DA4267C2FFFD8A /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SpinWheelExample/Pods-SpinWheelExample-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C43B5B5224D44389E2CCB0B5 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		03D386921ECC2DEA006B4C25 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				03D3869C1ECC2DEA006B4C25 /* ViewController.swift in Sources */,
+				03D3869A1ECC2DEA006B4C25 /* AppDelegate.swift in Sources */,
+				03D386A21ECC2DEA006B4C25 /* SpinWheelExample.xcdatamodeld in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		03D386A91ECC2DEA006B4C25 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				03D386B21ECC2DEA006B4C25 /* SpinWheelExampleTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		03D386B41ECC2DEA006B4C25 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				03D386BD1ECC2DEA006B4C25 /* SpinWheelExampleUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		03D386AF1ECC2DEA006B4C25 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 03D386951ECC2DEA006B4C25 /* SpinWheelExample */;
+			targetProxy = 03D386AE1ECC2DEA006B4C25 /* PBXContainerItemProxy */;
+		};
+		03D386BA1ECC2DEA006B4C25 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 03D386951ECC2DEA006B4C25 /* SpinWheelExample */;
+			targetProxy = 03D386B91ECC2DEA006B4C25 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		03D3869D1ECC2DEA006B4C25 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				03D3869E1ECC2DEA006B4C25 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		03D386A51ECC2DEA006B4C25 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				03D386A61ECC2DEA006B4C25 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		03D386BF1ECC2DEA006B4C25 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		03D386C01ECC2DEA006B4C25 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		03D386C21ECC2DEA006B4C25 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F7D74D59FD702D9314C8B929 /* Pods-SpinWheelExample.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = JNJPB8D7PF;
+				INFOPLIST_FILE = SpinWheelExample/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = BigSmashSoftware.SpinWheelExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		03D386C31ECC2DEA006B4C25 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BFC5CB8D53D1E73AA9C433D0 /* Pods-SpinWheelExample.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = JNJPB8D7PF;
+				INFOPLIST_FILE = SpinWheelExample/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = BigSmashSoftware.SpinWheelExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		03D386C51ECC2DEA006B4C25 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = JNJPB8D7PF;
+				INFOPLIST_FILE = SpinWheelExampleTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = BigSmashSoftware.SpinWheelExampleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SpinWheelExample.app/SpinWheelExample";
+			};
+			name = Debug;
+		};
+		03D386C61ECC2DEA006B4C25 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = JNJPB8D7PF;
+				INFOPLIST_FILE = SpinWheelExampleTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = BigSmashSoftware.SpinWheelExampleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SpinWheelExample.app/SpinWheelExample";
+			};
+			name = Release;
+		};
+		03D386C81ECC2DEA006B4C25 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = JNJPB8D7PF;
+				INFOPLIST_FILE = SpinWheelExampleUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = BigSmashSoftware.SpinWheelExampleUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = SpinWheelExample;
+			};
+			name = Debug;
+		};
+		03D386C91ECC2DEA006B4C25 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = JNJPB8D7PF;
+				INFOPLIST_FILE = SpinWheelExampleUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = BigSmashSoftware.SpinWheelExampleUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = SpinWheelExample;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		03D386911ECC2DEA006B4C25 /* Build configuration list for PBXProject "SpinWheelExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				03D386BF1ECC2DEA006B4C25 /* Debug */,
+				03D386C01ECC2DEA006B4C25 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		03D386C11ECC2DEA006B4C25 /* Build configuration list for PBXNativeTarget "SpinWheelExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				03D386C21ECC2DEA006B4C25 /* Debug */,
+				03D386C31ECC2DEA006B4C25 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		03D386C41ECC2DEA006B4C25 /* Build configuration list for PBXNativeTarget "SpinWheelExampleTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				03D386C51ECC2DEA006B4C25 /* Debug */,
+				03D386C61ECC2DEA006B4C25 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		03D386C71ECC2DEA006B4C25 /* Build configuration list for PBXNativeTarget "SpinWheelExampleUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				03D386C81ECC2DEA006B4C25 /* Debug */,
+				03D386C91ECC2DEA006B4C25 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		03D386A01ECC2DEA006B4C25 /* SpinWheelExample.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				03D386A11ECC2DEA006B4C25 /* SpinWheelExample.xcdatamodel */,
+			);
+			currentVersion = 03D386A11ECC2DEA006B4C25 /* SpinWheelExample.xcdatamodel */;
+			path = SpinWheelExample.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 03D3868E1ECC2DEA006B4C25 /* Project object */;
+}
