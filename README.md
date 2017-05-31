@@ -98,6 +98,7 @@ The following data source methods are available:
 
 func numberOfWedgesInSpinWheel(spinWheel: SpinWheelControl) -> UInt
 
+
 //Returns the SpinWheelWedge at the specified index of the SpinWheelControl
 
 func wedgeForSliceAtIndex(index: UInt) -> SpinWheelWedge
@@ -119,6 +120,11 @@ func spinWheelDidEndDecelerating(spinWheel: SpinWheelControl)
 
 func spinWheelDidRotateByRadians(radians: CGFloat)
 ```
+
+
+## Example App
+
+To see SpinWheelControl in action, open the example project in the SpinWheelExample folder.
 
 
 ## Author
