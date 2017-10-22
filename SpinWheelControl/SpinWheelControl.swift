@@ -84,29 +84,29 @@ open class SpinWheelControl: UIControl {
     }
     
     
-    weak public var dataSource: SpinWheelControlDataSource?
-    public var delegate: SpinWheelControlDelegate?
+    @objc weak public var dataSource: SpinWheelControlDataSource?
+    @objc public var delegate: SpinWheelControlDelegate?
     
-    static let kMinimumRadiansForSpin: Radians = 0.1
-    static let kMinDistanceFromCenter: CGFloat = 30.0
-    static let kMaxVelocity: Velocity = 20
-    static let kDecelerationVelocityMultiplier: CGFloat = 0.98 //The deceleration multiplier is not to be set past 0.99 in order to avoid issues
-    static let kSpeedToSnap: CGFloat = 0.1
-    static let kSnapRadiansProximity: Radians = 0.001
-    static let kWedgeSnapVelocityMultiplier: CGFloat = 10.0
-    static let kZoomZoneThreshold = 1.5
-    static let kPreferredFramesPerSecond: Int = 60
+    @objc static let kMinimumRadiansForSpin: Radians = 0.1
+    @objc static let kMinDistanceFromCenter: CGFloat = 30.0
+    @objc static let kMaxVelocity: Velocity = 20
+    @objc static let kDecelerationVelocityMultiplier: CGFloat = 0.98 //The deceleration multiplier is not to be set past 0.99 in order to avoid issues
+    @objc static let kSpeedToSnap: CGFloat = 0.1
+    @objc static let kSnapRadiansProximity: Radians = 0.001
+    @objc static let kWedgeSnapVelocityMultiplier: CGFloat = 10.0
+    @objc static let kZoomZoneThreshold = 1.5
+    @objc static let kPreferredFramesPerSecond: Int = 60
     
     //A circle = 360 degrees = 2 * pi radians
-    let kCircleRadians: Radians = 2 * CGFloat.pi
+    @objc let kCircleRadians: Radians = 2 * CGFloat.pi
     
-    var spinWheelView: UIView!
+    @objc public var spinWheelView: UIView!
     
     private var numberOfWedges: UInt!
     private var radiansPerWedge: CGFloat!
     
-    var decelerationDisplayLink: CADisplayLink? = nil
-    var snapDisplayLink: CADisplayLink? = nil
+    @objc var decelerationDisplayLink: CADisplayLink? = nil
+    @objc var snapDisplayLink: CADisplayLink? = nil
     
     var startTrackingTime: CFTimeInterval!
     var endTrackingTime: CFTimeInterval!
@@ -120,42 +120,42 @@ open class SpinWheelControl: UIControl {
     
     var currentDecelerationVelocity: Velocity!
     
-    var snappingPositionRadians: Radians = SpinWheelDirection.up.radiansValue
+    @objc var snappingPositionRadians: Radians = SpinWheelDirection.up.radiansValue
     var snapDestinationRadians: Radians!
     var snapIncrementRadians: Radians!
     
-    public var selectedIndex: Int = 0
+    @objc public var selectedIndex: Int = 0
     
     //MARK: Computed Properties
-    var spinWheelCenter: CGPoint {
+    @objc var spinWheelCenter: CGPoint {
         return convert(center, from: superview)
     }
     
-    var diameter: CGFloat {
+    @objc var diameter: CGFloat {
         return min(self.spinWheelView.frame.width, self.spinWheelView.frame.height)
     }
     
-    var degreesPerWedge: Degrees {
+    @objc var degreesPerWedge: Degrees {
         return 360 / CGFloat(numberOfWedges)
     }
     
     //The radius of the spin wheel's circle
-    var radius: CGFloat {
+    @objc var radius: CGFloat {
         return diameter / 2
     }
     
     //How far the wheel is turned from its default position
-    var currentRadians: Radians {
+    @objc var currentRadians: Radians {
         return atan2(self.spinWheelView.transform.b, self.spinWheelView.transform.a)
     }
     
     //How many radians there are to snapDestinationRadians
-    var radiansToDestinationSlice: Radians {
+    @objc var radiansToDestinationSlice: Radians {
         return snapDestinationRadians - currentRadians
     }
     
     //The velocity of the spinwheel
-    var velocity: Velocity {
+    @objc var velocity: Velocity {
         var computedVelocity: Velocity = 0
         
         //If the wheel was actually spun, calculate the new velocity
@@ -199,7 +199,7 @@ open class SpinWheelControl: UIControl {
     
     //MARK: Methods
     //Clear the SpinWheelControl from the screen
-    public func clear() {
+    @objc public func clear() {
         for subview in spinWheelView.subviews {
             subview.removeFromSuperview()
         }
@@ -213,7 +213,7 @@ open class SpinWheelControl: UIControl {
     
     
     //Draw the spinWheelView
-    public func drawWheel() {
+    @objc public func drawWheel() {
         spinWheelView = UIView(frame: self.bounds)
         
         guard self.dataSource?.numberOfWedgesInSpinWheel(spinWheel: self) != nil else {
@@ -256,7 +256,7 @@ open class SpinWheelControl: UIControl {
     
     
     //When the SpinWheelControl ends rotation, trigger the UIControl's valueChanged to reflect the newly selected value.
-    func didEndRotationOnWedgeAtIndex(index: UInt) {
+    @objc func didEndRotationOnWedgeAtIndex(index: UInt) {
         selectedIndex = Int(index)
         delegate?.spinWheelDidEndDecelerating?(spinWheel: self)
         self.sendActions(for: .valueChanged)
@@ -334,7 +334,7 @@ open class SpinWheelControl: UIControl {
     
     
     //After user has lifted their finger from dragging, begin the deceleration
-    func beginDeceleration() {
+    @objc func beginDeceleration() {
         currentDecelerationVelocity = velocity
         
         //If the wheel was spun, begin deceleration
@@ -343,7 +343,11 @@ open class SpinWheelControl: UIControl {
             
             decelerationDisplayLink?.invalidate()
             decelerationDisplayLink = CADisplayLink(target: self, selector: #selector(SpinWheelControl.decelerationStep))
-            decelerationDisplayLink?.preferredFramesPerSecond = SpinWheelControl.kPreferredFramesPerSecond
+            if #available(iOS 10.0, *) {
+                decelerationDisplayLink?.preferredFramesPerSecond = SpinWheelControl.kPreferredFramesPerSecond
+            } else {
+                // Fallback on earlier versions
+            }
             decelerationDisplayLink?.add(to: RunLoop.main, forMode: RunLoopMode.commonModes)
         }
             //Else snap to the nearest wedge.  No deceleration necessary.
@@ -354,7 +358,7 @@ open class SpinWheelControl: UIControl {
     
     
     //Deceleration step run for each frame of decelerationDisplayLink
-    func decelerationStep() {
+    @objc func decelerationStep() {
         let newVelocity: Velocity = currentDecelerationVelocity * SpinWheelControl.kDecelerationVelocityMultiplier
         let radiansToRotate: Radians = currentDecelerationVelocity / CGFloat(SpinWheelControl.kPreferredFramesPerSecond)
         
@@ -373,14 +377,14 @@ open class SpinWheelControl: UIControl {
     
     
     //End decelerating the spinwheel
-    func endDeceleration() {
+    @objc func endDeceleration() {
         decelerationDisplayLink?.invalidate()
         snapToNearestWedge()
     }
     
     
     //Snap to the nearest wedge
-    func snapToNearestWedge() {
+    @objc func snapToNearestWedge() {
         currentStatus = .snapping
         
         let nearestWedge: Int = Int(round(((currentRadians + (radiansPerWedge / 2)) + snappingPositionRadians) / radiansPerWedge))
@@ -389,7 +393,7 @@ open class SpinWheelControl: UIControl {
     }
     
     
-    func snapStep() {
+    @objc func snapStep() {
         let difference: Radians = atan2(sin(radiansToDestinationSlice), cos(radiansToDestinationSlice))
         
         //If the spin wheel is turned close enough to the destination it is snapping to, end snapping
@@ -407,7 +411,7 @@ open class SpinWheelControl: UIControl {
     
     
     //End snapping
-    func endSnap() {
+    @objc func endSnap() {
         //snappingPositionRadians is the default snapping position (in this case, up)
         //currentRadians in this case is where in the wheel it is currently snapped
         //Distance of zero wedge from the default snap position (up)
@@ -427,7 +431,7 @@ open class SpinWheelControl: UIControl {
     
     
     //Return the radians at the touch point. Return values range from -pi to pi
-    func radiansForTouch(touch: UITouch) -> Radians {
+    @objc func radiansForTouch(touch: UITouch) -> Radians {
         let touchPoint: CGPoint = touch.location(in: self)
         let dx: CGFloat = touchPoint.x - self.spinWheelView.center.x
         let dy: CGFloat = touchPoint.y - self.spinWheelView.center.y
@@ -437,7 +441,7 @@ open class SpinWheelControl: UIControl {
     
     
     //Select a wedge with an index offset relative to 0 position. May be positive or negative.
-    func selectWedgeAtIndexOffset(index: Int, animated: Bool) {
+    @objc func selectWedgeAtIndexOffset(index: Int, animated: Bool) {
         snapDestinationRadians = -(snappingPositionRadians) + (CGFloat(index) * radiansPerWedge) - (radiansPerWedge / 2)
         
         if currentRadians != snapDestinationRadians {
@@ -451,13 +455,17 @@ open class SpinWheelControl: UIControl {
         
         snapDisplayLink?.invalidate()
         snapDisplayLink = CADisplayLink(target: self, selector: #selector(snapStep))
-        snapDisplayLink?.preferredFramesPerSecond = SpinWheelControl.kPreferredFramesPerSecond
+        if #available(iOS 10.0, *) {
+            snapDisplayLink?.preferredFramesPerSecond = SpinWheelControl.kPreferredFramesPerSecond
+        } else {
+            // Fallback on earlier versions
+        }
         snapDisplayLink?.add(to: RunLoop.main, forMode: RunLoopMode.commonModes)
     }
     
     
     //Distance of a point from the center of the spinwheel
-    func distanceFromCenter(point: CGPoint) -> CGFloat {
+    @objc func distanceFromCenter(point: CGPoint) -> CGFloat {
         let dx: CGFloat = point.x - spinWheelCenter.x
         let dy: CGFloat = point.y - spinWheelCenter.y
         
@@ -466,7 +474,7 @@ open class SpinWheelControl: UIControl {
     
     
     //Clear all views and redraw the spin wheel
-    public func reloadData() {
+    @objc public func reloadData() {
         clear()
         drawWheel()
     }
