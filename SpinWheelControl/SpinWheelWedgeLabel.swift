@@ -17,7 +17,7 @@ open class SpinWheelWedgeLabel: UILabel {
         self.textAlignment = .center
     }
     
-    public func configureWedgeLabel(index: UInt, width: CGFloat, position: CGPoint, radiansPerWedge: Radians) {
+    @objc public func configureWedgeLabel(index: UInt, width: CGFloat, position: CGPoint, radiansPerWedge: Radians) {
         self.frame = CGRect(x: 0, y: 0, width: width, height: 30)
         self.layer.anchorPoint = CGPoint(x: 1.1, y: 0.5)
         self.layer.position = position
