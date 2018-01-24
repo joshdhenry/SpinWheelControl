@@ -14,6 +14,12 @@ Main languages and technologies used: Swift, UI Kit, Core Animation, CocoaPods, 
 
 <img src="spinwheelcontrol-demo.gif?raw=true">
 
+## Requirements
+
+* iOS 10.0+
+* Xcode 9.0+
+* Swift 4.0+
+
 ## Installation 
 
 To run this on your own machine: 
