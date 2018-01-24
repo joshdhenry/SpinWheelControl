@@ -14,7 +14,7 @@ s.source           = { :git => 'https://github.com/joshdhenry/SpinWheelControl.g
 
 s.framework        = 'UIKit'
 
-s.ios.deployment_target = '10.3'
+s.ios.deployment_target = '10.0'
 s.source_files = 'SpinWheelControl/*.{swift,h,m}'
 
 end
