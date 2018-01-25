@@ -94,6 +94,12 @@ Add the SpinWheelControl to your view:
 self.view.addSubview(spinWheelControl)
 ```
 
+Trigger the wheel to spin with a button?
+
+```Swift
+spinWheelControl.randomWheelSpin()
+```
+
 
 ### Data Source Methods
 

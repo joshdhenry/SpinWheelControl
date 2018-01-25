@@ -334,8 +334,12 @@ open class SpinWheelControl: UIControl {
     
     
     //After user has lifted their finger from dragging, begin the deceleration
-    @objc func beginDeceleration() {
-        currentDecelerationVelocity = velocity
+    func beginDeceleration(withVelocity customVelocity: Velocity? = nil) {
+        if let customVelocity = customVelocity, customVelocity <= SpinWheelControl.kMaxVelocity {
+            currentDecelerationVelocity = customVelocity
+        } else {
+            currentDecelerationVelocity = velocity
+        }
         
         //If the wheel was spun, begin deceleration
         if currentDecelerationVelocity != 0 {
@@ -478,5 +482,10 @@ open class SpinWheelControl: UIControl {
     @objc public func reloadData() {
         clear()
         drawWheel()
+    }
+    
+    public func randomWheelSpin() {
+        let randomVelocity = Velocity(Double(arc4random_uniform(20)) + drand48())
+        beginDeceleration(withVelocity: randomVelocity)
     }
 }
