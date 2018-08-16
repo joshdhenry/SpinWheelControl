@@ -51,6 +51,13 @@ public enum SpinWheelDirection {
     }
 }
 
+
+@objc public enum WedgeLabelOrientation: Int {
+    case inOut
+    case around
+}
+
+
 @IBDesignable
 open class SpinWheelControl: UIControl {
     
@@ -80,6 +87,16 @@ open class SpinWheelControl: UIControl {
     @IBInspectable var snapOrientation: CGFloat = SpinWheelDirection.up.degreesValue {
         didSet {
             snappingPositionRadians = snapOrientation.toRadians
+        }
+    }
+    
+    
+    @IBInspectable var wedgeLabelOrientation: Int {
+        get {
+            return self.wedgeLabelOrientationIndex.rawValue
+        }
+        set (wedgeLabelOrientationIndex) {
+            self.wedgeLabelOrientationIndex = WedgeLabelOrientation(rawValue: wedgeLabelOrientationIndex) ?? WedgeLabelOrientation.inOut
         }
     }
     
@@ -123,6 +140,8 @@ open class SpinWheelControl: UIControl {
     @objc var snappingPositionRadians: Radians = SpinWheelDirection.up.radiansValue
     var snapDestinationRadians: Radians!
     var snapIncrementRadians: Radians!
+    
+    var wedgeLabelOrientationIndex: WedgeLabelOrientation = WedgeLabelOrientation.inOut
     
     @objc public var selectedIndex: Int = 0
     
@@ -183,8 +202,29 @@ open class SpinWheelControl: UIControl {
         self.drawWheel()
     }
     
+    
     public init(frame: CGRect, snapOrientation: SpinWheelDirection) {
         super.init(frame: frame)
+        
+        self.snappingPositionRadians = snapOrientation.radiansValue
+        
+        self.drawWheel()
+    }
+    
+    
+    public init(frame: CGRect, wedgeLabelOrientation: WedgeLabelOrientation) {
+        super.init(frame: frame)
+        self.wedgeLabelOrientationIndex = wedgeLabelOrientation
+        
+        self.drawWheel()
+    }
+    
+    
+    public init(frame: CGRect, snapOrientation: SpinWheelDirection, wedgeLabelOrientation: WedgeLabelOrientation) {
+        super.init(frame: frame)
+        self.wedgeLabelOrientationIndex = wedgeLabelOrientation
+        
+        self.snappingPositionRadians = snapOrientation.radiansValue
         
         self.drawWheel()
     }
@@ -239,7 +279,7 @@ open class SpinWheelControl: UIControl {
             wedge.layer.addSublayer(wedge.shape)
             
             //Wedge label
-            wedge.label.configureWedgeLabel(index: wedgeNumber, width: radius * 0.9, position: spinWheelCenter, radiansPerWedge: radiansPerWedge)
+            wedge.label.configureWedgeLabel(index: wedgeNumber, width: radius * 0.9, position: spinWheelCenter, orientation: self.wedgeLabelOrientationIndex, radiansPerWedge: radiansPerWedge)
             wedge.addSubview(wedge.label)
             
             //Add the shape and label to the spinWheelView
@@ -459,7 +499,8 @@ open class SpinWheelControl: UIControl {
         if #available(iOS 10.0, *) {
             snapDisplayLink?.preferredFramesPerSecond = SpinWheelControl.kPreferredFramesPerSecond
         } else {
-            // Fallback on earlier versions
+            // TODO: Fallback on earlier versions
+            snapDisplayLink?.preferredFramesPerSecond = SpinWheelControl.kPreferredFramesPerSecond
         }
         snapDisplayLink?.add(to: RunLoop.main, forMode: RunLoopMode.commonModes)
     }
@@ -480,3 +521,4 @@ open class SpinWheelControl: UIControl {
         drawWheel()
     }
 }
+
