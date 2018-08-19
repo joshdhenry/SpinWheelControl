@@ -491,9 +491,10 @@ open class SpinWheelControl: UIControl {
     //Spin the wheel with a given velocity multiplier (or default velocity multiplier if no velocity provided)
     //TODO: Due to a bug in Swift 4, private constants cannot be used as default arguments when Enable Testability is turned on. Therefore,
     //the default velocity multiplier value is hand-coded until this is fixed.
-//    @objc public func spin(velocityMultiplier: CGFloat = SpinWheelControl.kDefaultSpinVelocityMultiplier) {
+    //More info: https://bugs.swift.org/browse/SR-5111
+    //    @objc public func spin(velocityMultiplier: CGFloat = SpinWheelControl.kDefaultSpinVelocityMultiplier) {
     @objc public func spin(velocityMultiplier: CGFloat = 0.75) {
-
+        
         //If the velocity multiplier is valid, spin the wheel.
         if (0...1).contains(velocityMultiplier) {
             beginDeceleration(withVelocity: SpinWheelControl.kMaxVelocity * velocityMultiplier)
@@ -512,6 +513,9 @@ open class SpinWheelControl: UIControl {
         //Subtract the velocity subtractor from max velocity to get the final random velocity
         let randomSpinVelocity = Velocity(Double(SpinWheelControl.kMaxVelocity) - velocitySubtractor)
         
-        beginDeceleration(withVelocity: randomSpinVelocity)
+        //Get the spin multiplier using the new random spin velocity value
+        let randomSpinMultiplier = randomSpinVelocity / SpinWheelControl.kMaxVelocity
+        
+        spin(velocityMultiplier: randomSpinMultiplier)
     }
 }

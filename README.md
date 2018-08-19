@@ -94,10 +94,15 @@ Add the SpinWheelControl to your view:
 self.view.addSubview(spinWheelControl)
 ```
 
-Trigger the wheel to spin with a button?
+Spin the wheel with a given velocity multiplier between 0 and 1 (defaults to 0.75)
+```Swift
+spinWheelControl.spin(velocityMultiplier: CGFloat)
+```
+
+Randomly spin the wheel:
 
 ```Swift
-spinWheelControl.randomWheelSpin()
+spinWheelControl.randomSpin()
 ```
 
 
