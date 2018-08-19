@@ -6,7 +6,7 @@
 
 Spin Wheel Control is an inertial spinning wheel UI control that allows selection of an item. It is written in the Swift programming language can be used in iOS apps.
 
-The code is a Swift derivation, port, and enhancement based loosely on the Objective-C "SMWheelControl" CocoaPod written by Cesare Rocchi and Simone Civetta found [here](https://cocoapods.org/pods/SMWheelControl).
+The code is a Swift derivation, port, and enhancement based on the Objective-C "SMWheelControl" CocoaPod written by Cesare Rocchi and Simone Civetta found [here](https://cocoapods.org/pods/SMWheelControl).
 
 If you use SpinWheelControl in your app, let me know because I'd love to check it out! 
 
@@ -138,6 +138,19 @@ func spinWheelDidEndDecelerating(spinWheel: SpinWheelControl)
 func spinWheelDidRotateByRadians(radians: CGFloat)
 ```
 
+### Properties
+
+
+The following properties are available for modification:
+
+```swift
+borderWidth - The width of the border around the spin wheel
+borderColor - The color of the border around the spin wheel
+cornerRadius - Set with a CGFloat value to round the edges of the border around the spin wheel
+snapOrientation - The direction in which the wheel "snaps" (SpinWheelDirection.up, SpinWheelDirection.right, SpinWheelDirection.down, or SpinWheelDirection.left)
+wedgeLabelOrientation - The orientation of labels in each wedge (WedgeLabelOrientation.inOut or WedgeLabelOrientation.around)
+```
+
 
 ## Example App
 
@@ -152,7 +165,7 @@ Josh Henry - [Big Smash Software](http://www.bigsmashsoftware.com)
 
 * [LinkedIn](https://www.linkedin.com/in/joshdhenry)
 
-Based loosely on the Objective-C "SMWheelControl" CocoaPod written by Cesare Rocchi and Simone Civetta found [here](https://cocoapods.org/pods/SMWheelControl).
+Based on the Objective-C "SMWheelControl" CocoaPod written by Cesare Rocchi and Simone Civetta found [here](https://cocoapods.org/pods/SMWheelControl).
 
 
 ## License
