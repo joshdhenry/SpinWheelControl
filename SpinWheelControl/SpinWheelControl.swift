@@ -185,6 +185,7 @@ open class SpinWheelControl: UIControl {
         self.drawWheel()
     }
     
+    
     public init(frame: CGRect, snapOrientation: SpinWheelDirection) {
         super.init(frame: frame)
         
