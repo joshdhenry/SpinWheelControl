@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 s.name             = 'SpinWheelControl'
-s.version          = '0.1.5'
+s.version          = '0.2.0'
 s.summary          = 'An inertial spinning wheel UI control that allows selection of an item.'
 
 s.description      = <<-DESC
@@ -14,7 +14,7 @@ s.source           = { :git => 'https://github.com/joshdhenry/SpinWheelControl.g
 
 s.framework        = 'UIKit'
 
-s.ios.deployment_target = '10.3'
+s.ios.deployment_target = '10.0'
 s.source_files = 'SpinWheelControl/*.{swift,h,m}'
 
 end

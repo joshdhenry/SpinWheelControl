@@ -1,4 +1,4 @@
-# Spin Wheel Control v0.2.0
+# Spin Wheel Control v0.1.7
 
 <img src="spinwheelcontrol-logo.jpg?raw=true">
 
@@ -13,6 +13,12 @@ If you use SpinWheelControl in your app, let me know because I'd love to check i
 Main languages and technologies used: Swift, UI Kit, Core Animation, CocoaPods, Interface Builder, Xcode
 
 <img src="spinwheelcontrol-demo.gif?raw=true">
+
+## Requirements
+
+* iOS 10.0+
+* Xcode 9.0+
+* Swift 4.0+
 
 ## Installation 
 
@@ -86,6 +92,17 @@ Add the SpinWheelControl to your view:
 
 ```swift
 self.view.addSubview(spinWheelControl)
+```
+
+Spin the wheel with a given velocity multiplier between 0 and 1 (defaults to 0.75)
+```Swift
+spinWheelControl.spin(velocityMultiplier: CGFloat)
+```
+
+Randomly spin the wheel:
+
+```Swift
+spinWheelControl.randomSpin()
 ```
 
 
