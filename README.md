@@ -1,4 +1,4 @@
-# Spin Wheel Control v0.1.7
+# Spin Wheel Control v0.2.0
 
 <img src="spinwheelcontrol-logo.jpg?raw=true">
 
