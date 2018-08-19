@@ -96,6 +96,8 @@ open class SpinWheelControl: UIControl {
     @objc static let kWedgeSnapVelocityMultiplier: CGFloat = 10.0
     @objc static let kZoomZoneThreshold = 1.5
     @objc static let kPreferredFramesPerSecond: Int = 60
+    @objc static let kMinRandomSpinVelocity: Velocity = 12
+    @objc static let kDefaultSpinVelocityMultiplier: Velocity = 0.75
     
     //A circle = 360 degrees = 2 * pi radians
     @objc let kCircleRadians: Radians = 2 * CGFloat.pi
@@ -349,7 +351,8 @@ open class SpinWheelControl: UIControl {
             decelerationDisplayLink = CADisplayLink(target: self, selector: #selector(SpinWheelControl.decelerationStep))
             if #available(iOS 10.0, *) {
                 decelerationDisplayLink?.preferredFramesPerSecond = SpinWheelControl.kPreferredFramesPerSecond
-            } else {
+            }
+            else {
                 // TODO: Fallback on earlier versions
                 decelerationDisplayLink?.preferredFramesPerSecond = SpinWheelControl.kPreferredFramesPerSecond
             }
@@ -484,8 +487,31 @@ open class SpinWheelControl: UIControl {
         drawWheel()
     }
     
-    public func randomWheelSpin() {
-        let randomVelocity = Velocity(Double(arc4random_uniform(20)) + drand48())
-        beginDeceleration(withVelocity: randomVelocity)
+    
+    //Spin the wheel with a given velocity multiplier (or default velocity multiplier if no velocity provided)
+    //TODO: Due to a bug in Swift 4, private constants cannot be used as default arguments when Enable Testability is turned on. Therefore,
+    //the default velocity multiplier value is hand-coded until this is fixed.
+//    @objc public func spin(velocityMultiplier: CGFloat = SpinWheelControl.kDefaultSpinVelocityMultiplier) {
+    @objc public func spin(velocityMultiplier: CGFloat = 0.75) {
+
+        //If the velocity multiplier is valid, spin the wheel.
+        if (0...1).contains(velocityMultiplier) {
+            beginDeceleration(withVelocity: SpinWheelControl.kMaxVelocity * velocityMultiplier)
+        }
+    }
+    
+    
+    //Perform a random spin of the wheel
+    @objc public func randomSpin() {
+        //Get the range to find a random number between
+        let range = UInt32(SpinWheelControl.kMaxVelocity - SpinWheelControl.kMinRandomSpinVelocity)
+        
+        //The velocity subtractor is a random number between 1 and the range value
+        let velocitySubtractor = Double(arc4random_uniform(range)) + 1
+        
+        //Subtract the velocity subtractor from max velocity to get the final random velocity
+        let randomSpinVelocity = Velocity(Double(SpinWheelControl.kMaxVelocity) - velocitySubtractor)
+        
+        beginDeceleration(withVelocity: randomSpinVelocity)
     }
 }
