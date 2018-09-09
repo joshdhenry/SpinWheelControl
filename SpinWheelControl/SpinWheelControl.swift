@@ -51,6 +51,13 @@ public enum SpinWheelDirection {
     }
 }
 
+
+@objc public enum WedgeLabelOrientation: Int {
+    case inOut
+    case around
+}
+
+
 @IBDesignable
 open class SpinWheelControl: UIControl {
     
@@ -84,6 +91,16 @@ open class SpinWheelControl: UIControl {
     }
     
     
+    @IBInspectable var wedgeLabelOrientation: Int {
+        get {
+            return self.wedgeLabelOrientationIndex.rawValue
+        }
+        set (wedgeLabelOrientationIndex) {
+            self.wedgeLabelOrientationIndex = WedgeLabelOrientation(rawValue: wedgeLabelOrientationIndex) ?? WedgeLabelOrientation.inOut
+        }
+    }
+    
+    
     @objc weak public var dataSource: SpinWheelControlDataSource?
     @objc public var delegate: SpinWheelControlDelegate?
     
@@ -96,6 +113,8 @@ open class SpinWheelControl: UIControl {
     @objc static let kWedgeSnapVelocityMultiplier: CGFloat = 10.0
     @objc static let kZoomZoneThreshold = 1.5
     @objc static let kPreferredFramesPerSecond: Int = 60
+    @objc static let kMinRandomSpinVelocity: Velocity = 12
+    @objc static let kDefaultSpinVelocityMultiplier: Velocity = 0.75
     
     //A circle = 360 degrees = 2 * pi radians
     @objc let kCircleRadians: Radians = 2 * CGFloat.pi
@@ -123,6 +142,8 @@ open class SpinWheelControl: UIControl {
     @objc var snappingPositionRadians: Radians = SpinWheelDirection.up.radiansValue
     var snapDestinationRadians: Radians!
     var snapIncrementRadians: Radians!
+    
+    var wedgeLabelOrientationIndex: WedgeLabelOrientation = WedgeLabelOrientation.inOut
     
     @objc public var selectedIndex: Int = 0
     
@@ -183,8 +204,29 @@ open class SpinWheelControl: UIControl {
         self.drawWheel()
     }
     
+    
     public init(frame: CGRect, snapOrientation: SpinWheelDirection) {
         super.init(frame: frame)
+        
+        self.snappingPositionRadians = snapOrientation.radiansValue
+        
+        self.drawWheel()
+    }
+    
+    
+    public init(frame: CGRect, wedgeLabelOrientation: WedgeLabelOrientation) {
+        super.init(frame: frame)
+        self.wedgeLabelOrientationIndex = wedgeLabelOrientation
+        
+        self.drawWheel()
+    }
+    
+    
+    public init(frame: CGRect, snapOrientation: SpinWheelDirection, wedgeLabelOrientation: WedgeLabelOrientation) {
+        super.init(frame: frame)
+        self.wedgeLabelOrientationIndex = wedgeLabelOrientation
+        
+        self.snappingPositionRadians = snapOrientation.radiansValue
         
         self.drawWheel()
     }
@@ -239,7 +281,7 @@ open class SpinWheelControl: UIControl {
             wedge.layer.addSublayer(wedge.shape)
             
             //Wedge label
-            wedge.label.configureWedgeLabel(index: wedgeNumber, width: radius * 0.9, position: spinWheelCenter, radiansPerWedge: radiansPerWedge)
+            wedge.label.configureWedgeLabel(index: wedgeNumber, width: radius * 0.9, position: spinWheelCenter, orientation: self.wedgeLabelOrientationIndex, radiansPerWedge: radiansPerWedge)
             wedge.addSubview(wedge.label)
             
             //Add the shape and label to the spinWheelView
@@ -334,8 +376,12 @@ open class SpinWheelControl: UIControl {
     
     
     //After user has lifted their finger from dragging, begin the deceleration
-    @objc func beginDeceleration() {
-        currentDecelerationVelocity = velocity
+    func beginDeceleration(withVelocity customVelocity: Velocity? = nil) {
+        if let customVelocity = customVelocity, customVelocity <= SpinWheelControl.kMaxVelocity {
+            currentDecelerationVelocity = customVelocity
+        } else {
+            currentDecelerationVelocity = velocity
+        }
         
         //If the wheel was spun, begin deceleration
         if currentDecelerationVelocity != 0 {
@@ -345,7 +391,8 @@ open class SpinWheelControl: UIControl {
             decelerationDisplayLink = CADisplayLink(target: self, selector: #selector(SpinWheelControl.decelerationStep))
             if #available(iOS 10.0, *) {
                 decelerationDisplayLink?.preferredFramesPerSecond = SpinWheelControl.kPreferredFramesPerSecond
-            } else {
+            }
+            else {
                 // TODO: Fallback on earlier versions
                 decelerationDisplayLink?.preferredFramesPerSecond = SpinWheelControl.kPreferredFramesPerSecond
             }
@@ -459,7 +506,8 @@ open class SpinWheelControl: UIControl {
         if #available(iOS 10.0, *) {
             snapDisplayLink?.preferredFramesPerSecond = SpinWheelControl.kPreferredFramesPerSecond
         } else {
-            // Fallback on earlier versions
+            // TODO: Fallback on earlier versions
+            snapDisplayLink?.preferredFramesPerSecond = SpinWheelControl.kPreferredFramesPerSecond
         }
         snapDisplayLink?.add(to: RunLoop.main, forMode: RunLoopMode.commonModes)
     }
@@ -479,4 +527,37 @@ open class SpinWheelControl: UIControl {
         clear()
         drawWheel()
     }
+    
+    
+    //Spin the wheel with a given velocity multiplier (or default velocity multiplier if no velocity provided)
+    //TODO: Due to a bug in Swift 4, private constants cannot be used as default arguments when Enable Testability is turned on. Therefore,
+    //the default velocity multiplier value is hand-coded until this is fixed.
+    //More info: https://bugs.swift.org/browse/SR-5111
+    //    @objc public func spin(velocityMultiplier: CGFloat = SpinWheelControl.kDefaultSpinVelocityMultiplier) {
+    @objc public func spin(velocityMultiplier: CGFloat = 0.75) {
+        
+        //If the velocity multiplier is valid, spin the wheel.
+        if (0...1).contains(velocityMultiplier) {
+            beginDeceleration(withVelocity: SpinWheelControl.kMaxVelocity * velocityMultiplier)
+        }
+    }
+    
+    
+    //Perform a random spin of the wheel
+    @objc public func randomSpin() {
+        //Get the range to find a random number between
+        let range = UInt32(SpinWheelControl.kMaxVelocity - SpinWheelControl.kMinRandomSpinVelocity)
+        
+        //The velocity subtractor is a random number between 1 and the range value
+        let velocitySubtractor = Double(arc4random_uniform(range)) + 1
+        
+        //Subtract the velocity subtractor from max velocity to get the final random velocity
+        let randomSpinVelocity = Velocity(Double(SpinWheelControl.kMaxVelocity) - velocitySubtractor)
+        
+        //Get the spin multiplier using the new random spin velocity value
+        let randomSpinMultiplier = randomSpinVelocity / SpinWheelControl.kMaxVelocity
+        
+        spin(velocityMultiplier: randomSpinMultiplier)
+    }
 }
+
