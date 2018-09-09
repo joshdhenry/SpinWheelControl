@@ -282,6 +282,7 @@ open class SpinWheelControl: UIControl {
             
             //Wedge label
             wedge.label.configureWedgeLabel(index: wedgeNumber, width: radius * 0.9, position: spinWheelCenter, orientation: self.wedgeLabelOrientationIndex, radiansPerWedge: radiansPerWedge)
+            
             wedge.addSubview(wedge.label)
             
             //Add the shape and label to the spinWheelView

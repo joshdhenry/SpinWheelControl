@@ -27,7 +27,9 @@ open class SpinWheelWedgeLabel: UILabel {
             self.transform = CGAffineTransform(rotationAngle: radiansPerWedge * CGFloat(index) + CGFloat.pi + (radiansPerWedge / 2))
         }
         else if orientation == WedgeLabelOrientation.around {
-            self.layer.anchorPoint = CGPoint(x: 0.5, y: 4.5)
+            //Position times 2 is the total size of the control. 0.015 is the sweet spot to determine label position for any size.
+            let yDistanceFromCenter: CGFloat = (position.x * 2) * 0.015
+            self.layer.anchorPoint = CGPoint(x: 0.5, y: yDistanceFromCenter)
             self.transform = CGAffineTransform(rotationAngle: radiansPerWedge * CGFloat(index) + (CGFloat.pi / 2) + (radiansPerWedge / 2))
         }
         
