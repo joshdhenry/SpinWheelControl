@@ -22,7 +22,7 @@ public enum SpinWheelStatus {
 }
 
 public enum SpinWheelDirection {
-    case up, right, down, left
+    case up, right, down, left, up_left, down_right
     
     var radiansValue: Radians {
         switch self {
@@ -34,6 +34,10 @@ public enum SpinWheelDirection {
             return -(Radians.pi / 2)
         case .left:
             return Radians.pi
+        case .up_left:
+            return Radians.pi - (Radians.pi / 4)
+        case .down_right:
+            return -(Radians.pi / 4)
         }
     }
     
@@ -47,6 +51,10 @@ public enum SpinWheelDirection {
             return 270
         case .left:
             return 180
+        case .up_left:
+            return 135
+        case .down_right:
+            return 315
         }
     }
 }
@@ -397,7 +405,7 @@ open class SpinWheelControl: UIControl {
                 // TODO: Fallback on earlier versions
                 decelerationDisplayLink?.preferredFramesPerSecond = SpinWheelControl.kPreferredFramesPerSecond
             }
-            decelerationDisplayLink?.add(to: RunLoop.main, forMode: RunLoopMode.commonModes)
+            decelerationDisplayLink?.add(to: RunLoop.main, forMode: RunLoop.Mode.common)
         }
             //Else snap to the nearest wedge.  No deceleration necessary.
         else {
@@ -510,7 +518,7 @@ open class SpinWheelControl: UIControl {
             // TODO: Fallback on earlier versions
             snapDisplayLink?.preferredFramesPerSecond = SpinWheelControl.kPreferredFramesPerSecond
         }
-        snapDisplayLink?.add(to: RunLoop.main, forMode: RunLoopMode.commonModes)
+        snapDisplayLink?.add(to: RunLoop.main, forMode: RunLoop.Mode.common)
     }
     
     
