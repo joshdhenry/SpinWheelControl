@@ -55,6 +55,7 @@ public enum SpinWheelDirection {
 @objc public enum WedgeLabelOrientation: Int {
     case inOut
     case around
+    case reverse
 }
 
 
