@@ -62,8 +62,8 @@ public enum SpinWheelDirection {
 
 @objc public enum WedgeLabelOrientation: Int {
     case inOut
+    case outIn
     case around
-    case reverse
 }
 
 
@@ -291,6 +291,7 @@ open class SpinWheelControl: UIControl {
             
             //Wedge label
             wedge.label.configureWedgeLabel(index: wedgeNumber, width: radius * 0.9, position: spinWheelCenter, orientation: self.wedgeLabelOrientationIndex, radiansPerWedge: radiansPerWedge)
+            
             wedge.addSubview(wedge.label)
             
             //Add the shape and label to the spinWheelView
@@ -405,7 +406,7 @@ open class SpinWheelControl: UIControl {
                 // TODO: Fallback on earlier versions
                 decelerationDisplayLink?.preferredFramesPerSecond = SpinWheelControl.kPreferredFramesPerSecond
             }
-            decelerationDisplayLink?.add(to: RunLoop.main, forMode: RunLoop.Mode.common)
+            decelerationDisplayLink?.add(to: RunLoop.main, forMode: RunLoopMode.commonModes)
         }
             //Else snap to the nearest wedge.  No deceleration necessary.
         else {
@@ -444,7 +445,8 @@ open class SpinWheelControl: UIControl {
     @objc func snapToNearestWedge() {
         currentStatus = .snapping
         
-        let nearestWedge: Int = Int(round(((currentRadians + (radiansPerWedge / 2)) + snappingPositionRadians) / radiansPerWedge))
+        let sumRadians = ((currentRadians + (radiansPerWedge / 2)) + snappingPositionRadians)
+        let nearestWedge: Int = Int(round(sumRadians / radiansPerWedge))
         
         selectWedgeAtIndexOffset(index: nearestWedge, animated: true)
     }
@@ -518,7 +520,7 @@ open class SpinWheelControl: UIControl {
             // TODO: Fallback on earlier versions
             snapDisplayLink?.preferredFramesPerSecond = SpinWheelControl.kPreferredFramesPerSecond
         }
-        snapDisplayLink?.add(to: RunLoop.main, forMode: RunLoop.Mode.common)
+        snapDisplayLink?.add(to: RunLoop.main, forMode: RunLoopMode.commonModes)
     }
     
     
