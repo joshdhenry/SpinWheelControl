@@ -22,15 +22,17 @@ open class SpinWheelWedgeLabel: UILabel {
         
         self.layer.position = position
         
-        if orientation == WedgeLabelOrientation.inOut {
+        switch orientation {
+        case .inOut:
             self.layer.anchorPoint = CGPoint(x: 1.1, y: 0.5)
             self.transform = CGAffineTransform(rotationAngle: radiansPerWedge * CGFloat(index) + CGFloat.pi + (radiansPerWedge / 2))
-        }
-        else if orientation == WedgeLabelOrientation.around {
+        case .around:
             self.layer.anchorPoint = CGPoint(x: 0.5, y: 4.5)
             self.transform = CGAffineTransform(rotationAngle: radiansPerWedge * CGFloat(index) + (CGFloat.pi / 2) + (radiansPerWedge / 2))
+        case .reverse:
+            self.layer.anchorPoint = CGPoint(x: 0, y: 0.5)
+            self.transform = CGAffineTransform(rotationAngle: radiansPerWedge * CGFloat(index) + (radiansPerWedge / 2))
         }
-        
         setDefaultValues()
     }
 }

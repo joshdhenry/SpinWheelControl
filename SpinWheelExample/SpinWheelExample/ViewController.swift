@@ -29,9 +29,11 @@ class ViewController: UIViewController, SpinWheelControlDataSource, SpinWheelCon
         super.viewDidLoad()
         
         let frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.width)
-        spinWheelControl = SpinWheelControl(frame: frame)
-        spinWheelControl.addTarget(self, action: #selector(spinWheelDidChangeValue), for: UIControlEvents.valueChanged)
+        spinWheelControl = SpinWheelControl(frame: frame, snapOrientation: .up_left, wedgeLabelOrientation: WedgeLabelOrientation.reverse)
+        
+        spinWheelControl.addTarget(self, action: #selector(spinWheelDidChangeValue), for: UIControl.Event.valueChanged)
 
+        
         spinWheelControl.dataSource = self
         spinWheelControl.reloadData()
         
@@ -42,12 +44,12 @@ class ViewController: UIViewController, SpinWheelControlDataSource, SpinWheelCon
     
     
     func numberOfWedgesInSpinWheel(spinWheel: SpinWheelControl) -> UInt {
-        return 6
+        return 10
     }
     
     
     //Target was added in viewDidLoad for the valueChanged UIControlEvent
-    func spinWheelDidChangeValue(sender: AnyObject) {
+    @objc func spinWheelDidChangeValue(sender: AnyObject) {
         print("Value changed to " + String(self.spinWheelControl.selectedIndex))
     }
     
