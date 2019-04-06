@@ -132,9 +132,7 @@ open class SpinWheelControl: UIControl {
     @objc static let kPreferredFramesPerSecond: Int = 60
     @objc static let kMinRandomSpinVelocity: Velocity = 12
     @objc static let kDefaultSpinVelocityMultiplier: Velocity = 0.75
-    
-    //A circle = 360 degrees = 2 * pi radians
-    @objc let kCircleRadians: Radians = 2 * CGFloat.pi
+    @objc let kCircleRadians: Radians = 2 * CGFloat.pi //A circle = 360 degrees = 2 * pi radians
     
     @objc public var spinWheelView: UIView!
     
@@ -161,6 +159,9 @@ open class SpinWheelControl: UIControl {
     var snapIncrementRadians: Radians!
     
     var wedgeLabelOrientationIndex: WedgeLabelOrientation = WedgeLabelOrientation.inOut
+    
+    var totalRotationRadians: Radians = Radians(0)
+    
     
     @objc public var selectedIndex: Int = 0
     
@@ -291,23 +292,11 @@ open class SpinWheelControl: UIControl {
         }
         
         for wedgeNumber in 0..<numberOfWedges {
-            //
-            //            let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.spinWheelDidSelectValue(_:)))
-            
-            
-            
             let wedge: SpinWheelWedge = source.wedgeForSliceAtIndex(index: wedgeNumber)
             
             //Wedge shape
             wedge.shape.configureWedgeShape(index: wedgeNumber, radius: radius, position: spinWheelCenter, degreesPerWedge: degreesPerWedge)
             wedge.layer.addSublayer(wedge.shape)
-            
-            
-            //
-            //            wedge.addGestureRecognizer(tapGesture)
-            //            wedge.isUserInteractionEnabled = true
-            
-            
             
             //Wedge label
             wedge.label.configureWedgeLabel(index: wedgeNumber, width: radius * 0.9, position: spinWheelCenter, orientation: self.wedgeLabelOrientationIndex, radiansPerWedge: radiansPerWedge)
@@ -326,12 +315,6 @@ open class SpinWheelControl: UIControl {
     }
     
     
-    //
-    @objc func spinWheelDidSelectValue(_ sender: UITapGestureRecognizer) {
-        print("Please Help!")
-    }
-    
-    
     //When the SpinWheelControl ends rotation, trigger the UIControl's valueChanged to reflect the newly selected value.
     @objc func didEndRotationOnWedgeAtIndex(index: UInt) {
         selectedIndex = Int(index)
@@ -342,7 +325,9 @@ open class SpinWheelControl: UIControl {
     
     //User began touching/dragging the UIControl
     override open func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
-        print("Begin tracking")
+        //        print("Begin tracking. Current status is")
+        //        print(currentStatus)
+        
         switch currentStatus {
         case SpinWheelStatus.idle:
             currentlyDetectingTap = true
@@ -372,7 +357,7 @@ open class SpinWheelControl: UIControl {
     
     //User is in the middle of dragging the UIControl
     override open func continueTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
-        print("Continue tracking")
+        //        print("Continue tracking")
         
         currentlyDetectingTap = false
         
@@ -394,6 +379,8 @@ open class SpinWheelControl: UIControl {
         
         delegate?.spinWheelDidRotateByRadians?(radians: touchRadiansDifference)
         
+        totalRotationRadians += touchRadiansDifference
+        
         return true
     }
     
@@ -401,24 +388,16 @@ open class SpinWheelControl: UIControl {
     //User ended touching/dragging the UIControl
     override open func endTracking(_ touch: UITouch?, with event: UIEvent?) {
         let tapCount = touch?.tapCount != nil ? (touch?.tapCount)! : 0
-        //TODO: Implement tap to move to wedge
-        //If the user just tapped, move to that wedge
         
-        print(currentStatus)
-        print(tapCount)
-        print(currentlyDetectingTap)
-        
+        //If just tapped, handle accordingly
         if currentStatus == .idle &&
             tapCount > 0 &&
             currentlyDetectingTap {
-            //TODO: Erase this conditional and move tap functionality somewhere to where I can see that the wheel rotated 0 radians from its starting point, so it was a tap.
-            let touchRadians = radiansForTouch(touch: touch!)
-            print("Touched at radians: ")
-            print(touchRadians)
+            handleTap()
         }
-            //Else decelerate
+            //Else it was a spin. Decelerate.
         else {
-            print("Begin deceleration")
+            //            print("Begin deceleration")
             beginDeceleration()
         }
     }
@@ -487,6 +466,13 @@ open class SpinWheelControl: UIControl {
         let sumRadians = ((currentRadians + (radiansPerWedge / 2)) + snappingPositionRadians)
         let nearestWedge: Int = Int(round(sumRadians / radiansPerWedge))
         
+        //Reset the total touch radians
+        totalRotationRadians = Radians(0)
+        
+        if (totalRotationRadians == 0) {
+            handleTap()
+        }
+        
         selectWedgeAtIndexOffset(index: nearestWedge, animated: true)
     }
     
@@ -508,6 +494,24 @@ open class SpinWheelControl: UIControl {
     }
     
     
+    @objc func handleTap() {
+        print("----------------------")
+        print("Touched at radians: ", startTouchRadians)
+        print("snappingPositionRadians: ", snappingPositionRadians)
+        //        var indexTapped: Radians = (startTouchRadians + snappingPositionRadians - currentRadians) / radiansPerWedge
+        var indexTapped: Radians = (startTouchRadians + snappingPositionRadians - currentRadians  - (radiansPerWedge / 2)) / radiansPerWedge
+        print("index Tapped:", indexTapped)
+        indexTapped = indexTapped.rounded(FloatingPointRoundingRule.toNearestOrAwayFromZero)
+        print("indexTapped after rounding:", indexTapped)
+        indexTapped = indexTapped + CGFloat(numberOfWedges)
+        indexTapped = indexTapped.truncatingRemainder(dividingBy: CGFloat(numberOfWedges))
+        
+        print("indexTapped after modulus and truncating:", indexTapped)
+        
+        delegate?.didTapOnWedgeAtIndex?(spinWheel: self, index: UInt(indexTapped))
+    }
+    
+    
     //End snapping
     @objc func endSnap() {
         //snappingPositionRadians is the default snapping position (in this case, up)
@@ -517,7 +521,6 @@ open class SpinWheelControl: UIControl {
         
         //Number of wedges from the zero wedge to the default snap position (up)
         indexSnapped = indexSnapped / radiansPerWedge + CGFloat(numberOfWedges)
-        
         indexSnapped = indexSnapped.rounded(FloatingPointRoundingRule.toNearestOrAwayFromZero)
         indexSnapped = indexSnapped.truncatingRemainder(dividingBy: CGFloat(numberOfWedges))
         
