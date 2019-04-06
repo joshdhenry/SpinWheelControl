@@ -22,22 +22,26 @@ public enum SpinWheelStatus {
 }
 
 public enum SpinWheelDirection {
-    case up, right, down, left, up_left, down_right
+    case up, upRight, right, downRight, down, downLeft, left, upLeft
     
     var radiansValue: Radians {
         switch self {
         case .up:
             return Radians.pi / 2
+        case .upRight:
+            return Radians.pi / 4
         case .right:
             return 0
+        case .downRight:
+            return -(Radians.pi / 4)
         case .down:
             return -(Radians.pi / 2)
+        case .downLeft:
+            return -((Radians.pi / 4) * 3)
         case .left:
             return Radians.pi
-        case .up_left:
+        case .upLeft:
             return Radians.pi - (Radians.pi / 4)
-        case .down_right:
-            return -(Radians.pi / 4)
         }
     }
     
@@ -45,16 +49,20 @@ public enum SpinWheelDirection {
         switch self {
         case .up:
             return 90
+        case .upRight:
+            return 45
         case .right:
             return 0
+        case .downRight:
+            return 315
         case .down:
             return 270
+        case .downLeft:
+            return 225
         case .left:
             return 180
-        case .up_left:
+        case .upLeft:
             return 135
-        case .down_right:
-            return 315
         }
     }
 }
@@ -283,15 +291,26 @@ open class SpinWheelControl: UIControl {
         }
         
         for wedgeNumber in 0..<numberOfWedges {
+            //
+            //            let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.spinWheelDidSelectValue(_:)))
+            
+            
+            
             let wedge: SpinWheelWedge = source.wedgeForSliceAtIndex(index: wedgeNumber)
             
             //Wedge shape
             wedge.shape.configureWedgeShape(index: wedgeNumber, radius: radius, position: spinWheelCenter, degreesPerWedge: degreesPerWedge)
             wedge.layer.addSublayer(wedge.shape)
             
+            
+            //
+            //            wedge.addGestureRecognizer(tapGesture)
+            //            wedge.isUserInteractionEnabled = true
+            
+            
+            
             //Wedge label
             wedge.label.configureWedgeLabel(index: wedgeNumber, width: radius * 0.9, position: spinWheelCenter, orientation: self.wedgeLabelOrientationIndex, radiansPerWedge: radiansPerWedge)
-            
             wedge.addSubview(wedge.label)
             
             //Add the shape and label to the spinWheelView
@@ -307,6 +326,12 @@ open class SpinWheelControl: UIControl {
     }
     
     
+    //
+    @objc func spinWheelDidSelectValue(_ sender: UITapGestureRecognizer) {
+        print("Please Help!")
+    }
+    
+    
     //When the SpinWheelControl ends rotation, trigger the UIControl's valueChanged to reflect the newly selected value.
     @objc func didEndRotationOnWedgeAtIndex(index: UInt) {
         selectedIndex = Int(index)
@@ -317,6 +342,7 @@ open class SpinWheelControl: UIControl {
     
     //User began touching/dragging the UIControl
     override open func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
+        print("Begin tracking")
         switch currentStatus {
         case SpinWheelStatus.idle:
             currentlyDetectingTap = true
@@ -346,6 +372,8 @@ open class SpinWheelControl: UIControl {
     
     //User is in the middle of dragging the UIControl
     override open func continueTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
+        print("Continue tracking")
+        
         currentlyDetectingTap = false
         
         startTrackingTime = endTrackingTime
@@ -375,11 +403,22 @@ open class SpinWheelControl: UIControl {
         let tapCount = touch?.tapCount != nil ? (touch?.tapCount)! : 0
         //TODO: Implement tap to move to wedge
         //If the user just tapped, move to that wedge
+        
+        print(currentStatus)
+        print(tapCount)
+        print(currentlyDetectingTap)
+        
         if currentStatus == .idle &&
             tapCount > 0 &&
-            currentlyDetectingTap {}
+            currentlyDetectingTap {
+            //TODO: Erase this conditional and move tap functionality somewhere to where I can see that the wheel rotated 0 radians from its starting point, so it was a tap.
+            let touchRadians = radiansForTouch(touch: touch!)
+            print("Touched at radians: ")
+            print(touchRadians)
+        }
             //Else decelerate
         else {
+            print("Begin deceleration")
             beginDeceleration()
         }
     }
@@ -571,4 +610,3 @@ open class SpinWheelControl: UIControl {
         spin(velocityMultiplier: randomSpinMultiplier)
     }
 }
-
