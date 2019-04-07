@@ -14,7 +14,7 @@ import UIKit
     //Triggered when the spin wheel has come to rest after spinning.
     @objc optional func spinWheelDidEndDecelerating(spinWheel: SpinWheelControl)
     
-    //Triggered when the spin wheel has come to rest after spinning.
+    //Triggered when the spin wheel has been tapped.
     @objc optional func didTapOnWedgeAtIndex(spinWheel: SpinWheelControl, index: UInt)
     
     //Triggered at various intervals. The variable radians describes how many radians the spin wheel control has moved since the last time this method was called.
