@@ -466,12 +466,12 @@ open class SpinWheelControl: UIControl {
         let sumRadians = ((currentRadians + (radiansPerWedge / 2)) + snappingPositionRadians)
         let nearestWedge: Int = Int(round(sumRadians / radiansPerWedge))
         
-        //Reset the total touch radians
-        totalRotationRadians = Radians(0)
-        
         if (totalRotationRadians == 0) {
             handleTap()
         }
+        
+        //Reset the total touch radians
+        totalRotationRadians = Radians(0)
         
         selectWedgeAtIndexOffset(index: nearestWedge, animated: true)
     }
@@ -495,18 +495,10 @@ open class SpinWheelControl: UIControl {
     
     
     @objc func handleTap() {
-        print("----------------------")
-        print("Touched at radians: ", startTouchRadians)
-        print("snappingPositionRadians: ", snappingPositionRadians)
-        //        var indexTapped: Radians = (startTouchRadians + snappingPositionRadians - currentRadians) / radiansPerWedge
-        var indexTapped: Radians = (startTouchRadians + snappingPositionRadians - currentRadians  - (radiansPerWedge / 2)) / radiansPerWedge
-        print("index Tapped:", indexTapped)
+        var indexTapped: Radians = (startTouchRadians - currentRadians  - (radiansPerWedge / 2)) / radiansPerWedge
         indexTapped = indexTapped.rounded(FloatingPointRoundingRule.toNearestOrAwayFromZero)
-        print("indexTapped after rounding:", indexTapped)
         indexTapped = indexTapped + CGFloat(numberOfWedges)
         indexTapped = indexTapped.truncatingRemainder(dividingBy: CGFloat(numberOfWedges))
-        
-        print("indexTapped after modulus and truncating:", indexTapped)
         
         delegate?.didTapOnWedgeAtIndex?(spinWheel: self, index: UInt(indexTapped))
     }
