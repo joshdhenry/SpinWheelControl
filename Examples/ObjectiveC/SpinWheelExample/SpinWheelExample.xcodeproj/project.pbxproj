@@ -1,0 +1,735 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		037F10F1225AA6AC00D22B4E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 037F10F0225AA6AC00D22B4E /* AppDelegate.m */; };
+		037F10F4225AA6AC00D22B4E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 037F10F3225AA6AC00D22B4E /* ViewController.m */; };
+		037F10F7225AA6AC00D22B4E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 037F10F5225AA6AC00D22B4E /* Main.storyboard */; };
+		037F10FA225AA6AC00D22B4E /* SpinWheelExample.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 037F10F8225AA6AC00D22B4E /* SpinWheelExample.xcdatamodeld */; };
+		037F10FC225AA6AD00D22B4E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 037F10FB225AA6AD00D22B4E /* Assets.xcassets */; };
+		037F10FF225AA6AD00D22B4E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 037F10FD225AA6AD00D22B4E /* LaunchScreen.storyboard */; };
+		037F1102225AA6AD00D22B4E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 037F1101225AA6AD00D22B4E /* main.m */; };
+		037F110C225AA6AD00D22B4E /* SpinWheelExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 037F110B225AA6AD00D22B4E /* SpinWheelExampleTests.m */; };
+		037F1117225AA6AD00D22B4E /* SpinWheelExampleUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 037F1116225AA6AD00D22B4E /* SpinWheelExampleUITests.m */; };
+		037F1126225AAB0500D22B4E /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037F1125225AAB0500D22B4E /* File.swift */; };
+		1B011B02114E20C087F6EE16 /* libPods-SpinWheelExampleUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E65003435C3A20F4DED012F7 /* libPods-SpinWheelExampleUITests.a */; };
+		5084F574A8B1273FE1DA4609 /* libPods-SpinWheelExampleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA6DBAD2BDB370651241AAFA /* libPods-SpinWheelExampleTests.a */; };
+		E88B315162C3CC1E4154752E /* libPods-SpinWheelExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C1786B59C6ED9B35FE5AB6BB /* libPods-SpinWheelExample.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		037F1108225AA6AD00D22B4E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 037F10E4225AA6AC00D22B4E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 037F10EB225AA6AC00D22B4E;
+			remoteInfo = SpinWheelExample;
+		};
+		037F1113225AA6AD00D22B4E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 037F10E4225AA6AC00D22B4E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 037F10EB225AA6AC00D22B4E;
+			remoteInfo = SpinWheelExample;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		037F10EC225AA6AC00D22B4E /* SpinWheelExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpinWheelExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		037F10EF225AA6AC00D22B4E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		037F10F0225AA6AC00D22B4E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		037F10F2225AA6AC00D22B4E /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		037F10F3225AA6AC00D22B4E /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		037F10F6225AA6AC00D22B4E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		037F10F9225AA6AC00D22B4E /* SpinWheelExample.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SpinWheelExample.xcdatamodel; sourceTree = "<group>"; };
+		037F10FB225AA6AD00D22B4E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		037F10FE225AA6AD00D22B4E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		037F1100225AA6AD00D22B4E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		037F1101225AA6AD00D22B4E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		037F1107225AA6AD00D22B4E /* SpinWheelExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpinWheelExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		037F110B225AA6AD00D22B4E /* SpinWheelExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SpinWheelExampleTests.m; sourceTree = "<group>"; };
+		037F110D225AA6AD00D22B4E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		037F1112225AA6AD00D22B4E /* SpinWheelExampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpinWheelExampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		037F1116225AA6AD00D22B4E /* SpinWheelExampleUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SpinWheelExampleUITests.m; sourceTree = "<group>"; };
+		037F1118225AA6AD00D22B4E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		037F1124225AAB0500D22B4E /* SpinWheelExample-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SpinWheelExample-Bridging-Header.h"; sourceTree = "<group>"; };
+		037F1125225AAB0500D22B4E /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		102BA4B70C4CDE912E4F53A0 /* Pods-SpinWheelExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpinWheelExample.debug.xcconfig"; path = "Target Support Files/Pods-SpinWheelExample/Pods-SpinWheelExample.debug.xcconfig"; sourceTree = "<group>"; };
+		6FC66C10A452B1454DC3D45F /* Pods-SpinWheelExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpinWheelExample.release.xcconfig"; path = "Target Support Files/Pods-SpinWheelExample/Pods-SpinWheelExample.release.xcconfig"; sourceTree = "<group>"; };
+		BB0FC591AE87422CB14C8BAB /* Pods-SpinWheelExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpinWheelExampleTests.release.xcconfig"; path = "Target Support Files/Pods-SpinWheelExampleTests/Pods-SpinWheelExampleTests.release.xcconfig"; sourceTree = "<group>"; };
+		BB9A8D23D70AFAE99051C070 /* Pods-SpinWheelExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpinWheelExampleTests.debug.xcconfig"; path = "Target Support Files/Pods-SpinWheelExampleTests/Pods-SpinWheelExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
+		C1786B59C6ED9B35FE5AB6BB /* libPods-SpinWheelExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SpinWheelExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D0EFFD3F1C419CBB6C981A02 /* Pods-SpinWheelExampleUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpinWheelExampleUITests.debug.xcconfig"; path = "Target Support Files/Pods-SpinWheelExampleUITests/Pods-SpinWheelExampleUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		D9104F3FE0B52C0DFF7BD1F7 /* Pods-SpinWheelExampleUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpinWheelExampleUITests.release.xcconfig"; path = "Target Support Files/Pods-SpinWheelExampleUITests/Pods-SpinWheelExampleUITests.release.xcconfig"; sourceTree = "<group>"; };
+		E65003435C3A20F4DED012F7 /* libPods-SpinWheelExampleUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SpinWheelExampleUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA6DBAD2BDB370651241AAFA /* libPods-SpinWheelExampleTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SpinWheelExampleTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		037F10E9225AA6AC00D22B4E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E88B315162C3CC1E4154752E /* libPods-SpinWheelExample.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		037F1104225AA6AD00D22B4E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5084F574A8B1273FE1DA4609 /* libPods-SpinWheelExampleTests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		037F110F225AA6AD00D22B4E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1B011B02114E20C087F6EE16 /* libPods-SpinWheelExampleUITests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		037F10E3225AA6AC00D22B4E = {
+			isa = PBXGroup;
+			children = (
+				037F10EE225AA6AC00D22B4E /* SpinWheelExample */,
+				037F110A225AA6AD00D22B4E /* SpinWheelExampleTests */,
+				037F1115225AA6AD00D22B4E /* SpinWheelExampleUITests */,
+				037F10ED225AA6AC00D22B4E /* Products */,
+				B04AED3EE51D7D03EC74061F /* Pods */,
+				632F6DEBAE9DAB4DE18E9B29 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		037F10ED225AA6AC00D22B4E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				037F10EC225AA6AC00D22B4E /* SpinWheelExample.app */,
+				037F1107225AA6AD00D22B4E /* SpinWheelExampleTests.xctest */,
+				037F1112225AA6AD00D22B4E /* SpinWheelExampleUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		037F10EE225AA6AC00D22B4E /* SpinWheelExample */ = {
+			isa = PBXGroup;
+			children = (
+				037F10EF225AA6AC00D22B4E /* AppDelegate.h */,
+				037F10F0225AA6AC00D22B4E /* AppDelegate.m */,
+				037F10F2225AA6AC00D22B4E /* ViewController.h */,
+				037F10F3225AA6AC00D22B4E /* ViewController.m */,
+				037F1125225AAB0500D22B4E /* File.swift */,
+				037F10F5225AA6AC00D22B4E /* Main.storyboard */,
+				037F10FB225AA6AD00D22B4E /* Assets.xcassets */,
+				037F10FD225AA6AD00D22B4E /* LaunchScreen.storyboard */,
+				037F1100225AA6AD00D22B4E /* Info.plist */,
+				037F1101225AA6AD00D22B4E /* main.m */,
+				037F10F8225AA6AC00D22B4E /* SpinWheelExample.xcdatamodeld */,
+				037F1124225AAB0500D22B4E /* SpinWheelExample-Bridging-Header.h */,
+			);
+			path = SpinWheelExample;
+			sourceTree = "<group>";
+		};
+		037F110A225AA6AD00D22B4E /* SpinWheelExampleTests */ = {
+			isa = PBXGroup;
+			children = (
+				037F110B225AA6AD00D22B4E /* SpinWheelExampleTests.m */,
+				037F110D225AA6AD00D22B4E /* Info.plist */,
+			);
+			path = SpinWheelExampleTests;
+			sourceTree = "<group>";
+		};
+		037F1115225AA6AD00D22B4E /* SpinWheelExampleUITests */ = {
+			isa = PBXGroup;
+			children = (
+				037F1116225AA6AD00D22B4E /* SpinWheelExampleUITests.m */,
+				037F1118225AA6AD00D22B4E /* Info.plist */,
+			);
+			path = SpinWheelExampleUITests;
+			sourceTree = "<group>";
+		};
+		632F6DEBAE9DAB4DE18E9B29 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C1786B59C6ED9B35FE5AB6BB /* libPods-SpinWheelExample.a */,
+				FA6DBAD2BDB370651241AAFA /* libPods-SpinWheelExampleTests.a */,
+				E65003435C3A20F4DED012F7 /* libPods-SpinWheelExampleUITests.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B04AED3EE51D7D03EC74061F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				102BA4B70C4CDE912E4F53A0 /* Pods-SpinWheelExample.debug.xcconfig */,
+				6FC66C10A452B1454DC3D45F /* Pods-SpinWheelExample.release.xcconfig */,
+				BB9A8D23D70AFAE99051C070 /* Pods-SpinWheelExampleTests.debug.xcconfig */,
+				BB0FC591AE87422CB14C8BAB /* Pods-SpinWheelExampleTests.release.xcconfig */,
+				D0EFFD3F1C419CBB6C981A02 /* Pods-SpinWheelExampleUITests.debug.xcconfig */,
+				D9104F3FE0B52C0DFF7BD1F7 /* Pods-SpinWheelExampleUITests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		037F10EB225AA6AC00D22B4E /* SpinWheelExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 037F111B225AA6AE00D22B4E /* Build configuration list for PBXNativeTarget "SpinWheelExample" */;
+			buildPhases = (
+				F9FB8A22789E7542BA5ABA51 /* [CP] Check Pods Manifest.lock */,
+				037F10E8225AA6AC00D22B4E /* Sources */,
+				037F10E9225AA6AC00D22B4E /* Frameworks */,
+				037F10EA225AA6AC00D22B4E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SpinWheelExample;
+			productName = SpinWheelExample;
+			productReference = 037F10EC225AA6AC00D22B4E /* SpinWheelExample.app */;
+			productType = "com.apple.product-type.application";
+		};
+		037F1106225AA6AD00D22B4E /* SpinWheelExampleTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 037F111E225AA6AE00D22B4E /* Build configuration list for PBXNativeTarget "SpinWheelExampleTests" */;
+			buildPhases = (
+				BD2F375FE622121CA8D0FE38 /* [CP] Check Pods Manifest.lock */,
+				037F1103225AA6AD00D22B4E /* Sources */,
+				037F1104225AA6AD00D22B4E /* Frameworks */,
+				037F1105225AA6AD00D22B4E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				037F1109225AA6AD00D22B4E /* PBXTargetDependency */,
+			);
+			name = SpinWheelExampleTests;
+			productName = SpinWheelExampleTests;
+			productReference = 037F1107225AA6AD00D22B4E /* SpinWheelExampleTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		037F1111225AA6AD00D22B4E /* SpinWheelExampleUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 037F1121225AA6AE00D22B4E /* Build configuration list for PBXNativeTarget "SpinWheelExampleUITests" */;
+			buildPhases = (
+				E3EBC2FDFBA28CD1A33068A2 /* [CP] Check Pods Manifest.lock */,
+				037F110E225AA6AD00D22B4E /* Sources */,
+				037F110F225AA6AD00D22B4E /* Frameworks */,
+				037F1110225AA6AD00D22B4E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				037F1114225AA6AD00D22B4E /* PBXTargetDependency */,
+			);
+			name = SpinWheelExampleUITests;
+			productName = SpinWheelExampleUITests;
+			productReference = 037F1112225AA6AD00D22B4E /* SpinWheelExampleUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		037F10E4225AA6AC00D22B4E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1020;
+				ORGANIZATIONNAME = "Big Smash Software";
+				TargetAttributes = {
+					037F10EB225AA6AC00D22B4E = {
+						CreatedOnToolsVersion = 10.2;
+						LastSwiftMigration = 1020;
+					};
+					037F1106225AA6AD00D22B4E = {
+						CreatedOnToolsVersion = 10.2;
+						TestTargetID = 037F10EB225AA6AC00D22B4E;
+					};
+					037F1111225AA6AD00D22B4E = {
+						CreatedOnToolsVersion = 10.2;
+						TestTargetID = 037F10EB225AA6AC00D22B4E;
+					};
+				};
+			};
+			buildConfigurationList = 037F10E7225AA6AC00D22B4E /* Build configuration list for PBXProject "SpinWheelExample" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 037F10E3225AA6AC00D22B4E;
+			productRefGroup = 037F10ED225AA6AC00D22B4E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				037F10EB225AA6AC00D22B4E /* SpinWheelExample */,
+				037F1106225AA6AD00D22B4E /* SpinWheelExampleTests */,
+				037F1111225AA6AD00D22B4E /* SpinWheelExampleUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		037F10EA225AA6AC00D22B4E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				037F10FF225AA6AD00D22B4E /* LaunchScreen.storyboard in Resources */,
+				037F10FC225AA6AD00D22B4E /* Assets.xcassets in Resources */,
+				037F10F7225AA6AC00D22B4E /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		037F1105225AA6AD00D22B4E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		037F1110225AA6AD00D22B4E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		BD2F375FE622121CA8D0FE38 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SpinWheelExampleTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E3EBC2FDFBA28CD1A33068A2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SpinWheelExampleUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F9FB8A22789E7542BA5ABA51 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SpinWheelExample-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		037F10E8225AA6AC00D22B4E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				037F1126225AAB0500D22B4E /* File.swift in Sources */,
+				037F10F4225AA6AC00D22B4E /* ViewController.m in Sources */,
+				037F10F1225AA6AC00D22B4E /* AppDelegate.m in Sources */,
+				037F1102225AA6AD00D22B4E /* main.m in Sources */,
+				037F10FA225AA6AC00D22B4E /* SpinWheelExample.xcdatamodeld in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		037F1103225AA6AD00D22B4E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				037F110C225AA6AD00D22B4E /* SpinWheelExampleTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		037F110E225AA6AD00D22B4E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				037F1117225AA6AD00D22B4E /* SpinWheelExampleUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		037F1109225AA6AD00D22B4E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 037F10EB225AA6AC00D22B4E /* SpinWheelExample */;
+			targetProxy = 037F1108225AA6AD00D22B4E /* PBXContainerItemProxy */;
+		};
+		037F1114225AA6AD00D22B4E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 037F10EB225AA6AC00D22B4E /* SpinWheelExample */;
+			targetProxy = 037F1113225AA6AD00D22B4E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		037F10F5225AA6AC00D22B4E /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				037F10F6225AA6AC00D22B4E /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		037F10FD225AA6AD00D22B4E /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				037F10FE225AA6AD00D22B4E /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		037F1119225AA6AE00D22B4E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = "";
+			};
+			name = Debug;
+		};
+		037F111A225AA6AE00D22B4E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = "";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		037F111C225AA6AE00D22B4E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 102BA4B70C4CDE912E4F53A0 /* Pods-SpinWheelExample.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = SpinWheelExample/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = BigSmashSoftware.SpinWheelExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SpinWheelExample/SpinWheelExample-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		037F111D225AA6AE00D22B4E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6FC66C10A452B1454DC3D45F /* Pods-SpinWheelExample.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = SpinWheelExample/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = BigSmashSoftware.SpinWheelExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SpinWheelExample/SpinWheelExample-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		037F111F225AA6AE00D22B4E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BB9A8D23D70AFAE99051C070 /* Pods-SpinWheelExampleTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = SpinWheelExampleTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = BigSmashSoftware.SpinWheelExampleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SpinWheelExample.app/SpinWheelExample";
+			};
+			name = Debug;
+		};
+		037F1120225AA6AE00D22B4E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BB0FC591AE87422CB14C8BAB /* Pods-SpinWheelExampleTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = SpinWheelExampleTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = BigSmashSoftware.SpinWheelExampleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SpinWheelExample.app/SpinWheelExample";
+			};
+			name = Release;
+		};
+		037F1122225AA6AE00D22B4E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D0EFFD3F1C419CBB6C981A02 /* Pods-SpinWheelExampleUITests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = SpinWheelExampleUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = BigSmashSoftware.SpinWheelExampleUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = SpinWheelExample;
+			};
+			name = Debug;
+		};
+		037F1123225AA6AE00D22B4E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D9104F3FE0B52C0DFF7BD1F7 /* Pods-SpinWheelExampleUITests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = SpinWheelExampleUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = BigSmashSoftware.SpinWheelExampleUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = SpinWheelExample;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		037F10E7225AA6AC00D22B4E /* Build configuration list for PBXProject "SpinWheelExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				037F1119225AA6AE00D22B4E /* Debug */,
+				037F111A225AA6AE00D22B4E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		037F111B225AA6AE00D22B4E /* Build configuration list for PBXNativeTarget "SpinWheelExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				037F111C225AA6AE00D22B4E /* Debug */,
+				037F111D225AA6AE00D22B4E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		037F111E225AA6AE00D22B4E /* Build configuration list for PBXNativeTarget "SpinWheelExampleTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				037F111F225AA6AE00D22B4E /* Debug */,
+				037F1120225AA6AE00D22B4E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		037F1121225AA6AE00D22B4E /* Build configuration list for PBXNativeTarget "SpinWheelExampleUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				037F1122225AA6AE00D22B4E /* Debug */,
+				037F1123225AA6AE00D22B4E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		037F10F8225AA6AC00D22B4E /* SpinWheelExample.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				037F10F9225AA6AC00D22B4E /* SpinWheelExample.xcdatamodel */,
+			);
+			currentVersion = 037F10F9225AA6AC00D22B4E /* SpinWheelExample.xcdatamodel */;
+			path = SpinWheelExample.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 037F10E4225AA6AC00D22B4E /* Project object */;
+}
