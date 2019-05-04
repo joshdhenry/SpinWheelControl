@@ -40,7 +40,7 @@ To make this work in your Objective-C project:
 
 * In your project's (not the target's) build settings, set the Defines Module flag to YES.
 
-* Find your product module name by going to your target's (not the project's) build setting and search for Project Module Name.
+* Find your product module name by going to your target's (not the project's) build setting and search for Product Module Name.
 
 * Add the SpinWheelControl files to your project.
 
@@ -65,12 +65,17 @@ spinWheelControl = SpinWheelControl(frame: frame)
 ```
 
 
+Add the SpinWheelControl to your view:
+
+```swift
+self.view.addSubview(spinWheelControl)
+```
+
 Add a target for the valueChanged event:
 
 ```swift
 spinWheelControl.addTarget(self, action: #selector(spinWheelDidChangeValue), for: UIControlEvents.valueChanged)
 ```
-
 
 Give the SpinWheelControl a data source:
 
@@ -80,18 +85,10 @@ spinWheelControl.dataSource = self
 spinWheelControl.reloadData()
 ```
 
-
 Set the SpinWheelControl's delegate:
 
 ```swift
 spinWheelControl.delegate = self
-```
-
-
-Add the SpinWheelControl to your view:
-
-```swift
-self.view.addSubview(spinWheelControl)
 ```
 
 Spin the wheel with a given velocity multiplier between 0 and 1 (defaults to 0.75)
@@ -133,6 +130,11 @@ The following delegate methods are available:
 func spinWheelDidEndDecelerating(spinWheel: SpinWheelControl)
 
 
+//Triggered when the spin wheel has been tapped.
+
+@objc optional func didTapOnWedgeAtIndex(spinWheel: SpinWheelControl, index: UInt)
+
+
 //Triggered at various intervals. The variable radians describes how many radians the spin wheel control has moved since the last time this method was called.
 
 func spinWheelDidRotateByRadians(radians: CGFloat)
@@ -154,7 +156,7 @@ wedgeLabelOrientation - The orientation of labels in each wedge (WedgeLabelOrien
 
 ## Example App
 
-To see SpinWheelControl in action, open the example project in the SpinWheelExample folder.
+To see SpinWheelControl in action, open the example projects in the Examples folder.
 
 
 ## Author

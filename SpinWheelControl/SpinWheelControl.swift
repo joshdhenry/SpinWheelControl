@@ -75,6 +75,14 @@ public enum SpinWheelDirection {
 }
 
 
+@objc public enum WedgeBorderSize: Int {
+    case none
+    case small
+    case medium
+    case large
+}
+
+
 @IBDesignable
 open class SpinWheelControl: UIControl {
     
@@ -89,6 +97,13 @@ open class SpinWheelControl: UIControl {
     @IBInspectable var borderColor: UIColor? {
         didSet {
             layer.borderColor = borderColor?.cgColor
+        }
+    }
+    
+    
+    @IBInspectable public var wedgeBorderColor: UIColor = UIColor.white {
+        didSet {
+            self.wedgeStrokeColor = wedgeBorderColor
         }
     }
     
@@ -121,6 +136,7 @@ open class SpinWheelControl: UIControl {
     @objc weak public var dataSource: SpinWheelControlDataSource?
     @objc public var delegate: SpinWheelControlDelegate?
     
+    //Constants
     @objc static let kMinimumRadiansForSpin: Radians = 0.1
     @objc static let kMinDistanceFromCenter: CGFloat = 30.0
     @objc static let kMaxVelocity: Velocity = 20
@@ -132,9 +148,7 @@ open class SpinWheelControl: UIControl {
     @objc static let kPreferredFramesPerSecond: Int = 60
     @objc static let kMinRandomSpinVelocity: Velocity = 12
     @objc static let kDefaultSpinVelocityMultiplier: Velocity = 0.75
-    
-    //A circle = 360 degrees = 2 * pi radians
-    @objc let kCircleRadians: Radians = 2 * CGFloat.pi
+    @objc let kCircleRadians: Radians = 2 * CGFloat.pi //A circle = 360 degrees = 2 * pi radians
     
     @objc public var spinWheelView: UIView!
     
@@ -147,50 +161,63 @@ open class SpinWheelControl: UIControl {
     var startTrackingTime: CFTimeInterval!
     var endTrackingTime: CFTimeInterval!
     
+    var currentStatus: SpinWheelStatus = .idle
+    
     var previousTouchRadians: Radians!
     var currentTouchRadians: Radians!
     var startTouchRadians: Radians!
+    var totalRotationRadians: Radians = Radians(0)
     var currentlyDetectingTap: Bool!
     
-    var currentStatus: SpinWheelStatus = .idle
+    var snapDestinationRadians: Radians!
+    var snapIncrementRadians: Radians!
     
     var currentDecelerationVelocity: Velocity!
     
     @objc var snappingPositionRadians: Radians = SpinWheelDirection.up.radiansValue
-    var snapDestinationRadians: Radians!
-    var snapIncrementRadians: Radians!
+    
+    @objc public var wedgeStrokeColor: UIColor = UIColor.white
     
     var wedgeLabelOrientationIndex: WedgeLabelOrientation = WedgeLabelOrientation.inOut
     
     @objc public var selectedIndex: Int = 0
+    
     
     //MARK: Computed Properties
     @objc var spinWheelCenter: CGPoint {
         return convert(center, from: superview)
     }
     
+    
+    //The diameter of the spin wheel
     @objc var diameter: CGFloat {
         return min(self.spinWheelView.frame.width, self.spinWheelView.frame.height)
     }
     
+    
+    //How many degrees per wedge.
     @objc var degreesPerWedge: Degrees {
         return 360 / CGFloat(numberOfWedges)
     }
+    
     
     //The radius of the spin wheel's circle
     @objc var radius: CGFloat {
         return diameter / 2
     }
     
+    
     //How far the wheel is turned from its default position
     @objc var currentRadians: Radians {
         return atan2(self.spinWheelView.transform.b, self.spinWheelView.transform.a)
     }
     
+    
     //How many radians there are to snapDestinationRadians
     @objc var radiansToDestinationSlice: Radians {
         return snapDestinationRadians - currentRadians
     }
+    
     
     //The velocity of the spinwheel
     @objc var velocity: Velocity {
@@ -256,6 +283,25 @@ open class SpinWheelControl: UIControl {
     }
     
     
+    //Return the radians at the touch point. Return values range from -pi to pi
+    @objc func radiansForTouch(touch: UITouch) -> Radians {
+        let touchPoint: CGPoint = touch.location(in: self)
+        let dx: CGFloat = touchPoint.x - self.spinWheelView.center.x
+        let dy: CGFloat = touchPoint.y - self.spinWheelView.center.y
+        
+        return atan2(dy, dx)
+    }
+    
+    
+    //Distance of a point from the center of the spinwheel
+    @objc func distanceFromCenter(point: CGPoint) -> CGFloat {
+        let dx: CGFloat = point.x - spinWheelCenter.x
+        let dy: CGFloat = point.y - spinWheelCenter.y
+        
+        return sqrt(dx * dx + dy * dy)
+    }
+    
+    
     //MARK: Methods
     //Clear the SpinWheelControl from the screen
     @objc public func clear() {
@@ -291,26 +337,16 @@ open class SpinWheelControl: UIControl {
         }
         
         for wedgeNumber in 0..<numberOfWedges {
-            //
-            //            let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.spinWheelDidSelectValue(_:)))
-            
-            
-            
             let wedge: SpinWheelWedge = source.wedgeForSliceAtIndex(index: wedgeNumber)
             
             //Wedge shape
             wedge.shape.configureWedgeShape(index: wedgeNumber, radius: radius, position: spinWheelCenter, degreesPerWedge: degreesPerWedge)
+            wedge.shape.strokeColor = self.wedgeStrokeColor.cgColor
             wedge.layer.addSublayer(wedge.shape)
-            
-            
-            //
-            //            wedge.addGestureRecognizer(tapGesture)
-            //            wedge.isUserInteractionEnabled = true
-            
-            
             
             //Wedge label
             wedge.label.configureWedgeLabel(index: wedgeNumber, width: radius * 0.9, position: spinWheelCenter, orientation: self.wedgeLabelOrientationIndex, radiansPerWedge: radiansPerWedge)
+            
             wedge.addSubview(wedge.label)
             
             //Add the shape and label to the spinWheelView
@@ -326,23 +362,57 @@ open class SpinWheelControl: UIControl {
     }
     
     
-    //
-    @objc func spinWheelDidSelectValue(_ sender: UITapGestureRecognizer) {
-        print("Please Help!")
+    //Clear all views and redraw the spin wheel
+    @objc public func reloadData() {
+        clear()
+        drawWheel()
     }
     
     
-    //When the SpinWheelControl ends rotation, trigger the UIControl's valueChanged to reflect the newly selected value.
-    @objc func didEndRotationOnWedgeAtIndex(index: UInt) {
-        selectedIndex = Int(index)
-        delegate?.spinWheelDidEndDecelerating?(spinWheel: self)
-        self.sendActions(for: .valueChanged)
+    //Handle a tap action.
+    @objc func handleTap() {
+        var indexTapped: Radians = (startTouchRadians - currentRadians  - (radiansPerWedge / 2)) / radiansPerWedge
+        indexTapped = indexTapped.rounded(FloatingPointRoundingRule.toNearestOrAwayFromZero)
+        indexTapped = indexTapped + CGFloat(numberOfWedges)
+        indexTapped = indexTapped.truncatingRemainder(dividingBy: CGFloat(numberOfWedges))
+        
+        delegate?.didTapOnWedgeAtIndex?(spinWheel: self, index: UInt(indexTapped))
+    }
+    
+    
+    //Spin the wheel with a given velocity multiplier (or default velocity multiplier if no velocity provided)
+    //TODO: Due to a bug in Swift 4, private constants cannot be used as default arguments when Enable Testability is turned on. Therefore,
+    //the default velocity multiplier value is hand-coded until this is fixed.
+    //More info: https://bugs.swift.org/browse/SR-5111
+    //    @objc public func spin(velocityMultiplier: CGFloat = SpinWheelControl.kDefaultSpinVelocityMultiplier) {
+    @objc public func spin(velocityMultiplier: CGFloat = 0.75) {
+        //If the velocity multiplier is valid, spin the wheel.
+        if (0...1).contains(velocityMultiplier) {
+            beginDeceleration(withVelocity: SpinWheelControl.kMaxVelocity * velocityMultiplier)
+        }
+    }
+    
+    
+    //Perform a random spin of the wheel
+    @objc public func randomSpin() {
+        //Get the range to find a random number between
+        let range = UInt32(SpinWheelControl.kMaxVelocity - SpinWheelControl.kMinRandomSpinVelocity)
+        
+        //The velocity subtractor is a random number between 1 and the range value
+        let velocitySubtractor = Double(arc4random_uniform(range)) + 1
+        
+        //Subtract the velocity subtractor from max velocity to get the final random velocity
+        let randomSpinVelocity = Velocity(Double(SpinWheelControl.kMaxVelocity) - velocitySubtractor)
+        
+        //Get the spin multiplier using the new random spin velocity value
+        let randomSpinMultiplier = randomSpinVelocity / SpinWheelControl.kMaxVelocity
+        
+        spin(velocityMultiplier: randomSpinMultiplier)
     }
     
     
     //User began touching/dragging the UIControl
     override open func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
-        print("Begin tracking")
         switch currentStatus {
         case SpinWheelStatus.idle:
             currentlyDetectingTap = true
@@ -372,8 +442,6 @@ open class SpinWheelControl: UIControl {
     
     //User is in the middle of dragging the UIControl
     override open func continueTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
-        print("Continue tracking")
-        
         currentlyDetectingTap = false
         
         startTrackingTime = endTrackingTime
@@ -394,6 +462,8 @@ open class SpinWheelControl: UIControl {
         
         delegate?.spinWheelDidRotateByRadians?(radians: touchRadiansDifference)
         
+        totalRotationRadians += touchRadiansDifference
+        
         return true
     }
     
@@ -401,24 +471,16 @@ open class SpinWheelControl: UIControl {
     //User ended touching/dragging the UIControl
     override open func endTracking(_ touch: UITouch?, with event: UIEvent?) {
         let tapCount = touch?.tapCount != nil ? (touch?.tapCount)! : 0
-        //TODO: Implement tap to move to wedge
-        //If the user just tapped, move to that wedge
         
-        print(currentStatus)
-        print(tapCount)
-        print(currentlyDetectingTap)
-        
+        //If just tapped, handle accordingly
+        //Ideally this would catch all taps, but taps also need to be handled in decelerationStep function
         if currentStatus == .idle &&
             tapCount > 0 &&
             currentlyDetectingTap {
-            //TODO: Erase this conditional and move tap functionality somewhere to where I can see that the wheel rotated 0 radians from its starting point, so it was a tap.
-            let touchRadians = radiansForTouch(touch: touch!)
-            print("Touched at radians: ")
-            print(touchRadians)
+            handleTap()
         }
-            //Else decelerate
+            //Else it was a spin. Start deceleration process.
         else {
-            print("Begin deceleration")
             beginDeceleration()
         }
     }
@@ -445,7 +507,7 @@ open class SpinWheelControl: UIControl {
                 // TODO: Fallback on earlier versions
                 decelerationDisplayLink?.preferredFramesPerSecond = SpinWheelControl.kPreferredFramesPerSecond
             }
-            decelerationDisplayLink?.add(to: RunLoop.main, forMode: RunLoopMode.commonModes)
+            decelerationDisplayLink?.add(to: RunLoop.main, forMode: RunLoop.Mode.common)
         }
             //Else snap to the nearest wedge.  No deceleration necessary.
         else {
@@ -482,15 +544,26 @@ open class SpinWheelControl: UIControl {
     
     //Snap to the nearest wedge
     @objc func snapToNearestWedge() {
-        currentStatus = .snapping
+        //If this was just a tap, handle accordingly
+        if (totalRotationRadians == 0) {
+            handleTap()
+        }
+            //Else it was a spin, snap to wedge.
+        else {
+            currentStatus = .snapping
+            
+            let sumRadians = ((currentRadians + (radiansPerWedge / 2)) + snappingPositionRadians)
+            let nearestWedge: Int = Int(round(sumRadians / radiansPerWedge))
+            
+            selectWedgeAtIndexOffset(index: nearestWedge, animated: true)
+        }
         
-        let sumRadians = ((currentRadians + (radiansPerWedge / 2)) + snappingPositionRadians)
-        let nearestWedge: Int = Int(round(sumRadians / radiansPerWedge))
-        
-        selectWedgeAtIndexOffset(index: nearestWedge, animated: true)
+        //Reset the total touch radians
+        totalRotationRadians = Radians(0)
     }
     
     
+    //One snap step of CADisplayLink
     @objc func snapStep() {
         let difference: Radians = atan2(sin(radiansToDestinationSlice), cos(radiansToDestinationSlice))
         
@@ -517,7 +590,6 @@ open class SpinWheelControl: UIControl {
         
         //Number of wedges from the zero wedge to the default snap position (up)
         indexSnapped = indexSnapped / radiansPerWedge + CGFloat(numberOfWedges)
-        
         indexSnapped = indexSnapped.rounded(FloatingPointRoundingRule.toNearestOrAwayFromZero)
         indexSnapped = indexSnapped.truncatingRemainder(dividingBy: CGFloat(numberOfWedges))
         
@@ -528,13 +600,11 @@ open class SpinWheelControl: UIControl {
     }
     
     
-    //Return the radians at the touch point. Return values range from -pi to pi
-    @objc func radiansForTouch(touch: UITouch) -> Radians {
-        let touchPoint: CGPoint = touch.location(in: self)
-        let dx: CGFloat = touchPoint.x - self.spinWheelView.center.x
-        let dy: CGFloat = touchPoint.y - self.spinWheelView.center.y
-        
-        return atan2(dy, dx)
+    //When the SpinWheelControl ends rotation, trigger the UIControl's valueChanged to reflect the newly selected value.
+    @objc func didEndRotationOnWedgeAtIndex(index: UInt) {
+        selectedIndex = Int(index)
+        delegate?.spinWheelDidEndDecelerating?(spinWheel: self)
+        self.sendActions(for: .valueChanged)
     }
     
     
@@ -559,54 +629,6 @@ open class SpinWheelControl: UIControl {
             // TODO: Fallback on earlier versions
             snapDisplayLink?.preferredFramesPerSecond = SpinWheelControl.kPreferredFramesPerSecond
         }
-        snapDisplayLink?.add(to: RunLoop.main, forMode: RunLoopMode.commonModes)
-    }
-    
-    
-    //Distance of a point from the center of the spinwheel
-    @objc func distanceFromCenter(point: CGPoint) -> CGFloat {
-        let dx: CGFloat = point.x - spinWheelCenter.x
-        let dy: CGFloat = point.y - spinWheelCenter.y
-        
-        return sqrt(dx * dx + dy * dy)
-    }
-    
-    
-    //Clear all views and redraw the spin wheel
-    @objc public func reloadData() {
-        clear()
-        drawWheel()
-    }
-    
-    
-    //Spin the wheel with a given velocity multiplier (or default velocity multiplier if no velocity provided)
-    //TODO: Due to a bug in Swift 4, private constants cannot be used as default arguments when Enable Testability is turned on. Therefore,
-    //the default velocity multiplier value is hand-coded until this is fixed.
-    //More info: https://bugs.swift.org/browse/SR-5111
-    //    @objc public func spin(velocityMultiplier: CGFloat = SpinWheelControl.kDefaultSpinVelocityMultiplier) {
-    @objc public func spin(velocityMultiplier: CGFloat = 0.75) {
-        
-        //If the velocity multiplier is valid, spin the wheel.
-        if (0...1).contains(velocityMultiplier) {
-            beginDeceleration(withVelocity: SpinWheelControl.kMaxVelocity * velocityMultiplier)
-        }
-    }
-    
-    
-    //Perform a random spin of the wheel
-    @objc public func randomSpin() {
-        //Get the range to find a random number between
-        let range = UInt32(SpinWheelControl.kMaxVelocity - SpinWheelControl.kMinRandomSpinVelocity)
-        
-        //The velocity subtractor is a random number between 1 and the range value
-        let velocitySubtractor = Double(arc4random_uniform(range)) + 1
-        
-        //Subtract the velocity subtractor from max velocity to get the final random velocity
-        let randomSpinVelocity = Velocity(Double(SpinWheelControl.kMaxVelocity) - velocitySubtractor)
-        
-        //Get the spin multiplier using the new random spin velocity value
-        let randomSpinMultiplier = randomSpinVelocity / SpinWheelControl.kMaxVelocity
-        
-        spin(velocityMultiplier: randomSpinMultiplier)
+        snapDisplayLink?.add(to: RunLoop.main, forMode: RunLoop.Mode.common)
     }
 }

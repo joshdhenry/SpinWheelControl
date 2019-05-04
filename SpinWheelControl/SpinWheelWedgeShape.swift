@@ -10,9 +10,19 @@ import UIKit
 
 open class SpinWheelWedgeShape: CAShapeLayer {
     
+    @objc public var borderSize: WedgeBorderSize = WedgeBorderSize.none
+    
     private func setDefaultValues() {
-        self.strokeColor = UIColor.white.cgColor
-        self.lineWidth = 3.0
+        switch borderSize {
+        case WedgeBorderSize.none:
+            self.lineWidth = 0
+        case WedgeBorderSize.small:
+            self.lineWidth = 1
+        case WedgeBorderSize.medium:
+            self.lineWidth = 2
+        case WedgeBorderSize.large:
+            self.lineWidth = 3
+        }
     }
     
     
@@ -27,12 +37,11 @@ open class SpinWheelWedgeShape: CAShapeLayer {
         let newWedgePath: UIBezierPath = UIBezierPath()
         newWedgePath.move(to: position)
         
-        let startRadians: Radians = CGFloat(index) * degreesPerWedge * CGFloat.pi / 180
-        let endRadians: Radians = CGFloat(index + 1) * degreesPerWedge * CGFloat.pi / 180
+        let startRadians: Radians = CGFloat(index) * degreesPerWedge.toRadians
+        let endRadians: Radians = CGFloat(index + 1) * degreesPerWedge.toRadians
         
         newWedgePath.addArc(withCenter: position, radius: radius, startAngle: startRadians, endAngle: endRadians, clockwise: true)
         newWedgePath.close()
-        
         return newWedgePath
     }
 }

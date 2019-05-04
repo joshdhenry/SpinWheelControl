@@ -1,6 +1,0 @@
-framework module SpinWheelControl {
-  umbrella header "SpinWheelControl-umbrella.h"
-
-  export *
-  module * { export * }
-}
