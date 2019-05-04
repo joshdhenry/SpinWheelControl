@@ -75,6 +75,14 @@ public enum SpinWheelDirection {
 }
 
 
+@objc public enum WedgeBorderSize: Int {
+    case none
+    case small
+    case medium
+    case large
+}
+
+
 @IBDesignable
 open class SpinWheelControl: UIControl {
     
@@ -89,6 +97,13 @@ open class SpinWheelControl: UIControl {
     @IBInspectable var borderColor: UIColor? {
         didSet {
             layer.borderColor = borderColor?.cgColor
+        }
+    }
+    
+    
+    @IBInspectable public var wedgeBorderColor: UIColor = UIColor.white {
+        didSet {
+            self.wedgeStrokeColor = wedgeBorderColor
         }
     }
     
@@ -160,6 +175,8 @@ open class SpinWheelControl: UIControl {
     var currentDecelerationVelocity: Velocity!
     
     @objc var snappingPositionRadians: Radians = SpinWheelDirection.up.radiansValue
+    
+    @objc public var wedgeStrokeColor: UIColor = UIColor.white
     
     var wedgeLabelOrientationIndex: WedgeLabelOrientation = WedgeLabelOrientation.inOut
     
@@ -324,10 +341,12 @@ open class SpinWheelControl: UIControl {
             
             //Wedge shape
             wedge.shape.configureWedgeShape(index: wedgeNumber, radius: radius, position: spinWheelCenter, degreesPerWedge: degreesPerWedge)
+            wedge.shape.strokeColor = self.wedgeStrokeColor.cgColor
             wedge.layer.addSublayer(wedge.shape)
             
             //Wedge label
             wedge.label.configureWedgeLabel(index: wedgeNumber, width: radius * 0.9, position: spinWheelCenter, orientation: self.wedgeLabelOrientationIndex, radiansPerWedge: radiansPerWedge)
+            
             wedge.addSubview(wedge.label)
             
             //Add the shape and label to the spinWheelView
@@ -367,7 +386,6 @@ open class SpinWheelControl: UIControl {
     //More info: https://bugs.swift.org/browse/SR-5111
     //    @objc public func spin(velocityMultiplier: CGFloat = SpinWheelControl.kDefaultSpinVelocityMultiplier) {
     @objc public func spin(velocityMultiplier: CGFloat = 0.75) {
-        
         //If the velocity multiplier is valid, spin the wheel.
         if (0...1).contains(velocityMultiplier) {
             beginDeceleration(withVelocity: SpinWheelControl.kMaxVelocity * velocityMultiplier)
@@ -489,7 +507,7 @@ open class SpinWheelControl: UIControl {
                 // TODO: Fallback on earlier versions
                 decelerationDisplayLink?.preferredFramesPerSecond = SpinWheelControl.kPreferredFramesPerSecond
             }
-            decelerationDisplayLink?.add(to: RunLoop.main, forMode: RunLoop.Mode.commonModes)
+            decelerationDisplayLink?.add(to: RunLoop.main, forMode: RunLoopMode.commonModes)
         }
             //Else snap to the nearest wedge.  No deceleration necessary.
         else {
@@ -611,6 +629,6 @@ open class SpinWheelControl: UIControl {
             // TODO: Fallback on earlier versions
             snapDisplayLink?.preferredFramesPerSecond = SpinWheelControl.kPreferredFramesPerSecond
         }
-        snapDisplayLink?.add(to: RunLoop.main, forMode: RunLoop.Mode.commonModes)
+        snapDisplayLink?.add(to: RunLoop.main, forMode: RunLoopMode.commonModes)
     }
 }

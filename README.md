@@ -40,7 +40,7 @@ To make this work in your Objective-C project:
 
 * In your project's (not the target's) build settings, set the Defines Module flag to YES.
 
-* Find your product module name by going to your target's (not the project's) build setting and search for Project Module Name.
+* Find your product module name by going to your target's (not the project's) build setting and search for Product Module Name.
 
 * Add the SpinWheelControl files to your project.
 
@@ -156,7 +156,7 @@ wedgeLabelOrientation - The orientation of labels in each wedge (WedgeLabelOrien
 
 ## Example App
 
-To see SpinWheelControl in action, open the example project in the SpinWheelExample folder.
+To see SpinWheelControl in action, open the example projects in the Examples folder.
 
 
 ## Author
