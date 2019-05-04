@@ -507,7 +507,7 @@ open class SpinWheelControl: UIControl {
                 // TODO: Fallback on earlier versions
                 decelerationDisplayLink?.preferredFramesPerSecond = SpinWheelControl.kPreferredFramesPerSecond
             }
-            decelerationDisplayLink?.add(to: RunLoop.main, forMode: RunLoopMode.commonModes)
+            decelerationDisplayLink?.add(to: RunLoop.main, forMode: RunLoop.Mode.common)
         }
             //Else snap to the nearest wedge.  No deceleration necessary.
         else {
@@ -629,6 +629,6 @@ open class SpinWheelControl: UIControl {
             // TODO: Fallback on earlier versions
             snapDisplayLink?.preferredFramesPerSecond = SpinWheelControl.kPreferredFramesPerSecond
         }
-        snapDisplayLink?.add(to: RunLoop.main, forMode: RunLoopMode.commonModes)
+        snapDisplayLink?.add(to: RunLoop.main, forMode: RunLoop.Mode.common)
     }
 }
