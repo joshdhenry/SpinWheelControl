@@ -1,6 +1,6 @@
-# Spin Wheel Control v0.2.0
+# Spin Wheel Control v0.2.1
 
-<img src="spinwheelcontrol-logo.jpg?raw=true">
+<img src="spinwheelcontrol-logo.jpg?raw=true" width="467" height="200">
 
 ## Synopsis
 
@@ -12,13 +12,13 @@ If you use SpinWheelControl in your app, let me know because I'd love to check i
 
 Main languages and technologies used: Swift, UI Kit, Core Animation, CocoaPods, Interface Builder, Xcode
 
-<img src="spinwheelcontrol-demo.gif?raw=true">
+<img src="spinwheelcontrol-demo.gif?raw=true" width="500" height="887">
 
 ## Requirements
 
 * iOS 10.0+
-* Xcode 9.0+
-* Swift 4.0+
+* Xcode 10.0+
+* Swift 5.0+
 
 ## Installation 
 
