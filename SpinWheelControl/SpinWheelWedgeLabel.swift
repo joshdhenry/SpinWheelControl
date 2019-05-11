@@ -10,6 +10,7 @@ import UIKit
 
 open class SpinWheelWedgeLabel: UILabel {
     
+    //If no values are manually set, then set the default values here.
     private func setDefaultValues() {
         self.textColor = UIColor.white
         self.shadowColor = UIColor.black

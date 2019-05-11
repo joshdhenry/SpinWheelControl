@@ -13,17 +13,6 @@ class ViewController: UIViewController, SpinWheelControlDataSource, SpinWheelCon
     
     let colorPalette: [UIColor] = [UIColor.blue, UIColor.brown, UIColor.cyan, UIColor.darkGray, UIColor.green, UIColor.magenta, UIColor.red, UIColor.orange, UIColor.black, UIColor.gray, UIColor.lightGray, UIColor.purple, UIColor.yellow, UIColor.white]
     
-    
-    func wedgeForSliceAtIndex(index: UInt) -> SpinWheelWedge {
-        let wedge = SpinWheelWedge()
-        
-        wedge.shape.fillColor = colorPalette[Int(index)].cgColor
-        wedge.label.text = "Label #" + String(index)
-        
-        return wedge
-    }
-    
-    
     var spinWheelControl:SpinWheelControl!
     
     
@@ -41,12 +30,27 @@ class ViewController: UIViewController, SpinWheelControlDataSource, SpinWheelCon
         
         spinWheelControl.dataSource = self
         spinWheelControl.delegate = self
+        
+        spinWheelControl.wedgeBorderColor = UIColor.black
+
         spinWheelControl.reloadData()
     }
     
     
     func numberOfWedgesInSpinWheel(spinWheel: SpinWheelControl) -> UInt {
         return 5
+    }
+    
+    
+    func wedgeForSliceAtIndex(index: UInt) -> SpinWheelWedge {
+        let wedge = SpinWheelWedge()
+        
+        wedge.shape.fillColor = colorPalette[Int(index)].cgColor
+        wedge.label.text = "Label #" + String(index)
+        wedge.shape.borderSize = WedgeBorderSize.small
+        wedge.label.font = wedge.label.font.withSize(20)
+        
+        return wedge
     }
     
     
@@ -62,11 +66,11 @@ class ViewController: UIViewController, SpinWheelControlDataSource, SpinWheelCon
     
     
     func didTapOnWedgeAtIndex(spinWheel: SpinWheelControl, index:UInt) {
-        print("The spin wheel was tapped at index:", index)
+        print("The spin wheel was tapped at index: ", index)
     }
     
     
     func spinWheelDidRotateByRadians(radians: Radians) {
-        print("The wheel did rotate this many radians - " + String(describing: radians))
+        print("The wheel did rotate this many radians: " + String(describing: radians))
     }
 }

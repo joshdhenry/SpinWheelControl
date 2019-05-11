@@ -7,11 +7,10 @@
 //
 
 #import "ViewController.h"
-//#import <SpinWheelExample-Swift.h>
 @import SpinWheelControl;
 
 @interface ViewController () <SpinWheelControlDelegate, SpinWheelControlDataSource> {
-    SpinWheelControl *s;
+    SpinWheelControl *spinWheelControl;
 }
 
 @end
@@ -28,12 +27,19 @@ static NSArray *colorPalette;
     colorPalette = [[NSArray alloc] initWithObjects:[UIColor blueColor],[UIColor brownColor],[UIColor cyanColor], [UIColor darkGrayColor], [UIColor greenColor], [UIColor magentaColor], [UIColor redColor], [UIColor orangeColor], [UIColor blackColor], [UIColor grayColor], [UIColor lightGrayColor], [UIColor purpleColor], [UIColor yellowColor], [UIColor whiteColor],nil];
     
     CGRect frame = CGRectMake(0, 50, self.view.frame.size.width, self.view.frame.size.width);
-    s = [[SpinWheelControl alloc] initWithFrame:frame];
-    [self.view addSubview:s];
-    [s addTarget:self action:@selector(spinWheelDidChangeValue:) forControlEvents:UIControlEventValueChanged];
-    s.dataSource = self;
-    s.delegate = self;
-    [s reloadData];
+    spinWheelControl = [[SpinWheelControl alloc] initWithFrame:frame];
+
+    [self.view addSubview:spinWheelControl];
+    
+    [spinWheelControl addTarget:self action:@selector(spinWheelDidChangeValue:) forControlEvents:UIControlEventValueChanged];
+    
+    spinWheelControl.dataSource = self;
+    spinWheelControl.delegate = self;
+    
+    spinWheelControl.wedgeBorderColor = [UIColor blackColor];
+//    spinWheelControl.wedgeLabelOrientation = WedgeLabelOrientationAround;
+    
+    [spinWheelControl reloadData];
 }
 
 
@@ -44,14 +50,17 @@ static NSArray *colorPalette;
 
 
 - (NSUInteger)numberOfWedgesInSpinWheelWithSpinWheel:(SpinWheelControl * _Nonnull)spinWheel {
-    return 8;
+    return 5;
 }
 
 
 - (SpinWheelWedge * _Nonnull)wedgeForSliceAtIndexWithIndex:(NSUInteger)index {
     SpinWheelWedge *wedge = [[SpinWheelWedge alloc] init];
-    wedge.shape.fillColor =  [[colorPalette objectAtIndex:index] CGColor];
+    wedge.shape.fillColor = [[colorPalette objectAtIndex:index] CGColor];
+    wedge.shape.borderSize = WedgeBorderSizeSmall;
+    
     wedge.label.text = [NSString stringWithFormat:@"Label #%lu", (unsigned long)index];
+    wedge.label.font = [UIFont systemFontOfSize:16.0f];
     
     return wedge;
 }
@@ -59,8 +68,24 @@ static NSArray *colorPalette;
 
 - (void)spinWheelDidChangeValue:(id) obj {
     NSLog(@"Value Changed");
-    NSLog(@"%ld", (long)s.selectedIndex);
+    NSLog(@"%ld", (long)spinWheelControl.selectedIndex);
 }
 
+
+- (void)spinWheelDidEndDeceleratingWithSpinWheel:(SpinWheelControl *)spinWheel {
+    NSLog(@"The spin wheel did end decelerating.");
+}
+
+
+- (void) didTapOnWedgeAtIndexWithSpinWheel:(SpinWheelControl *)spinWheel index:(NSUInteger)index {
+    NSLog(@"The spin wheel was tapped at index:");
+    NSLog(@"%lu", (unsigned long)index);
+}
+
+
+- (void) spinWheelDidRotateByRadiansWithRadians:(CGFloat)radians {
+//    NSLog(@"The wheel did rotate this many radians: ");
+//    NSLog(radians);
+}
 
 @end

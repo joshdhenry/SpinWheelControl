@@ -167,8 +167,6 @@ Josh Henry - [Big Smash Software](http://www.bigsmashsoftware.com)
 
 * [LinkedIn](https://www.linkedin.com/in/joshdhenry)
 
-Based on the Objective-C "SMWheelControl" CocoaPod written by Cesare Rocchi and Simone Civetta found [here](https://cocoapods.org/pods/SMWheelControl).
-
 
 ## License
 [BSD 3-Clause](http://opensource.org/licenses/BSD-3-Clause)

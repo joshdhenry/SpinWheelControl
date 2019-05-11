@@ -10,29 +10,27 @@ import UIKit
 
 open class SpinWheelWedgeShape: CAShapeLayer {
     
-    @objc public var borderSize: WedgeBorderSize = WedgeBorderSize.none
-    
-    private func setDefaultValues() {
-        switch borderSize {
-        case WedgeBorderSize.none:
-            self.lineWidth = 0
-        case WedgeBorderSize.small:
-            self.lineWidth = 1
-        case WedgeBorderSize.medium:
-            self.lineWidth = 2
-        case WedgeBorderSize.large:
-            self.lineWidth = 3
+    @objc public var borderSize: WedgeBorderSize = WedgeBorderSize.none {
+        didSet {
+            self.lineWidth = CGFloat(borderSize.rawValue)
         }
     }
     
     
-    @objc public func configureWedgeShape(index: UInt, radius: CGFloat, position: CGPoint, degreesPerWedge: Degrees) {
-        self.path = createWedgeShapeBezierPath(index: index, radius: radius, position: position, degreesPerWedge: degreesPerWedge).cgPath
-        
-        setDefaultValues()
+    //If values aren't manually set, then set the default values here.
+    private func setDefaultValues() {
+        self.lineWidth = CGFloat(borderSize.rawValue)
     }
     
     
+    @objc public func configureWedgeShape(index: UInt, radius: CGFloat, position: CGPoint, degreesPerWedge: Degrees) {
+        setDefaultValues()
+        
+        self.path = createWedgeShapeBezierPath(index: index, radius: radius, position: position, degreesPerWedge: degreesPerWedge).cgPath
+    }
+    
+    
+    //Create the path for this wedge shape.
     private func createWedgeShapeBezierPath(index: UInt, radius: CGFloat, position: CGPoint, degreesPerWedge: Degrees) -> UIBezierPath {
         let newWedgePath: UIBezierPath = UIBezierPath()
         newWedgePath.move(to: position)
@@ -42,6 +40,7 @@ open class SpinWheelWedgeShape: CAShapeLayer {
         
         newWedgePath.addArc(withCenter: position, radius: radius, startAngle: startRadians, endAngle: endRadians, clockwise: true)
         newWedgePath.close()
+        
         return newWedgePath
     }
 }

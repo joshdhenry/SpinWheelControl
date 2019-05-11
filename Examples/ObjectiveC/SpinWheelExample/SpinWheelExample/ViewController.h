@@ -7,8 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-//#import <SpinWheelExample-Swift.h>
-//@class ViewController;
 
 @interface ViewController : UIViewController
 
