@@ -442,9 +442,9 @@ open class SpinWheelControl: UIControl {
     
     
     //Snap to the nearest wedge
-    @objc func snapToNearestWedge() {
+   @objc func snapToNearestWedge() {
         currentStatus = .snapping
-        
+       
         let sumRadians = ((currentRadians + (radiansPerWedge / 2)) + snappingPositionRadians)
         let nearestWedge: Int = Int(round(sumRadians / radiansPerWedge))
         
