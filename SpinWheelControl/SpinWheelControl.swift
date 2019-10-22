@@ -282,6 +282,10 @@ open class SpinWheelControl: UIControl {
             return
         }
         
+        let lineWidth = source.lineWidthForWheelShape?(spinWheel: self)
+        
+        let lineColor = source.lineColorForWheelShape?(spinWheel: self)
+        
         for wedgeNumber in 0..<numberOfWedges {
             let wedge: SpinWheelWedge = source.wedgeForSliceAtIndex(index: wedgeNumber)
             
@@ -291,6 +295,13 @@ open class SpinWheelControl: UIControl {
             
             //Wedge label
             wedge.label.configureWedgeLabel(index: wedgeNumber, width: radius * 0.9, position: spinWheelCenter, orientation: self.wedgeLabelOrientationIndex, radiansPerWedge: radiansPerWedge)
+            
+            if let l = lineWidth{
+                wedge.shape.lineWidth = l
+            }
+            if let c = lineColor{
+                wedge.shape.strokeColor = c
+            }
             
             wedge.addSubview(wedge.label)
             
