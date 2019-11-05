@@ -325,6 +325,10 @@ open class SpinWheelControl: UIControl {
         self.sendActions(for: .valueChanged)
     }
     
+    @objc public func rotateAtIndex(index: UInt, animated: Bool) {
+        selectWedgeAtIndexOffset(index: Int(index), animated: animated)
+    }
+    
     
     //User began touching/dragging the UIControl
     override open func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
@@ -455,7 +459,6 @@ open class SpinWheelControl: UIControl {
     //Snap to the nearest wedge
    @objc func snapToNearestWedge() {
         currentStatus = .snapping
-       
         let sumRadians = ((currentRadians + (radiansPerWedge / 2)) + snappingPositionRadians)
         let nearestWedge: Int = Int(round(sumRadians / radiansPerWedge))
         
