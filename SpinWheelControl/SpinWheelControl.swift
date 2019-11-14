@@ -181,7 +181,18 @@ open class SpinWheelControl: UIControl {
     
     //How many radians there are to snapDestinationRadians
     @objc var radiansToDestinationSlice: Radians {
-        return snapDestinationRadians - currentRadians
+        if abs(snapDestinationRadians - currentRadians) > Radians.pi {
+            if (currentRadians<snapDestinationRadians){
+               return -((CGFloat(2) * Radians.pi) - abs(snapDestinationRadians - currentRadians))
+            }
+            else {
+                return (CGFloat(2) * Radians.pi) - abs(snapDestinationRadians - currentRadians)
+            }
+            
+        }
+        else {
+            return snapDestinationRadians - currentRadians
+        }
     }
     
     //The velocity of the spinwheel
