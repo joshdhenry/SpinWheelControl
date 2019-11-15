@@ -181,7 +181,18 @@ open class SpinWheelControl: UIControl {
     
     //How many radians there are to snapDestinationRadians
     @objc var radiansToDestinationSlice: Radians {
-        return snapDestinationRadians - currentRadians
+        if abs(snapDestinationRadians - currentRadians) > Radians.pi {
+            if (currentRadians<snapDestinationRadians){
+               return -((CGFloat(2) * Radians.pi) - abs(snapDestinationRadians - currentRadians))
+            }
+            else {
+                return (CGFloat(2) * Radians.pi) - abs(snapDestinationRadians - currentRadians)
+            }
+            
+        }
+        else {
+            return snapDestinationRadians - currentRadians
+        }
     }
     
     //The velocity of the spinwheel
@@ -282,6 +293,10 @@ open class SpinWheelControl: UIControl {
             return
         }
         
+        let lineWidth = source.lineWidthForWheelShape?(spinWheel: self)
+        
+        let lineColor = source.lineColorForWheelShape?(spinWheel: self)
+        
         for wedgeNumber in 0..<numberOfWedges {
             let wedge: SpinWheelWedge = source.wedgeForSliceAtIndex(index: wedgeNumber)
             
@@ -291,6 +306,13 @@ open class SpinWheelControl: UIControl {
             
             //Wedge label
             wedge.label.configureWedgeLabel(index: wedgeNumber, width: radius * 0.9, position: spinWheelCenter, orientation: self.wedgeLabelOrientationIndex, radiansPerWedge: radiansPerWedge)
+            
+            if let l = lineWidth{
+                wedge.shape.lineWidth = l
+            }
+            if let c = lineColor{
+                wedge.shape.strokeColor = c
+            }
             
             wedge.addSubview(wedge.label)
             
@@ -312,6 +334,10 @@ open class SpinWheelControl: UIControl {
         selectedIndex = Int(index)
         delegate?.spinWheelDidEndDecelerating?(spinWheel: self)
         self.sendActions(for: .valueChanged)
+    }
+    
+    @objc public func rotateAtIndex(index: UInt, animated: Bool) {
+        selectWedgeAtIndexOffset(index: Int(index), animated: animated)
     }
     
     
@@ -406,7 +432,7 @@ open class SpinWheelControl: UIControl {
                 // TODO: Fallback on earlier versions
                 decelerationDisplayLink?.preferredFramesPerSecond = SpinWheelControl.kPreferredFramesPerSecond
             }
-            decelerationDisplayLink?.add(to: RunLoop.main, forMode: RunLoopMode.commonModes)
+            decelerationDisplayLink?.add(to: RunLoop.main, forMode: RunLoop.Mode.common)
         }
             //Else snap to the nearest wedge.  No deceleration necessary.
         else {
@@ -442,9 +468,8 @@ open class SpinWheelControl: UIControl {
     
     
     //Snap to the nearest wedge
-    @objc func snapToNearestWedge() {
+   @objc func snapToNearestWedge() {
         currentStatus = .snapping
-        
         let sumRadians = ((currentRadians + (radiansPerWedge / 2)) + snappingPositionRadians)
         let nearestWedge: Int = Int(round(sumRadians / radiansPerWedge))
         
@@ -520,7 +545,7 @@ open class SpinWheelControl: UIControl {
             // TODO: Fallback on earlier versions
             snapDisplayLink?.preferredFramesPerSecond = SpinWheelControl.kPreferredFramesPerSecond
         }
-        snapDisplayLink?.add(to: RunLoop.main, forMode: RunLoopMode.commonModes)
+        snapDisplayLink?.add(to: RunLoop.main, forMode: RunLoop.Mode.common)
     }
     
     

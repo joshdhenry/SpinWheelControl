@@ -15,4 +15,8 @@ import Foundation
     
     //Returns the SpinWheelWedge at the specified index of the SpinWheelControl
     @objc func wedgeForSliceAtIndex(index: UInt) -> SpinWheelWedge
+    
+    @objc optional func lineWidthForWheelShape(spinWheel: SpinWheelControl)->CGFloat
+    
+    @objc optional func lineColorForWheelShape(spinWheel: SpinWheelControl)->CGColor
 }
